@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="card">
+    <h2>{{audition.orchestra}}</h2>
+    <h4>{{audition.date}}</h4>
+    <h6>{{audition.location}}</h6>
+
+</div>
+
+<a href="{%url 'audition_update' audition.id%}">
+    <button>EDIT</button>
+<a>
+
+<a href="{%url 'audition_delete' audition.id%}">
+    <button>DELETE</button>
+<a>
+
+<a href="{%url 'excerpt_create' audition.id%}">
+    <button>ADD AN EXCERPT</button>
+<a>
+
+    {% comment %} <hr>
+    {% for excerpt in excerpts %}
+<p>{{excerpt}}</p>
+    {%empty%}
+    <p>bruh you gotta get that list goin</p>
+    {%endfor%} {% endcomment %}
+    {%endblock%}
