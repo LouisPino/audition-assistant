@@ -71,6 +71,7 @@ class ExcerptCreate(CreateView):
     fields= ['title', 'composer', 'section']
     
     def form_valid(self, form):
-      new_excerpt = form.save(commit=False)
-      new_excerpt.audition.add(self.kwargs['aud_id']) 
-      return super().form_valid(form)
+      super().form_valid(form)
+      excerpt = Excerpt.objects.get(id=form.instance.id)
+      
+      return redirect('audition_detail', aud_id= self.kwargs['aud_id'])
