@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flower Collector</title>
+    <title>Audition Assistant</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="https://media.istockphoto.com/id/1279317043/vector/old-wooden-metronome.jpg?s=612x612&w=0&k=20&c=tODCGrB1VB1Yazm_MyUJEVNNWmkIXei2rrliBgLu280=">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script defer src="{% static 'scripts/materialbox.js' %}"></script>
     <link rel="stylesheet" href={% static 'styles/main.css'%}/>
@@ -17,19 +18,23 @@
         <nav>
           <div class="nav-wrapper">
             <ul>
-              <li><a href="{% url 'home'%}" class="left brand-logo">&nbsp;&nbsp;Flower Collector</a></li>
+                {% if user.is_authenticated %}
+              <li><a href="{% url 'about'%}" class="left brand-logo">&nbsp;&nbsp;Audition Assistant</a></li>
+              {% else %}
+              <li><a href="{% url 'home'%}" class="left brand-logo">&nbsp;&nbsp;Audition Assistant</a></li>
+            {% endif %}
             </ul>
             <ul class="right">
              <li><a class="nav-link" href="{% url 'about'%}">About</a></li>
              {% if user.is_authenticated %}
              {% comment %} <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
              <li><a href="{% url 'toys_index' %}">View All Toys</a></li>
-             <li><a href="{% url 'cats_create' %}">Add a Cat</a></li>
-             <li><a href="{% url 'index' %}">View All My Cats</a></li>
-             <li><a href="{% url 'logout' %}">Log Out</a></li> {% endcomment %}
+             <li><a href="{% url 'cats_create' %}">Add a Cat</a></li>{% endcomment %}
+             <li><a href="{% url 'audition_index' %}">View Auditions</a></li>
+             <li><a href="{% url 'logout' %}">Log Out</a></li> 
            {% else %}
-             {% comment %} <li><a href="{% url 'login' %}">Log In</a></li>
-             <li><a href="{% url 'signup' %}">Sign Up</a></li> {% endcomment %}
+             <li><a href="{% url 'login' %}">Log In</a></li>
+             <li><a href="{% url 'signup' %}">Sign Up</a></li>
            {% endif %}
             </ul>
           </div>
