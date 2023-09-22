@@ -17,14 +17,20 @@
         <nav>
           <div class="nav-wrapper">
             <ul>
-              <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Flower Collector</a></li>
+              <li><a href="{% url 'home'%}" class="left brand-logo">&nbsp;&nbsp;Flower Collector</a></li>
             </ul>
             <ul class="right">
-              {% comment %} <li><a class="nav-link" href="{% url 'about'%}">About</a></li>
-              <li><a class="nav-link" href="{% url 'flower_create'%}">Add Flower</a></li>
-              <li><a class="nav-link" href="{% url 'location_create'%}">Add Location</a></li>
-              <li><a class="nav-link" href="{% url 'index'%}">Flowers</a></li>
-              <li><a class="nav-link" href="{% url 'location_index'%}">Locations</a></li> {% endcomment %}
+             <li><a class="nav-link" href="{% url 'about'%}">About</a></li>
+             {% if user.is_authenticated %}
+             {% comment %} <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
+             <li><a href="{% url 'toys_index' %}">View All Toys</a></li>
+             <li><a href="{% url 'cats_create' %}">Add a Cat</a></li>
+             <li><a href="{% url 'index' %}">View All My Cats</a></li>
+             <li><a href="{% url 'logout' %}">Log Out</a></li> {% endcomment %}
+           {% else %}
+             {% comment %} <li><a href="{% url 'login' %}">Log In</a></li>
+             <li><a href="{% url 'signup' %}">Sign Up</a></li> {% endcomment %}
+           {% endif %}
             </ul>
           </div>
         </nav>
