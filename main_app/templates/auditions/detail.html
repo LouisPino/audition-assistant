@@ -19,10 +19,19 @@
     <button>ADD AN EXCERPT</button>
 <a>
 
-    {% comment %} <hr>
+ <hr>
     {% for excerpt in excerpts %}
+    <div class="card">
 <p>{{excerpt}}</p>
+<a href="{%url 'excerpt_delete' excerpt.id%}">
+    <button>X</button>
+<a>
+    <a href="{%url 'excerpt_update' excerpt.id audition.id%}">
+        <button>EDIT</button>
+    <a>
+
+</div>
     {%empty%}
     <p>bruh you gotta get that list goin</p>
-    {%endfor%} {% endcomment %}
+    {%endfor%} 
     {%endblock%}

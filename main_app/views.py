@@ -58,13 +58,13 @@ class AuditionUpdate(UpdateView):
     
 def audition_detail(request, aud_id):
     audition = Audition.objects.get(id=aud_id)
-    # excerpt_ids = audition.excerpts.all().values_list('id')
-    # excerpts = Excerpt.objects.filter(id__in=excerpt_ids)
-    return render(request, 'auditions/detail.html', {'audition': audition})
+    excerpts = audition.excerpt_set.all()
+    return render(request, 'auditions/detail.html', {'audition': audition, 'excerpts': excerpts})
   
 class AuditionDelete(DeleteView):
   model=Audition
   success_url = '/auditions'
+
   
 class ExcerptCreate(CreateView):
     model= Excerpt
@@ -72,6 +72,17 @@ class ExcerptCreate(CreateView):
     
     def form_valid(self, form):
       super().form_valid(form)
-      excerpt = Excerpt.objects.get(id=form.instance.id)
-      
       return redirect('audition_detail', aud_id= self.kwargs['aud_id'])
+    
+class ExcerptDelete(DeleteView):
+  model=Excerpt
+  success_url = '/auditions'
+  
+    
+class ExcerptUpdate(UpdateView):
+    model= Excerpt
+    fields= ['title', 'composer', 'section']
+    
+    def form_valid(self, form):
+        super().form_valid(form)
+        return redirect('audition_detail', aud_id= self.kwargs['aud_id'])

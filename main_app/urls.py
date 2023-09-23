@@ -11,6 +11,8 @@ urlpatterns = [
     path('auditions/update/<int:pk>', views.AuditionUpdate.as_view(), name="audition_update"),
     path('auditions/delete/<int:pk>', views.AuditionDelete.as_view(), name="audition_delete"),
     path('excerpts/create/<int:aud_id>', views.ExcerptCreate.as_view(), name="excerpt_create"),
+    path('excerpts/delete/<int:pk>', views.ExcerptDelete.as_view(), name="excerpt_delete"),
+    path('excerpts/update/<int:pk>/<int:aud_id>', views.ExcerptUpdate.as_view(), name="excerpt_update"),
     
     
     
