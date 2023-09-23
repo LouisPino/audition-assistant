@@ -3,6 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
+
 # Create your models here.
 
 TEMPO_TYPES = (
@@ -54,4 +55,7 @@ class Note(models.Model):
     date= models.DateField()
     note= models.TextField()
     def __str__(self):
-        return f'{self.date} ({self.excerpt})'
+        return f'{self.date} ({self.excerpt}: {self.note[:10]}...)'
+    
+    def get_absolute_url(self):
+        return reverse('excerpt_detail', kwargs={"ex_id": self.excerpt_id})

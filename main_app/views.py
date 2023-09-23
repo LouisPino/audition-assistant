@@ -1,3 +1,5 @@
+from typing import Any
+from django import http
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -9,7 +11,7 @@ import uuid
 import boto3
 import os
 from .models import *
-# from .forms import WateringForm
+from .forms import NoteForm
 
 
 def auditions(request):
@@ -95,4 +97,27 @@ class ExcerptUpdate(UpdateView):
       
 def excerpt_detail(request, ex_id):
     excerpt = Excerpt.objects.get(id=ex_id)
-    return render(request, 'excerpts/detail.html', {'excerpt': excerpt})
+    note_form = NoteForm()
+    notes = Note.objects.filter(excerpt_id=ex_id).order_by('-date')
+    return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes})
+  
+
+def create_note(request, ex_id):
+  form = NoteForm(request.POST)
+  if form.is_valid():
+    new_note = form.save(commit=False)
+    new_note.excerpt_id=ex_id
+    new_note.date=date.today()
+    new_note.save()
+  return redirect('excerpt_detail', ex_id=ex_id)
+    
+class NoteDelete(DeleteView):
+  model=Note
+  success_url = f'/auditions/'
+  
+    
+class NoteUpdate(UpdateView):
+    model= Note
+    fields= ['note', 'date']
+     
+     

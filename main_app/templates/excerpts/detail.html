@@ -2,14 +2,35 @@
 {%block content%}
 <div class="card">
     <h2>{{excerpt.title}}</h2>
-    <h2>{{excerpt.section}}</h2>
     <h2>{{excerpt.composer}}</h2>
+    <h2>{{excerpt.section}}</h2>
 </div>
 <a href="{%url 'excerpt_delete' excerpt.id%}">
     <button>X</button>
-<a>
+</a>
     <a href="{%url 'excerpt_update' excerpt.id%}">
         <button>EDIT</button>
-    <a>
- 
-    {%endblock%}
+    </a>
+ <hr>
+ <h1>NOTES</h1>
+ <div class="card">
+    <form action="{%url 'note_create' excerpt.id%}" method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+{{note_form.as_p}}
+<input type="submit" value="Add Note">
+</form>
+</div>
+{%for note in notes%}
+<div class="card">
+    <h2>{{note.date}}</h2>
+    <p>{{note.note}}</p>
+    <a href="{%url 'note_update' note.id%}">
+        <button>EDIT</button>
+    </a>
+    <form action="{%url 'note_delete' note.id%}" method='POST'>
+        {% csrf_token %}
+<input type="submit" value="X">
+</form>
+</div>
+{%endfor%}
+{%endblock%}

@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audition Assistant</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="https://media.istockphoto.com/id/1279317043/vector/old-wooden-metronome.jpg?s=612x612&w=0&k=20&c=tODCGrB1VB1Yazm_MyUJEVNNWmkIXei2rrliBgLu280=">
+    <link rel="icon" type="image/x-icon" href={% static 'assets/met.jpeg'%}>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script defer src="{% static 'scripts/materialbox.js' %}"></script>
+    <script defer src="{% static 'scripts/datepicker.js' %}"></script>
     <link rel="stylesheet" href={% static 'styles/main.css'%}/>
     <link href='https://fonts.googleapis.com/css?family=Indie Flower' rel='stylesheet'>
 </head>
@@ -19,9 +19,9 @@
           <div class="nav-wrapper">
             <ul>
                 {% if user.is_authenticated %}
-              <li><a href="{% url 'about'%}" class="left brand-logo">&nbsp;&nbsp;Audition Assistant</a></li>
+              <li><a href="{% url 'about'%}" class="left brand-logo">Audition Assistant</a></li>
               {% else %}
-              <li><a href="{% url 'home'%}" class="left brand-logo">&nbsp;&nbsp;Audition Assistant</a></li>
+              <li><a href="{% url 'home'%}" class="left brand-logo">Audition Assistant</a></li>
             {% endif %}
             </ul>
             <ul class="right">
