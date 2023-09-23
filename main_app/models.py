@@ -7,10 +7,10 @@ from datetime import date
 # Create your models here.
 
 TEMPO_TYPES = (
-  ('E', 'Eighth Note'),
-  ('Q', 'Quarter Note'),
-  ('H', 'Half Note'),
-  ('W', 'Whole Note')
+  ('E', '♪ (eighth)'),
+  ('Q', '♩ (quarter)'),
+  ('H', '(half)'),
+  ('W', '(whole)')
 )
 
 
@@ -38,7 +38,7 @@ class Excerpt(models.Model):
     goal_tempo_bpm= models.IntegerField(null=True, blank=True)
     section = models.CharField(max_length=100)
     current_tempo = models.IntegerField(null=True, blank=True)
-    audio_link = models.CharField(null=True, blank=True)
+    audio_links = ArrayField(models.CharField(), size= 3, null=True, blank=True)
     start_time = models.TimeField(null=True, blank=True)
     last_practiced = models.DateField(null=True, blank=True)
     auditions = models.ManyToManyField(Audition)

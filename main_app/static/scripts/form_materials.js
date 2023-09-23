@@ -6,3 +6,6 @@ M.Datepicker.init(dateEl, {
   setDefaultDate: true,
   autoClose: true,
 });
+
+const selectEl = document.getElementById("id_goal_tempo_type");
+M.FormSelect.init(selectEl);
