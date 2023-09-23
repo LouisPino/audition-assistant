@@ -87,7 +87,7 @@ class ExcerptDelete(DeleteView):
     
 class ExcerptUpdate(UpdateView):
     model= Excerpt
-    fields= ['title', 'composer', 'section', "goal_tempo_type", "goal_tempo_bpm", 'audio_links']
+    fields= ['title', 'composer', 'section', "goal_tempo_type", "goal_tempo_bpm", 'audio_links', 'start_times']
     
     def form_valid(self, form):
         super().form_valid(form)
@@ -103,7 +103,15 @@ def excerpt_detail(request, ex_id):
       links = map(lambda link: f"https://open.spotify.com/embed/track/{link.split('/')[4]}?utm_source=generator", excerpt.audio_links )
     else:
       links = []
-    return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': links})
+    idx = 0
+    link_objs =[]
+    for link in links:
+      link_objs.append({
+        'url': link,
+        'start': excerpt.start_times[idx]
+      })
+      idx+=1
+    return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': link_objs})
   
 
 def create_note(request, ex_id):
@@ -125,3 +133,9 @@ class NoteUpdate(UpdateView):
     fields= ['note', 'date']
      
      
+     
+def excerpt_practiced(request, ex_id):
+  excerpt = Excerpt.objects.get(id=ex_id)
+  excerpt.last_practiced = date.today()
+  excerpt.save()
+  return redirect('excerpt_detail', ex_id=ex_id)
