@@ -51,7 +51,7 @@ Don't exist yet
 ## User Stories
 ### MVP
 **As a user, I want to:**
-- create an account so I can create and view audition lists
+- ~~create an account so I can create and view audition lists~~
 - Track when the last time I practiced an excerpt was
 - time my practice sessions to keep myself focused and remind myself to take breaks.
 - view all excerpts in order of instrument or in order of last practiced
@@ -60,5 +60,6 @@ Don't exist yet
 ### Icebox
 **As a user, I want to:**
 - plan and keep track of practice sessions
-- see spotify / youtube web player for my audio links. Double stretch if it starts at the specified time. Double stretch generate a playlist on my spotify account with all these links. Triple Stretch if it finds these links automatically  based on excerpt title. 
-- integrated metronome
+- ~~see spotify / youtube web player for my audio links. ~~
+- Double stretch if it starts at the specified time. Double stretch generate a playlist on my spotify account with all these links. Triple Stretch if it finds these links automatically  based on excerpt title. 
+- ~~integrated metronome~~

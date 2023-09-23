@@ -99,7 +99,10 @@ def excerpt_detail(request, ex_id):
     excerpt = Excerpt.objects.get(id=ex_id)
     note_form = NoteForm()
     notes = Note.objects.filter(excerpt_id=ex_id).order_by('-date')
-    links = map(lambda link: f"https://open.spotify.com/embed/track/{link.split('/')[4]}?utm_source=generator", excerpt.audio_links )
+    if excerpt.audio_links:
+      links = map(lambda link: f"https://open.spotify.com/embed/track/{link.split('/')[4]}?utm_source=generator", excerpt.audio_links )
+    else:
+      links = []
     return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': links})
   
 
