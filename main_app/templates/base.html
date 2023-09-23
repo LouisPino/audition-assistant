@@ -28,8 +28,8 @@
              <li><a class="nav-link" href="{% url 'about'%}">About</a></li>
              {% if user.is_authenticated %}
              {% comment %} <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
-             <li><a href="{% url 'toys_index' %}">View All Toys</a></li>
-             <li><a href="{% url 'cats_create' %}">Add a Cat</a></li>{% endcomment %}
+             <li><a href="{% url 'toys_index' %}">View All Toys</a></li>{% endcomment %}
+             <li><a href="{% url 'audition_create' %}">Add an Audition</a></li>
              <li><a href="{% url 'audition_index' %}">View Auditions</a></li>
              <li><a href="{% url 'logout' %}">Log Out</a></li> 
            {% else %}

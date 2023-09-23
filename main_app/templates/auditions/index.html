@@ -2,11 +2,11 @@
 
 {%block content%}
 {% for audition in auditions %}
+<a href={%url 'audition_detail' audition.id%}>
 <div class="card">
-
 <h2>{{audition.orchestra}}</h2>
-
 </div>
+</a>
 {%endfor%}
 
 {%endblock%}
