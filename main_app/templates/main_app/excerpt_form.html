@@ -1,9 +1,9 @@
 {% extends 'base.html' %} 
 {%block content%}
 {%if object%}
-<h1>Add Excerpt</h1>
-{%else%}
 <h1>Edit {{object.title}}</h1>
+{%else%}
+<h1>Add Excerpt</h1>
 {%endif%}
 <!-- Leaving the action empty makes the form post to the same url used to display it -->
 <form action="" method="POST">

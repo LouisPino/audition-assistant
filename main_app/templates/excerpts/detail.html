@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="card">
+    <h2>{{excerpt.title}}</h2>
+    <h2>{{excerpt.section}}</h2>
+    <h2>{{excerpt.composer}}</h2>
+</div>
+<a href="{%url 'excerpt_delete' excerpt.id%}">
+    <button>X</button>
+<a>
+    <a href="{%url 'excerpt_update' excerpt.id%}">
+        <button>EDIT</button>
+    <a>
+ 
+    {%endblock%}

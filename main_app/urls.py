@@ -10,9 +10,13 @@ urlpatterns = [
     path('auditions/<int:aud_id>', views.audition_detail, name="audition_detail"),
     path('auditions/update/<int:pk>', views.AuditionUpdate.as_view(), name="audition_update"),
     path('auditions/delete/<int:pk>', views.AuditionDelete.as_view(), name="audition_delete"),
+   
+   
+   
     path('excerpts/create/<int:aud_id>', views.ExcerptCreate.as_view(), name="excerpt_create"),
-    path('excerpts/delete/<int:pk>', views.ExcerptDelete.as_view(), name="excerpt_delete"),
-    path('excerpts/update/<int:pk>/<int:aud_id>', views.ExcerptUpdate.as_view(), name="excerpt_update"),
+    path('excerpts/delete/<int:pk>/', views.ExcerptDelete.as_view(), name="excerpt_delete"),
+    path('excerpts/update/<int:pk>/', views.ExcerptUpdate.as_view(), name="excerpt_update"),
+    path('excerpts/<int:ex_id>', views.excerpt_detail, name="excerpt_detail"),
     
     
     
