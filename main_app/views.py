@@ -60,7 +60,7 @@ class AuditionUpdate(UpdateView):
     
 def audition_detail(request, aud_id):
     audition = Audition.objects.get(id=aud_id)
-    excerpts = audition.excerpt_set.all().order_by('-last_practiced')
+    excerpts = audition.excerpt_set.all().order_by('last_practiced')
     excerpt_objs = {}
     for excerpt in excerpts:
       if excerpt.instrument in excerpt_objs.keys():
