@@ -9,18 +9,18 @@
 
 <a href="{%url 'audition_update' audition.id%}">
     <button>EDIT</button>
-<a>
+</a>
 
-<a href="{%url 'audition_delete' audition.id%}">
+</a href="{%url 'audition_delete' audition.id%}">
     <button>DELETE</button>
-<a>
+</a>
 
 <a href="{%url 'excerpt_create' audition.id%}">
     <button>ADD AN EXCERPT</button>
-<a>
+</a>
 
  <hr>
-    {% for excerpt in excerpts %}
+    {% comment %} {% for excerpt in excerpts %}
     <a href="{%url 'excerpt_detail' excerpt.id%}">
     <div class="card">
 <p>{{excerpt}}</p>
@@ -29,5 +29,23 @@
 </a>
     {%empty%}
     <p>bruh you gotta get that list goin</p>
+    {%endfor%}  {% endcomment %}
+
+    {% for key, values  in excerpt_objs.items %}
+    <h2>{{key}}</h2>
+{%for excerpt in values%}
+<a href="{%url 'excerpt_detail' excerpt.id%}">
+    <div class="card">
+<p>{{excerpt}}</p>
+
+</div>
+</a>
+{%endfor%}
+    {%empty%}
+    <p>bruh you gotta get that list goin</p>
     {%endfor%} 
+
+
+
+
     {%endblock%}

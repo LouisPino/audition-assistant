@@ -60,8 +60,15 @@ class AuditionUpdate(UpdateView):
     
 def audition_detail(request, aud_id):
     audition = Audition.objects.get(id=aud_id)
-    excerpts = audition.excerpt_set.all()
-    return render(request, 'auditions/detail.html', {'audition': audition, 'excerpts': excerpts})
+    excerpts = audition.excerpt_set.all().order_by('-last_practiced')
+    excerpt_objs = {}
+    for excerpt in excerpts:
+      if excerpt.instrument in excerpt_objs.keys():
+        excerpt_objs[excerpt.instrument].append(excerpt)
+      else:
+        excerpt_objs[excerpt.instrument] = [excerpt]
+        
+    return render(request, 'auditions/detail.html', {'audition': audition, 'excerpts': excerpts, 'excerpt_objs': excerpt_objs})
   
 class AuditionDelete(DeleteView):
   model=Audition
@@ -70,7 +77,7 @@ class AuditionDelete(DeleteView):
   
 class ExcerptCreate(CreateView):
     model= Excerpt
-    fields= ['title', 'composer', 'section', "goal_tempo_type", "goal_tempo_bpm"]
+    fields= ['title', 'composer', 'section', "instrument", "goal_tempo_type", "goal_tempo_bpm"]
     
     
     def form_valid(self, form):
@@ -87,7 +94,7 @@ class ExcerptDelete(DeleteView):
     
 class ExcerptUpdate(UpdateView):
     model= Excerpt
-    fields= ['title', 'composer', 'section', "goal_tempo_type", "goal_tempo_bpm", 'audio_links', 'start_times']
+    fields= ['title', 'composer', 'section', "instrument", "goal_tempo_type", "goal_tempo_bpm", 'audio_links', 'start_times']
     
     def form_valid(self, form):
         super().form_valid(form)

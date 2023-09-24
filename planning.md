@@ -52,7 +52,7 @@ Don't exist yet
 ### MVP
 **As a user, I want to:**
 - ~~create an account so I can create and view audition lists~~
-- Track when the last time I practiced an excerpt was
+- ~~Track when the last time I practiced an excerpt was~~
 - time my practice sessions to keep myself focused and remind myself to take breaks.
 - view all excerpts in order of instrument or in order of last practiced
 - be able to select previously input excerpts when creating new lists

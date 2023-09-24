@@ -33,7 +33,7 @@ class Audition(models.Model):
 class Excerpt(models.Model):
     title= models.CharField(max_length=100)
     composer= models.CharField(max_length=100)
-    # instrument= models.CharField(max_length=100, null=True, blank=True)
+    instrument= models.CharField(max_length=100, null=True, blank=True, default='xylophone')
     goal_tempo_type = models.CharField(max_length=1, choices=TEMPO_TYPES, default='Q')
     goal_tempo_bpm= models.IntegerField(null=True, blank=True)
     section = models.CharField(max_length=100)
@@ -44,7 +44,7 @@ class Excerpt(models.Model):
     auditions = models.ManyToManyField(Audition)
     
     def __str__(self):
-        return f'{self.title}, {self.section}'
+        return f'{self.title}, {self.section} : last practiced {self.last_practiced}'
     
     def get_absolute_url(self):
         return reverse("audition_detail", kwargs={"aud_id": self.id})
