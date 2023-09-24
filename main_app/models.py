@@ -22,7 +22,7 @@ class Audition(models.Model):
     location= models.CharField(max_length=100)
     date= models.DateField()
     user= models.ForeignKey(User, on_delete=models.CASCADE)
-    # instruments= ArrayField(models.CharField(max_length=2), size= 50)
+    # instruments= ArrayField(models.CharField(max_length=50), size= 55)
     def __str__(self):
         return f'{self.orchestra[:10]}'
     
@@ -33,7 +33,7 @@ class Audition(models.Model):
 class Excerpt(models.Model):
     title= models.CharField(max_length=100)
     composer= models.CharField(max_length=100)
-    instrument= models.CharField(max_length=100, null=True, blank=True, default='xylophone')
+    instrument= models.CharField(max_length=100, null=True, blank=True)
     goal_tempo_type = models.CharField(max_length=1, choices=TEMPO_TYPES, default='Q')
     goal_tempo_bpm= models.IntegerField(null=True, blank=True)
     section = models.CharField(max_length=100)
@@ -41,7 +41,7 @@ class Excerpt(models.Model):
     audio_links = ArrayField(models.TextField(), size= 3, null=True, blank=True, verbose_name='Spotify Links', help_text="separate by commas")
     start_times = ArrayField(models.CharField(), size= 3, null=True, blank=True, verbose_name='excerpt time', help_text="in same order as links")
     last_practiced = models.DateField(null=True, blank=True)
-    auditions = models.ManyToManyField(Audition)
+    audition = models.ForeignKey(Audition, on_delete=models.CASCADE)
     
     def __str__(self):
         return f'{self.title}, {self.section} : last practiced {self.last_practiced}'

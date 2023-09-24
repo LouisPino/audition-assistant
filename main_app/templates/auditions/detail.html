@@ -18,18 +18,7 @@
 <a href="{%url 'excerpt_create' audition.id%}">
     <button>ADD AN EXCERPT</button>
 </a>
-
  <hr>
-    {% comment %} {% for excerpt in excerpts %}
-    <a href="{%url 'excerpt_detail' excerpt.id%}">
-    <div class="card">
-<p>{{excerpt}}</p>
-
-</div>
-</a>
-    {%empty%}
-    <p>bruh you gotta get that list goin</p>
-    {%endfor%}  {% endcomment %}
 
     {% for key, values  in excerpt_objs.items %}
     <h2>{{key}}</h2>

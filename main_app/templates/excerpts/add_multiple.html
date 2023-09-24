@@ -1,0 +1,42 @@
+{%extends 'base.html'%} 
+{%block content%} 
+{% for key, values in excerpt_objs.items %}
+<h2>{{key}}</h2>
+{%for excerpt in values%}
+<div class="card" id="{{excerpt.id}}">
+  <p id="{{excerpt.id}}">{{excerpt}}</p>
+</div>
+ {%empty%}
+<p>bruh you gotta get that list goin</p>
+{%endfor%}
+{%endfor%}
+
+<form action="{%url 'excerpt_import-multiple' aud_id%}" method="POST" >
+    {%csrf_token%}
+    <input type="hidden" value="" name="ex_list" id="ex_list"/>
+    <input type="submit" value="Import Excerpts"/>
+</form>
+
+<script>
+let add_exes = []
+const exCardEls = document.querySelectorAll(".card");
+const exListEl = document.getElementById("ex_list");
+function cardClick(e) {
+      console.log("hit");
+      if (add_exes.includes(e.target.id)){
+          add_exes.splice(add_exes.findIndex((el)=>{el === e.target.id}), 1)
+          e.target.style.backgroundColor = 'initial'
+        }else{
+            add_exes.push(e.target.id)
+            e.target.style.backgroundColor = 'lightgreen'
+            exListEl.value = add_exes.join(',')
+            console.log(exListEl)
+        }
+  }
+
+  for (el of exCardEls) {
+    el.addEventListener("click", cardClick);
+  }
+</script>
+
+{%endblock%}

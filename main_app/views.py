@@ -77,14 +77,15 @@ class AuditionDelete(DeleteView):
   
 class ExcerptCreate(CreateView):
     model= Excerpt
-    fields= ['title', 'composer', 'section', "instrument", "goal_tempo_type", "goal_tempo_bpm"]
+    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_type", "goal_tempo_bpm"]
     
     
     def form_valid(self, form):
+      form.instance.audition_id=self.kwargs.get('aud_id')
       super().form_valid(form)
-      audition_id = self.kwargs.get('aud_id')
-      audition = Audition.objects.get(pk=audition_id)
-      self.object.auditions.add(audition)
+      # audition_id = self.kwargs.get('aud_id')
+      # audition = Audition.objects.get(pk=audition_id)
+      # self.object.auditions.add(audition)
       return redirect('audition_detail', aud_id= self.kwargs['aud_id'])
     
 class ExcerptDelete(DeleteView):
@@ -94,7 +95,7 @@ class ExcerptDelete(DeleteView):
     
 class ExcerptUpdate(UpdateView):
     model= Excerpt
-    fields= ['title', 'composer', 'section', "instrument", "goal_tempo_type", "goal_tempo_bpm", 'audio_links', 'start_times']
+    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_type", "goal_tempo_bpm", 'audio_links', 'start_times']
     
     def form_valid(self, form):
         super().form_valid(form)
@@ -146,3 +147,30 @@ def excerpt_practiced(request, ex_id):
   excerpt.last_practiced = date.today()
   excerpt.save()
   return redirect('excerpt_detail', ex_id=ex_id)
+
+
+def add_multiple(request, aud_id):
+  excerpts = Excerpt.objects.all()
+  excerpt_objs = {}
+  for excerpt in excerpts:
+      if excerpt.instrument in excerpt_objs.keys():
+        excerpt_objs[excerpt.instrument].append(excerpt)
+      else:
+        excerpt_objs[excerpt.instrument] = [excerpt]
+        
+  return render(request, 'excerpts/add_multiple.html', {'excerpt_objs': excerpt_objs, 'aud_id': aud_id})
+
+def import_multiple(request, aud_id):
+  ex_ids = request.POST['ex_list'].split(',')
+  excerpts = Excerpt.objects.filter(id__in=ex_ids)
+  for excerpt in excerpts:
+    excerpt.pk = None  # This will create a new object when saved
+            
+            # Set the new foreign key
+    excerpt.audition_id = aud_id
+            
+            # Save the copied object
+    excerpt.save()
+
+    # right now ressigns, needs to copy
+  return redirect('audition_detail', aud_id=aud_id)

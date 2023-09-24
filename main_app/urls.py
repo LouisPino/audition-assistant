@@ -12,6 +12,8 @@ urlpatterns = [
     path('auditions/delete/<int:pk>', views.AuditionDelete.as_view(), name="audition_delete"),
    
     path('excerpts/create/<int:aud_id>', views.ExcerptCreate.as_view(), name="excerpt_create"),
+    path('excerpts/add-multiple/<int:aud_id>', views.add_multiple, name="excerpt_add-multiple"),
+    path('excerpts/import-multiple/<int:aud_id>', views.import_multiple, name="excerpt_import-multiple"),
     path('excerpts/delete/<int:pk>/', views.ExcerptDelete.as_view(), name="excerpt_delete"),
     path('excerpts/update/<int:pk>/', views.ExcerptUpdate.as_view(), name="excerpt_update"),
     path('excerpts/<int:ex_id>', views.excerpt_detail, name="excerpt_detail"),
