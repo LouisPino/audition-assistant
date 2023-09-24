@@ -1,4 +1,7 @@
 {%extends 'base.html'%} {%block content%}
+<a href="{%url 'audition_detail' excerpt.audition_id%}">
+  Back to the audition page
+</a>
 <div class="card">
   <h3>{{excerpt.title}} - {{excerpt.composer}}</h3>
   <h4>{{excerpt.section}}</h4>

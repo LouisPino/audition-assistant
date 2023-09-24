@@ -1,5 +1,16 @@
-{%extends 'base.html'%}
-
-{%block content%}
+{%extends 'base.html'%} {%block content%}
 <h1>Your digital audition binder</h1>
+
+
+{%if user.is_authenticated%}
+fuck
+{%else%}
+<h1>
+  <a href="{% url 'signup' %}">Sign Up</a>
+</h1>
+<p>or</p>
+<h1>
+ <a href="{% url 'login' %}">Log In</a>
+</h1>
+{%endif%}
 {%endblock%}

@@ -23,7 +23,7 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
 
 
   var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
+  var instances = M.Sidenav.init(elems, {'edge': 'right'});
   const click = document.getElementById("sidenav-btn") 
   click.addEventListener("click", function(){
   instances[0].open()
