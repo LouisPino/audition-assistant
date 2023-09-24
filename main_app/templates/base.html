@@ -9,8 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="icon" type="image/x-icon" href={% static 'assets/met.jpeg'%}>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script defer src="{% static 'scripts/form_materials.js' %}"></script>
-    <link rel="stylesheet" href={% static 'styles/main.css'%}/>
+    <script defer src="{% static 'scripts/materialize_scripts.js' %}"></script>
+    <link rel="stylesheet" href={% static 'styles/man.css'%}/>
     <link href='https://fonts.googleapis.com/css?family=Indie Flower' rel='stylesheet'>
 </head>
 <body>
@@ -20,9 +20,9 @@
             <ul>
                 {% if user.is_authenticated %}
               <li><a href="{% url 'about'%}" class="left brand-logo">Audition Assistant</a></li>
-              {% else %}
+                {% else %}
               <li><a href="{% url 'home'%}" class="left brand-logo">Audition Assistant</a></li>
-            {% endif %}
+                {% endif %}
             </ul>
             <ul class="right">
              <li><a class="nav-link" href="{% url 'about'%}">About</a></li>
@@ -32,6 +32,8 @@
              <li><a href="{% url 'audition_create' %}">Add an Audition</a></li>
              <li><a href="{% url 'audition_index' %}">View Auditions</a></li>
              <li><a href="{% url 'logout' %}">Log Out</a></li> 
+             <li><a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a></li> 
+
            {% else %}
              <li><a href="{% url 'login' %}">Log In</a></li>
              <li><a href="{% url 'signup' %}">Sign Up</a></li>
@@ -45,6 +47,22 @@
     {% block content %}
     {% endblock %}
   </main>
+
+<ul id="slide-out" class="sidenav">
+  <li><div class="user-view">
+    <div class="background">
+      <img src="">
+    </div>
+    <iframe
+  src="https://4four.io/embed/metronome"
+  width="250"
+  height="680"
+  frameborder="0"
+>
+</iframe>
+</ul>
+
+
   <footer class="page-footer">
     <div class="right">All Rights Reserved, &copy; 2023 Louis Pino</div>
   </footer>

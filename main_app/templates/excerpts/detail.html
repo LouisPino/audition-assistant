@@ -11,20 +11,19 @@
   </form>
   {%endif%}
   {% if excerpt.goal_tempo_type and  excerpt.goal_tempo_bpm%}
-  <p>Goal Tempo: {{excerpt.goal_tempo_type}}={{excerpt.goal_tempo_bpm}}</p>
+  <p>Goal Tempo: {{excerpt.goal_tempo_bpm}}</p>
   {%else%}
   <p>No goal tempo set yet :(</p>
   {%endif%}
-  {%if excerpt.last_practiced%}
+  {%if excerpt.last_practiced and not excerpt.practiced_today%}
   <p>Last practiced on {{excerpt.last_practiced}}</p>
   {%endif%}
   
   
   <form action="{%url 'excerpt_current-tempo' excerpt.id%}" method="POST">
     {%csrf_token%}
-    <label for="current-tempo">Current Tempo</label>
-    <input type="number" name="current-tempo" value={{excerpt.current_tempo}} />
-    <input type="submit" value="Update Current Tempo" />
+    <label for="current-tempo">Current Tempo (enter to submit)</label>
+    <input type="number" id="current-tempo" name="current-tempo" value={{excerpt.current_tempo}} />
   </form>
 
   {%for link in links%}
@@ -52,13 +51,7 @@
   <button>EDIT</button>
 </a>
 <hr />
-<iframe
-  src="https://4four.io/embed/metronome"
-  width="400"
-  height="680"
-  frameborder="0"
->
-</iframe>
+
 
 <hr>
 <h1>NOTES</h1>
@@ -85,8 +78,5 @@
   </form>
 </div>
 {%endfor%} 
-
-
-
 
 {%endblock%}

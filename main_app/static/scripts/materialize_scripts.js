@@ -18,3 +18,13 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
   let callback = (EmbedController) => {};
   IFrameAPI.createController(element, options, callback);
 };
+
+
+
+
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+  const click = document.getElementById("sidenav-btn") 
+  click.addEventListener("click", function(){
+  instances[0].open()
+  })
