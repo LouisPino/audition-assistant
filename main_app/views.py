@@ -83,9 +83,6 @@ class ExcerptCreate(CreateView):
     def form_valid(self, form):
       form.instance.audition_id=self.kwargs.get('aud_id')
       super().form_valid(form)
-      # audition_id = self.kwargs.get('aud_id')
-      # audition = Audition.objects.get(pk=audition_id)
-      # self.object.auditions.add(audition)
       return redirect('audition_detail', aud_id= self.kwargs['aud_id'])
     
 class ExcerptDelete(DeleteView):
@@ -95,7 +92,7 @@ class ExcerptDelete(DeleteView):
     
 class ExcerptUpdate(UpdateView):
     model= Excerpt
-    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_type", "goal_tempo_bpm", 'audio_links', 'start_times']
+    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_type", "goal_tempo_bpm", "current_tempo", 'audio_links', 'start_times']
     
     def form_valid(self, form):
         super().form_valid(form)
@@ -105,20 +102,20 @@ class ExcerptUpdate(UpdateView):
       
 def excerpt_detail(request, ex_id):
     excerpt = Excerpt.objects.get(id=ex_id)
+    excerpt.goal_tempo_type=excerpt.get_goal_tempo_type_display()[0]
     note_form = NoteForm()
     notes = Note.objects.filter(excerpt_id=ex_id).order_by('-date')
     if excerpt.audio_links:
       links = map(lambda link: f"https://open.spotify.com/embed/track/{link.split('/')[4]}?utm_source=generator", excerpt.audio_links )
     else:
       links = []
-    idx = 0
     link_objs =[]
-    for link in links:
+    
+    for idx, link in enumerate(links):
       link_objs.append({
         'url': link,
-        'start': excerpt.start_times[idx]
+        'start': excerpt.start_times[idx] if len(excerpt.start_times) > idx else ""
       })
-      idx+=1
     return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': link_objs})
   
 
@@ -148,9 +145,15 @@ def excerpt_practiced(request, ex_id):
   excerpt.save()
   return redirect('excerpt_detail', ex_id=ex_id)
 
+def excerpt_current_tempo(request, ex_id):
+  excerpt = Excerpt.objects.get(id=ex_id)
+  excerpt.current_tempo = request.POST['current-tempo']
+  excerpt.save()
+  return redirect('excerpt_detail', ex_id=ex_id)
+
 
 def add_multiple(request, aud_id):
-  excerpts = Excerpt.objects.all()
+  excerpts = Excerpt.objects.all().distinct("title", 'section')
   excerpt_objs = {}
   for excerpt in excerpts:
       if excerpt.instrument in excerpt_objs.keys():
@@ -164,13 +167,8 @@ def import_multiple(request, aud_id):
   ex_ids = request.POST['ex_list'].split(',')
   excerpts = Excerpt.objects.filter(id__in=ex_ids)
   for excerpt in excerpts:
-    excerpt.pk = None  # This will create a new object when saved
-            
-            # Set the new foreign key
+    excerpt.pk = None
     excerpt.audition_id = aud_id
-            
-            # Save the copied object
     excerpt.save()
 
-    # right now ressigns, needs to copy
   return redirect('audition_detail', aud_id=aud_id)

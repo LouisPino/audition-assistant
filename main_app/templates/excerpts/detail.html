@@ -2,13 +2,32 @@
 <div class="card">
   <h3>{{excerpt.title}} - {{excerpt.composer}}</h3>
   <h4>{{excerpt.section}}</h4>
+  {% if excerpt.practiced_today %}
+  <h5>yay you practiced me today</h5>
+  {%else%}
   <form action="{%url 'excerpt_practiced' excerpt.id%}" method="POST">
     {%csrf_token%}
     <input type="submit" value="I practiced this today!" />
   </form>
+  {%endif%}
+  {% if excerpt.goal_tempo_type and  excerpt.goal_tempo_bpm%}
+  <p>Goal Tempo: {{excerpt.goal_tempo_type}}={{excerpt.goal_tempo_bpm}}</p>
+  {%else%}
+  <p>No goal tempo set yet :(</p>
+  {%endif%}
+  {%if excerpt.last_practiced%}
   <p>Last practiced on {{excerpt.last_practiced}}</p>
-  {%for link in links%}
+  {%endif%}
+  
+  
+  <form action="{%url 'excerpt_current-tempo' excerpt.id%}" method="POST">
+    {%csrf_token%}
+    <label for="current-tempo">Current Tempo</label>
+    <input type="number" name="current-tempo" value={{excerpt.current_tempo}} />
+    <input type="submit" value="Update Current Tempo" />
+  </form>
 
+  {%for link in links%}
   <iframe
     style="border-radius: 12px"
     src="{{link.url}}"
@@ -20,7 +39,11 @@
     loading="lazy"
   ></iframe>
   <p>{{link.start}}</p>
-  {%empty%} {%endfor%}
+
+  {%empty%} 
+  <h6>Click Edit to link a recording from Spotify here</h6>
+  
+  {%endfor%}
 </div>
 <a href="{%url 'excerpt_delete' excerpt.id%}">
   <button>X</button>

@@ -14,9 +14,6 @@ TEMPO_TYPES = (
 )
 
 
-    
-    
-
 class Audition(models.Model):
     orchestra= models.CharField(max_length=100)
     location= models.CharField(max_length=100)
@@ -48,6 +45,11 @@ class Excerpt(models.Model):
     
     def get_absolute_url(self):
         return reverse("audition_detail", kwargs={"aud_id": self.id})
+    
+    def practiced_today(self):
+        if self.last_practiced==date.today():
+            return True if self.last_practiced==date.today() else False
+        
 
 
 class Note(models.Model):

@@ -18,6 +18,7 @@ urlpatterns = [
     path('excerpts/update/<int:pk>/', views.ExcerptUpdate.as_view(), name="excerpt_update"),
     path('excerpts/<int:ex_id>', views.excerpt_detail, name="excerpt_detail"),
     path('excerpts/<int:ex_id>/practiced', views.excerpt_practiced, name="excerpt_practiced"),
+    path('excerpts/<int:ex_id>/current-tempo', views.excerpt_current_tempo, name="excerpt_current-tempo"),
    
     path('notes/create/<int:ex_id>', views.create_note, name="note_create"),
     path('notes/delete/<int:pk>/', views.NoteDelete.as_view(), name="note_delete"),

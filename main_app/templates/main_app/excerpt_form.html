@@ -4,7 +4,7 @@
 <h1>Edit {{object.title}}</h1>
 {%else%}
 <h1>Add Excerpt</h1>
-<a href="{%url 'excerpt_add-multiple' view.kwargs.aud_id%}">Click me to add multiple excerpts</a>
+<a href="{%url 'excerpt_add-multiple' view.kwargs.aud_id%}">Click me to import multiple excerpts from previous auditions</a>
 
 {%endif%}
 <form action="" method="POST" name="ex-form">

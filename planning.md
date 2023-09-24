@@ -55,7 +55,8 @@ Don't exist yet
 - ~~Track when the last time I practiced an excerpt was~~
 - ~~time my practice sessions to keep myself focused and remind myself to take breaks.~~
 - ~~view all excerpts in order of instrument and in order of last practiced~~
-- be able to select previously input excerpts when creating new lists
+- ~~be able to select previously input excerpts when creating new lists~~
+- show sheet music (materialboxed)
 
 ### Icebox
 **As a user, I want to:**
