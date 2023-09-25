@@ -16,7 +16,7 @@ from .forms import NoteForm
 
 
 def auditions(request):
-   auditions = Audition.objects.all()
+   auditions = Audition.objects.all().order_by('-date')
    return render(request, 'auditions/index.html', {
         'auditions': auditions
     })
