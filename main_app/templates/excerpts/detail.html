@@ -82,4 +82,20 @@
 </div>
 {%endfor%} 
 
+{%if excerpt.score_url%}
+<img class="responsive-img card-panel materialboxed" src="{{excerpt.score_url}}">
+{%else%}
+<div class="card-panel teal-text center-align">No Score Uploaded</div>
+{%endif%}
+    <form action="{% url 'add_score' excerpt.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br><br>
+      {%if excerpt.score_url%}
+      <button type="submit" class="btn">Upload New Score</button>
+      {%else%}
+      <button type="submit" class="btn">Upload Score</button>
+      {%endif%}
+  </form>
+
 {%endblock%}

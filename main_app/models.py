@@ -39,6 +39,7 @@ class Excerpt(models.Model):
     start_times = ArrayField(models.CharField(), size= 3, null=True, blank=True, verbose_name='excerpt time', help_text="in same order as links")
     last_practiced = models.DateField(null=True, blank=True)
     audition = models.ForeignKey(Audition, on_delete=models.CASCADE)
+    score_url = models.CharField(max_length=200)
     
     def __str__(self):
         return f'{self.title}, {self.section} : last practiced {self.last_practiced}'
@@ -61,3 +62,11 @@ class Note(models.Model):
     
     def get_absolute_url(self):
         return reverse('excerpt_detail', kwargs={"ex_id": self.excerpt_id})
+    
+    
+# class Score(models.Model):
+#     url = models.CharField(max_length=200)
+#     excerpt = models.ForeignKey(Excerpt, on_delete=models.CASCADE)
+
+#     def __str__(self):
+#         return f"Score for: {self.excerpt} - {self.url[:12]}"

@@ -19,6 +19,8 @@ urlpatterns = [
     path('excerpts/<int:ex_id>', views.excerpt_detail, name="excerpt_detail"),
     path('excerpts/<int:ex_id>/practiced', views.excerpt_practiced, name="excerpt_practiced"),
     path('excerpts/<int:ex_id>/current-tempo', views.excerpt_current_tempo, name="excerpt_current-tempo"),
+    path('excerpts/<int:ex_id>/add_score/', views.add_score, name='add_score'),
+   
    
     path('notes/create/<int:ex_id>', views.create_note, name="note_create"),
     path('notes/delete/<int:pk>/', views.NoteDelete.as_view(), name="note_delete"),

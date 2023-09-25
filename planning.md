@@ -1,6 +1,6 @@
 # Audition Assistant
 
-Audition Assistant aims to reduce the time dedicated to managing your auditions so you can get straight o practicing.
+Audition Assistant aims to reduce the time dedicated to managing your auditions so you can get straight to practicing.
 
 ## Links
 [Planning Doc](https://docs.google.com/spreadsheets/d/1DrAsvPWn9esQvA_20tIJfcb2_JrnQtVv7zpNu1Cui-o/edit?usp=sharing)

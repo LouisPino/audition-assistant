@@ -22,9 +22,12 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
 
 
 
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, {'edge': 'right'});
+  var sidenav = document.querySelectorAll('.sidenav');
+  var sidenavInstances = M.Sidenav.init(sidenav, {'edge': 'right'});
   const click = document.getElementById("sidenav-btn") 
   click.addEventListener("click", function(){
-  instances[0].open()
+    sidenavInstances[0].open()
   })
+
+var lightboxes = document.querySelectorAll(".materialboxed");
+var lightboxInstances = M.Materialbox.init(lightboxes);
