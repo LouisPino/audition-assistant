@@ -17,8 +17,18 @@ from .forms import NoteForm
 
 def auditions(request):
    auditions = Audition.objects.all().order_by('-date')
+   upcoming_auditions = []
+   previous_auditions = []
+   for audition in auditions:
+     if audition.date >= date.today():
+       upcoming_auditions.append(audition)
+     else:
+       previous_auditions.append(audition)
+  #  upcoming_auditions = Audition.objects.filter(date__gte=date.today()).order_by('-date') TWO DB Calls, prob no good
+  #  previous_auditions = Audition.objects.filter(date__lte=date.today()).order_by('-date')
    return render(request, 'auditions/index.html', {
-        'auditions': auditions
+        'upcoming_auditions': upcoming_auditions,
+        'previous_auditions': previous_auditions
     })
 
 def about(request): 
