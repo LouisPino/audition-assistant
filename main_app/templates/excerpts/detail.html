@@ -32,6 +32,7 @@
   {%for link in links%}
   <iframe
     style="border-radius: 12px"
+    id="embed-iframe"
     src="{{link.url}}"
     width="100%"
     height="152"
@@ -48,7 +49,10 @@
   {%endfor%}
   {%if excerpt.score_url%}
   {%if excerpt.score_type == 'pdf'%}
-  <iframe class='card-panel materialboxed' src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true" style="width: 170px; height:220px;" frameborder="0"></iframe>
+  <iframe 
+  sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation"
+  class='card-panel materialboxed no-click' src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true" style="width: 170px; height:220px;" frameborder="0"></iframe>
+  <p>click border to expand</p>
   {%else%}
       <img class="responsive-img card-panel materialboxed" width="20%" height="auto" src="{{excerpt.score_url}}">
       {%endif%}
@@ -66,6 +70,12 @@
       <button type="submit" class="btn">Upload Score</button>
       {%endif%}
   </form>
+{%if comp_obj%}
+  <h4>{{comp_obj.complete_name}}</h4>
+  <h6>{{comp_obj.epoch}}</h6>
+  <p>{{comp_obj.birth}} - {{comp_obj.death}}
+<img src="{{comp_obj.portrait}}" />
+{%endif%}
 </div>
 <a href="{%url 'excerpt_delete' excerpt.id excerpt.audition_id%}">
   <button>X</button>
@@ -101,6 +111,67 @@
   </form>
 </div>
 {%endfor%} 
+{% comment %} <button id="test-btn">test</button>
+<button id="togglePlay">test</button>
+<button id="seek">seek 30</button> {% endcomment %}
+<script> 
+  testEl = document.getElementById('test-btn')
+  {% comment %} window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    const element = document.getElementById('embed-iframe');
+    const options = {
+        uri: 'https://open.spotify.com/track/1eT1nYXFxxvz87hco27mgj?si=a86f28ccb8344cde'
+      };
+      const callback = (EmbedController) => {
+        testEl.addEventListener('click', ()=> EmbedController.play())
+        testEl.addEventListener('click', ()=> EmbedController.seek(20))
+        //testEl.addEventListener('click', ()=> EmbedController.togglePlay())
+      };
+      IFrameAPI.createController(element, options, callback);
+    }; {% endcomment %}
+{% comment %} 
+
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    const token = "BQBjpvOAJjxdu_7etrYQglB65jzz08tOVDMzOaMiTMeY8R5LjlUuNKb_5-f2buzoXXBIaT7l1g2RGrjwJk6Cbt1tSVvA_c6xxlkbAlnfzN5IzwBO1_zLPNLsBWJ1VXjgNTJjGKfpcUO8aXyXcqZhPlJem9rvfUZhXJKf905jvylydWkiJvk0JNsAEI3n9rhGFkKY93GH"
+    const player = new Spotify.Player({
+      name: 'Audition Assistant',
+      getOAuthToken: cb => { cb(token); },
+      volume: 0.5
+    });
+// Ready
+player.addListener('ready', ({ device_id }) => {
+  console.log('Ready with Device ID', device_id);
+});
+
+// Not Ready
+player.addListener('not_ready', ({ device_id }) => {
+  console.log('Device ID has gone offline', device_id);
+});
+
+player.addListener('initialization_error', ({ message }) => {
+  console.error(message);
+});
+
+player.addListener('authentication_error', ({ message }) => {
+  console.error(message);
+});
+
+player.addListener('account_error', ({ message }) => {
+  console.error(message);
+});
+
+document.getElementById('togglePlay').onclick = function() {
+console.log(player)
+  player.togglePlay();
+};
+document.getElementById('seek').onclick = function() {
+console.log(player)
+  player.seek(30000);
+};
+
+player.connect();
+} {% endcomment %}
+</script> 
+
 
 
 {%endblock%}

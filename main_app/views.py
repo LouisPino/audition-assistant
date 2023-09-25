@@ -11,6 +11,7 @@ from django.db.models import Q
 import uuid
 import boto3
 import os
+import requests
 from .models import *
 from .forms import NoteForm
 
@@ -119,7 +120,15 @@ class ExcerptUpdate(UpdateView):
       
 def excerpt_detail(request, ex_id):
     excerpt = Excerpt.objects.get(id=ex_id)
+    comp_name = excerpt.composer.split(" ")[-1]
+    res = requests.get(f'https://api.openopus.org/composer/list/search/{comp_name}.json')
+    comp_obj = res.json()
+    if comp_obj['status']['success']== 'true':
+       composer = comp_obj['composers'][0]
+    else:
+      composer = {}
     excerpt.goal_tempo_type=excerpt.get_goal_tempo_type_display()[0]
+    print(composer)
     note_form = NoteForm()
     notes = Note.objects.filter(excerpt_id=ex_id).order_by('-date')
     if excerpt.audio_links:
@@ -133,7 +142,7 @@ def excerpt_detail(request, ex_id):
         'url': link,
         'start': excerpt.start_times[idx] if len(excerpt.start_times) > idx else ""
       })
-    return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': link_objs})
+    return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': link_objs, 'comp_obj': composer})
   
 
 def create_note(request, ex_id):
