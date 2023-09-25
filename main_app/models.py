@@ -3,6 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
+from django import forms
 
 # Create your models here.
 
@@ -40,6 +41,7 @@ class Excerpt(models.Model):
     last_practiced = models.DateField(null=True, blank=True)
     audition = models.ForeignKey(Audition, on_delete=models.CASCADE)
     score_url = models.CharField(max_length=200)
+    score_type = models.CharField(max_length=4)
     
     def __str__(self):
         return f'{self.title}, {self.section} : last practiced {self.last_practiced}'
@@ -62,11 +64,3 @@ class Note(models.Model):
     
     def get_absolute_url(self):
         return reverse('excerpt_detail', kwargs={"ex_id": self.excerpt_id})
-    
-    
-# class Score(models.Model):
-#     url = models.CharField(max_length=200)
-#     excerpt = models.ForeignKey(Excerpt, on_delete=models.CASCADE)
-
-#     def __str__(self):
-#         return f"Score for: {self.excerpt} - {self.url[:12]}"

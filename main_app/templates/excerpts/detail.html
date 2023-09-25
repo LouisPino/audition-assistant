@@ -47,7 +47,11 @@
   
   {%endfor%}
   {%if excerpt.score_url%}
-<img class="responsive-img card-panel materialboxed" width="20%" height="auto" src="{{excerpt.score_url}}">
+  {%if excerpt.score_type == 'pdf'%}
+  <iframe class='card-panel materialboxed' src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true" style="width: 170px; height:220px;" frameborder="0"></iframe>
+  {%else%}
+      <img class="responsive-img card-panel materialboxed" width="20%" height="auto" src="{{excerpt.score_url}}">
+      {%endif%}
 {%else%}
 <div class="card-panel teal-text center-align">No Score Uploaded</div>
 {%endif%}
@@ -97,7 +101,6 @@
   </form>
 </div>
 {%endfor%} 
-
 
 
 {%endblock%}

@@ -88,19 +88,23 @@ class AuditionDelete(DeleteView):
   
 class ExcerptCreate(CreateView):
     model= Excerpt
-    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_type", "goal_tempo_bpm"]
-    
+    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_type", "goal_tempo_bpm", 'audio_links', 'start_times']
     
     def form_valid(self, form):
       form.instance.audition_id=self.kwargs.get('aud_id')
+      if form.instance.instrument:
+        form.instance.instrument=form.instance.instrument.capitalize()
       super().form_valid(form)
       return redirect('audition_detail', aud_id= self.kwargs['aud_id'])
+    
+    
     
 class ExcerptDelete(DeleteView):
   model=Excerpt
   def get_success_url(self):
         next_id = self.kwargs['aud_id']
         return reverse('audition_detail', kwargs={'aud_id': next_id})
+      
   
     
 class ExcerptUpdate(UpdateView):
@@ -192,6 +196,7 @@ def add_score(request, ex_id):
   # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
+        filetype = photo_file.name.split('.')[-1]
         s3 = boto3.client('s3')
         # need a unique "key" for S3 / needs image file extension too
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
@@ -205,6 +210,7 @@ def add_score(request, ex_id):
             # Score.objects.create(url=url, excerpt_id=ex_id)
             excerpt = Excerpt.objects.get(id=ex_id)
             excerpt.score_url=url
+            excerpt.score_type=filetype
             excerpt.save()
         except Exception as e:
             print('An error occurred uploading file to S3')
