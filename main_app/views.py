@@ -88,7 +88,9 @@ class ExcerptCreate(CreateView):
     
 class ExcerptDelete(DeleteView):
   model=Excerpt
-  success_url = f'/auditions/'
+  def get_success_url(self):
+        next_id = self.kwargs['aud_id']
+        return reverse('audition_detail', kwargs={'aud_id': next_id})
   
     
 class ExcerptUpdate(UpdateView):
@@ -131,7 +133,9 @@ def create_note(request, ex_id):
     
 class NoteDelete(DeleteView):
   model=Note
-  success_url = f'/auditions/'
+  def get_success_url(self):
+     ex_id = self.kwargs["ex_id"]
+     return reverse('excerpt_detail', kwargs={'ex_id':ex_id})
   
     
 class NoteUpdate(UpdateView):

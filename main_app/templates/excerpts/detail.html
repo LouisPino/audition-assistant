@@ -46,8 +46,24 @@
   <h6>Click Edit to link a recording from Spotify here</h6>
   
   {%endfor%}
+  {%if excerpt.score_url%}
+<img class="responsive-img card-panel materialboxed" width="20%" height="auto" src="{{excerpt.score_url}}">
+{%else%}
+<div class="card-panel teal-text center-align">No Score Uploaded</div>
+{%endif%}
+    <form action="{% url 'add_score' excerpt.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <p>Only image files (no pdfs) for now</p>
+      <br><br>
+      {%if excerpt.score_url%}
+      <button type="submit" class="btn">Upload New Score</button>
+      {%else%}
+      <button type="submit" class="btn">Upload Score</button>
+      {%endif%}
+  </form>
 </div>
-<a href="{%url 'excerpt_delete' excerpt.id%}">
+<a href="{%url 'excerpt_delete' excerpt.id excerpt.audition_id%}">
   <button>X</button>
 </a>
 <a href="{%url 'excerpt_update' excerpt.id%}">
@@ -75,27 +91,13 @@
   <a href="{%url 'note_update' note.id%}">
     <button>EDIT</button>
   </a>
-  <form action="{%url 'note_delete' note.id%}" method="POST">
+  <form action="{%url 'note_delete' note.id excerpt.id%}" method="POST">
     {% csrf_token %}
     <input type="submit" value="X" />
   </form>
 </div>
 {%endfor%} 
 
-{%if excerpt.score_url%}
-<img class="responsive-img card-panel materialboxed" src="{{excerpt.score_url}}">
-{%else%}
-<div class="card-panel teal-text center-align">No Score Uploaded</div>
-{%endif%}
-    <form action="{% url 'add_score' excerpt.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-      {% csrf_token %}
-      <input type="file" name="photo-file">
-      <br><br>
-      {%if excerpt.score_url%}
-      <button type="submit" class="btn">Upload New Score</button>
-      {%else%}
-      <button type="submit" class="btn">Upload Score</button>
-      {%endif%}
-  </form>
+
 
 {%endblock%}

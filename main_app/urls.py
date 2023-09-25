@@ -14,7 +14,7 @@ urlpatterns = [
     path('excerpts/create/<int:aud_id>', views.ExcerptCreate.as_view(), name="excerpt_create"),
     path('excerpts/add-multiple/<int:aud_id>', views.add_multiple, name="excerpt_add-multiple"),
     path('excerpts/import-multiple/<int:aud_id>', views.import_multiple, name="excerpt_import-multiple"),
-    path('excerpts/delete/<int:pk>/', views.ExcerptDelete.as_view(), name="excerpt_delete"),
+    path('excerpts/delete/<int:pk>/<int:aud_id>', views.ExcerptDelete.as_view(), name="excerpt_delete"),
     path('excerpts/update/<int:pk>/', views.ExcerptUpdate.as_view(), name="excerpt_update"),
     path('excerpts/<int:ex_id>', views.excerpt_detail, name="excerpt_detail"),
     path('excerpts/<int:ex_id>/practiced', views.excerpt_practiced, name="excerpt_practiced"),
@@ -23,7 +23,7 @@ urlpatterns = [
    
    
     path('notes/create/<int:ex_id>', views.create_note, name="note_create"),
-    path('notes/delete/<int:pk>/', views.NoteDelete.as_view(), name="note_delete"),
+    path('notes/delete/<int:pk>/<int:ex_id>', views.NoteDelete.as_view(), name="note_delete"),
     path('notes/update/<int:pk>/', views.NoteUpdate.as_view(), name="note_update"),
     
     path('accounts/signup/', views.signup, name='signup'),
