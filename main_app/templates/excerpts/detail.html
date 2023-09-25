@@ -3,8 +3,15 @@
   Back to the audition page
 </a>
 <div class="card">
-  <h3>{{excerpt.title}} - {{excerpt.composer}}</h3>
-  <h4>{{excerpt.section}}</h4>
+  <h3>{{excerpt.title}} - {{excerpt.section}}</h3>
+  {%if comp_obj%}
+  <h4>{{comp_obj.complete_name}}</h4>
+  <h6>{{comp_obj.epoch}}</h6>
+  <p>{{comp_obj.birth}} - {{comp_obj.death}}
+<img src="{{comp_obj.portrait}}" />
+{%else%}
+<h3>{{excerpt.composer}}</h3>
+{%endif%}
   {% if excerpt.practiced_today %}
   <h5>yay you practiced me today</h5>
   {%else%}
@@ -70,12 +77,7 @@
       <button type="submit" class="btn">Upload Score</button>
       {%endif%}
   </form>
-{%if comp_obj%}
-  <h4>{{comp_obj.complete_name}}</h4>
-  <h6>{{comp_obj.epoch}}</h6>
-  <p>{{comp_obj.birth}} - {{comp_obj.death}}
-<img src="{{comp_obj.portrait}}" />
-{%endif%}
+
 </div>
 <a href="{%url 'excerpt_delete' excerpt.id excerpt.audition_id%}">
   <button>X</button>
