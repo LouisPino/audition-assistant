@@ -25,8 +25,6 @@ def auditions(request):
        upcoming_auditions.append(audition)
      else:
        previous_auditions.append(audition)
-  #  upcoming_auditions = Audition.objects.filter(date__gte=date.today()).order_by('-date') TWO DB Calls, prob no good
-  #  previous_auditions = Audition.objects.filter(date__lte=date.today()).order_by('-date')
    return render(request, 'auditions/index.html', {
         'upcoming_auditions': upcoming_auditions,
         'previous_auditions': previous_auditions
@@ -131,16 +129,21 @@ def excerpt_detail(request, ex_id):
     print(composer)
     note_form = NoteForm()
     notes = Note.objects.filter(excerpt_id=ex_id).order_by('-date')
+    if excerpt.start_times:
+      start_times = excerpt.start_times.split(',')
+    else:
+      start_times = []
     if excerpt.audio_links:
-      links = map(lambda link: f"https://open.spotify.com/embed/track/{link.split('/')[4]}?utm_source=generator", excerpt.audio_links )
+      excerpt_links = excerpt.audio_links.split(',')
+      links = map(lambda link: f"https://open.spotify.com/embed/track/{link.split('/')[4]}?utm_source=generator", excerpt_links )
     else:
       links = []
-    link_objs =[]
     
+    link_objs =[]
     for idx, link in enumerate(links):
       link_objs.append({
         'url': link,
-        'start': excerpt.start_times[idx] if len(excerpt.start_times) > idx else ""
+        'start': start_times[idx] if len(start_times) > idx else ""
       })
     return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': link_objs, 'comp_obj': composer})
   
