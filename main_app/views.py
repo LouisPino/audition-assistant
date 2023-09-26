@@ -14,7 +14,7 @@ import os
 import requests
 import re
 from .models import *
-from .forms import NoteForm
+from .forms import NoteForm, GoalForm
 
 
 def auditions(request):
@@ -73,13 +73,15 @@ def audition_detail(request, aud_id):
     audition = Audition.objects.get(id=aud_id)
     excerpts = audition.excerpt_set.all().order_by('last_practiced')
     excerpt_objs = {}
+    goal_form = GoalForm()
+    goals = Goal.objects.filter(audition_id=aud_id).order_by('-id')
     for excerpt in excerpts:
       if excerpt.instrument in excerpt_objs.keys():
         excerpt_objs[excerpt.instrument].append(excerpt)
       else:
         excerpt_objs[excerpt.instrument] = [excerpt]
         
-    return render(request, 'auditions/detail.html', {'audition': audition, 'excerpts': excerpts, 'excerpt_objs': excerpt_objs})
+    return render(request, 'auditions/detail.html', {'audition': audition, 'excerpts': excerpts, 'excerpt_objs': excerpt_objs, 'goal_form': goal_form, 'goals': goals})
   
 class AuditionDelete(DeleteView):
   model=Audition
@@ -125,7 +127,8 @@ def excerpt_detail(request, ex_id):
     if comp_obj['status']['success']== 'true':
        composer = comp_obj['composers'][0]
        composer['birth'] = composer['birth'][:4]
-       composer['death'] = composer['death'][:4]
+       if composer['death']:
+        composer['death'] = composer['death'][:4]
     else:
       composer = {}
     excerpt.goal_tempo_type=excerpt.get_goal_tempo_type_display()[0]
@@ -230,3 +233,16 @@ def add_score(request, ex_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('excerpt_detail', ex_id=ex_id)
+  
+  
+  
+  
+  
+def create_goal(request, aud_id):
+  form = GoalForm(request.POST)
+  if form.is_valid():
+    new_goal = form.save(commit=False)
+    new_goal.audition_id=aud_id
+    new_goal.save()
+  return redirect('audition_detail', aud_id=aud_id)
+    

@@ -35,6 +35,32 @@
     <p>bruh you gotta get that list goin</p>
     {%endfor%} 
 
+
+<div class="card notes">
+    <h1 class="center">NOTES</h1>
+    <form
+      action="{%url 'goal_create' audition.id%}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %} 
+      {{goal_form.as_p}}
+      <input class='btn delete-btn' type="submit" value="Add Note" />
+    </form>
+    {%for goal in goals%}
+    <div class="card">
+      <h4>{{goal.goal}}</h4>
+      {% comment %} <a href="{%url 'goal_update' goal.id%}">
+        <button>EDIT</button>
+      </a>
+      <form action="{%url 'goal_delete' note.id excerpt.id%}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="X" />
+      </form> {% endcomment %}
+    </div>
+    {%endfor%} 
+  </div>
+
 </a href="{%url 'audition_delete' audition.id%}">
 <button class='btn delete-btn'>DELETE AUDITION</button>
 </a>

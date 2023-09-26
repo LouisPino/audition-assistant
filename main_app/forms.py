@@ -5,3 +5,8 @@ class NoteForm(ModelForm):
   class Meta:
     model = Note
     fields = ['note']
+
+class GoalForm(ModelForm):
+  class Meta:
+    model = Goal
+    fields = ['goal']

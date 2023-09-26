@@ -64,3 +64,15 @@ class Note(models.Model):
     
     def get_absolute_url(self):
         return reverse('excerpt_detail', kwargs={"ex_id": self.excerpt_id})
+
+
+
+
+class Goal(models.Model):
+    audition= models.ForeignKey(Audition, on_delete=models.CASCADE)
+    goal= models.TextField()
+    def __str__(self):
+        return f'{self.goal[:10]}...)'
+    
+    def get_absolute_url(self):
+        return reverse('audition_detail', kwargs={"aud_id": self.audition_id})

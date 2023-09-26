@@ -18,7 +18,11 @@
     <h4 class='text-center'>{{comp_obj.complete_name}}</h4>
     <h6>{{comp_obj.epoch}}</h6>
     <img src="{{comp_obj.portrait}}" />
-    <p>{{comp_obj.birth}} - {{comp_obj.death}}
+    {%if comp_obj.death%}
+      <p>{{comp_obj.birth}} - {{comp_obj.death}}</p>
+        {%else%}
+        <p> Born {{comp_obj.birth}}</p>
+        {%endif%}
     </div>
   {%endif%}
 
