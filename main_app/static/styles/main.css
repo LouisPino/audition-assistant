@@ -25,7 +25,7 @@ body {
  width: 100vw;
  height: 100%;
 }
-.right a{
+.right-nav a{
   font-size: 1.5rem;
 }
 
@@ -43,17 +43,29 @@ body {
     position: relative;
   }
   nav{
-    background-color: var(--couchyellow)
+    background-color: var(--couchyellow);
   }
+
+.nav-wrapper{
+display: flex;
+justify-content: end;
+}
+
   footer.page-footer{
     padding-top: 0;
     text-align: right;
     background-color: var(--couchyellow);
   }
 
-  .brand-logo{
+  #brand-logo{
     font-family: 'Parisienne', cursive;
-    margin-left: 20px;
+    display: block;
+    width: 95%;
+  }
+
+  .right-nav{
+    display: block;
+
   }
 .about{
   background-color: var(--seagreen);
@@ -338,20 +350,24 @@ margin: 0 auto;
 /* The container <div> - needed to position the dropdown content */
 .dropbtn {
 position: relative;
-display: block;
+display: none;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
 display: none;
+flex-direction: column;
+justify-content: space-evenly;
+align-items: center;
 position: absolute;
 left: -56px;
-background: rgba(0, 0, 0, 0.8);
+top: 50px;
+background: rgba(0, 0, 0, 0.5);
 min-width: 160px;
 min-height: 100px;
 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 border-radius: 15%;
-z-index: 10000;
+opacity: 1;
 }
 
 /* Links inside the dropdown */
@@ -363,25 +379,33 @@ display: block;
   display: block;
   margin: 0.5em;
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
-  color: #bcc3ff;
+  color: white;
 }
 
 
 .hamburger{
-  display: none;
-  width: 50px;
+  display: block;
+  width: 30px;
   height: auto;
-  margin: 30px auto;
 }
 
 @media screen and (max-width: 650px){
-.hamburger{
+.dropbtn{
   display: block;
+  margin: 0 auto;
 }
-
+.hamburger{
+margin-top: 20px;
+}
 .right-nav{
     display: none;
 }
+
+#brand-logo{
+  display: block;
+  text-align: center;
+}
+
 }

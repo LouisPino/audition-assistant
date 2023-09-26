@@ -1,4 +1,3 @@
-
 const dateEl = document.getElementById("id_date");
 M.Datepicker.init(dateEl, {
   format: "yyyy-mm-dd",
@@ -7,25 +6,22 @@ M.Datepicker.init(dateEl, {
   autoClose: true,
 });
 
+
 const selectEl = document.getElementById("id_goal_tempo_type");
 M.FormSelect.init(selectEl);
 
 
-
-
-
-  var sidenav = document.querySelectorAll('.sidenav');
-  var sidenavInstances = M.Sidenav.init(sidenav, {'edge': 'right'});
-  const click = document.getElementById("sidenav-btn") 
-  const click2 = document.getElementById("sidenav-btn2") 
-  click.addEventListener("click", function(){
+var sidenav = document.querySelectorAll('.sidenav');
+var sidenavInstances = M.Sidenav.init(sidenav, {'edge': 'right'});
+const click = document.getElementById("sidenav-btn") 
+const click2 = document.getElementById("sidenav-btn2") 
+click.addEventListener("click", function(){
     sidenavInstances[0].open()
   })
-  click2.addEventListener("click", function(){
+click2.addEventListener("click", function(){
     sidenavInstances[0].open()
   })
+
 
 var lightboxes = document.querySelectorAll(".materialboxed");
 var lightboxInstances = M.Materialbox.init(lightboxes);
-
-
