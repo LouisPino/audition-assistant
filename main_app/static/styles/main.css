@@ -216,6 +216,7 @@ display: flex;
 
 .instrument-title{
   text-decoration: underline 2px;
+  text-align: center;
 }
 
 

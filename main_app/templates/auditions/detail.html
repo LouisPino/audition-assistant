@@ -60,10 +60,12 @@
           {%endif%}
         </div>
         {%endfor%} 
-        
+     
+        {%if audition.one_goal_completed%}
     <a href="{%url 'clear_goals' audition.id%}">
     <button class='btn delete-btn'>Clear Completed Goals</button>
     </a>
+    {%endif%}
 </div>
 </div>
 

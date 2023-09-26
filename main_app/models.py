@@ -26,6 +26,12 @@ class Audition(models.Model):
     
     def get_absolute_url(self):
         return reverse("audition_detail", kwargs={"aud_id": self.id})
+    
+    def one_goal_completed(self):
+        if len(self.goal_set.filter(audition_id=self.id, complete=True)) > 0:
+            return True
+        else:
+            return False
 
 
 class Excerpt(models.Model):
@@ -77,3 +83,4 @@ class Goal(models.Model):
     
     def get_absolute_url(self):
         return reverse('audition_detail', kwargs={"aud_id": self.audition_id})
+
