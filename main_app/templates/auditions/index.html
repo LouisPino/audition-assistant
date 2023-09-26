@@ -21,5 +21,7 @@
 {%empty%}
 <h2>No previous auditions!</h2>
 {%endfor%}
-<a href="{% url 'audition_create' %}">Add an Audition</a>
+<a class="btn delete-btn" href="{% url 'audition_create' %}">
+    Add an Audition
+</a>
 {%endblock%}

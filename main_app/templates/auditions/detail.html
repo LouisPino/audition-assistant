@@ -8,33 +8,34 @@
 </div>
 
 <a href="{%url 'audition_update' audition.id%}">
-    <button>EDIT</button>
+    <button class='btn'>EDIT AUDITION DETAILS</button>
 </a>
 
-</a href="{%url 'audition_delete' audition.id%}">
-    <button>DELETE</button>
-</a>
+
 
 <a href="{%url 'excerpt_create' audition.id%}">
-    <button>ADD AN EXCERPT</button>
+    <button class='btn'>ADD AN EXCERPT</button>
 </a>
  <hr>
 
     {% for key, values  in excerpt_objs.items %}
     <h2>{{key}}</h2>
+    <div class="excerpt-teaser-ctr">
 {%for excerpt in values%}
 <a href="{%url 'excerpt_detail' excerpt.id%}">
-    <div class="card">
-<p>{{excerpt}}</p>
-
+    <div class="card excerpt-teaser">
+<p>{{excerpt.title}}: {{excerpt.section}}</p>
+<p>Last practice: {{excerpt.last_practiced}}</p>
 </div>
 </a>
 {%endfor%}
+</div>
     {%empty%}
     <p>bruh you gotta get that list goin</p>
     {%endfor%} 
 
-
-
+</a href="{%url 'audition_delete' audition.id%}">
+<button class='btn delete-btn'>DELETE AUDITION</button>
+</a>
 
     {%endblock%}

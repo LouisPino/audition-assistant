@@ -1,18 +1,137 @@
+*{
+  /* border: 1px solid red; */
+}
+:root {
+  --seagreen: rgb(56,	158,	143	);
+  --couchyellow: rgb(222,	218,	131);	
+}
+
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
   }
-  
+  a{
+    color: var(--seagreen)
+  }
   main {
     flex: 1 0 auto;
+    position: relative;
   }
-  
+  nav{
+    background-color: var(--couchyellow);
+  }
   footer.page-footer {
     padding-top: 0;
     text-align: right;
+    background-color: var(--couchyellow);
   }
 
-  .no-click{
-pointer-events: unset!important;
-  }
+.card{
+  border-radius: 10px;
+  position: relative;
+  padding: 10px;
+}
+
+.score-card, .comp-card, .excerpt-card{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.comp-card{
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#current-tempo{
+  text-align: center;
+  width: 25%;
+}
+
+.current-tempo-form{
+text-align: center;
+}
+
+
+.centered{
+  margin: 0 auto;
+  max-width: 70%;
+}
+
+.score-form{
+  text-align: center;
+}
+
+
+.excerpt-main{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.spotify-frame{
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  align-items: center;
+}
+
+.spotify-frame-ctr{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 40%;
+}
+
+.recordings-title{
+  text-align: center;
+}
+
+.notes{
+  width: 45%;
+}
+
+.excerpt-bottom{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.delete-btn:hover{
+  color: red;
+  transition: 200ms;
+
+}
+
+.delete-btn{
+  margin-top: 22px;
+  margin-bottom: 22px;
+  text-align: center;
+  min-width: 100%;
+  text-align: center;
+}
+
+.excerpt-nav{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.excerpt-teaser{
+  width: fit-content;
+  margin-right: 20px;
+}
+
+.excerpt-teaser-ctr{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.accent-text{
+  color: var(--seagreen)
+}

@@ -4,7 +4,7 @@
 <h2>{{key}}</h2>
 {%for excerpt in values%}
 <div class="card" id="{{excerpt.id}}">
-  <p id="{{excerpt.id}}">{{excerpt}}</p>
+  <p id="{{excerpt.id}}">{{excerpt.title}}: {{excerpt.section}}</p>
 </div>
  {%empty%}
 <p>bruh you gotta get that list goin</p>

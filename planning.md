@@ -60,7 +60,9 @@ Don't exist yet
 
 ### Icebox
 **As a user, I want to:**
+- set specific goals for each excerpt
 - plan and keep track of practice sessions
 - ~~see spotify / youtube web player for my audio links. ~~
-- Double stretch if it starts at the specified time. Double stretch generate a playlist on my spotify account with all these links.
+- Double stretch if it starts at the specified time. 
+- Double stretch generate a playlist on my spotify account with all these links.
 - ~~integrated metronome~~

@@ -1,23 +1,36 @@
 {%extends 'base.html'%} {%block content%}
+<div class="excerpt-nav">
 <a href="{%url 'audition_detail' excerpt.audition_id%}">
-  Back to the audition page
+  <button class='btn'>Back to the Audition page</button>
 </a>
-<div class="card">
-  <h3>{{excerpt.title}} - {{excerpt.section}}</h3>
-  {%if comp_obj%}
-  <h4>{{comp_obj.complete_name}}</h4>
-  <h6>{{comp_obj.epoch}}</h6>
-  <p>{{comp_obj.birth}} - {{comp_obj.death}}
-<img src="{{comp_obj.portrait}}" />
-{%else%}
-<h3>{{excerpt.composer}}</h3>
-{%endif%}
+
+<a href="{%url 'excerpt_update' excerpt.id%}">
+  <button class='btn edit-excerpt'>Edit excerpt details</button>
+</a>
+</div>
+<h2 class='text-center'>{{excerpt.title}}</h2>
+{%if not comp_obj%}
+<h5 class='center composer-name'>{{excerpt.composer}}</h5>
+<div class="excerpt-main"> 
+  {%else%}
+  <div class="excerpt-main"> 
+  <div class="card comp-card">
+    <h4>{{comp_obj.complete_name}}</h4>
+    <h6>{{comp_obj.epoch}}</h6>
+    <img src="{{comp_obj.portrait}}" />
+    <p>{{comp_obj.birth}} - {{comp_obj.death}}
+    </div>
+  {%endif%}
+
+  <div class="card excerpt-card">
+  <h4>{{excerpt.section}}</h4>
+  
   {% if excerpt.practiced_today %}
-  <h5>yay you practiced me today</h5>
+  <h5 class='accent-text'>Practiced today :D</h5>
   {%else%}
   <form action="{%url 'excerpt_practiced' excerpt.id%}" method="POST">
     {%csrf_token%}
-    <input type="submit" value="I practiced this today!" />
+    <input class='btn' type="submit" value="I practiced this today!" />
   </form>
   {%endif%}
   {% if excerpt.goal_tempo_type and  excerpt.goal_tempo_bpm%}
@@ -29,108 +42,108 @@
   <p>Last practiced on {{excerpt.last_practiced}}</p>
   {%endif%}
   
-  
-  <form action="{%url 'excerpt_current-tempo' excerpt.id%}" method="POST">
+  <form class='current-tempo-form' action="{%url 'excerpt_current-tempo' excerpt.id%}" method="POST">
     {%csrf_token%}
     <label for="current-tempo">Current Tempo (enter to submit)</label>
     <input type="number" id="current-tempo" name="current-tempo" value={{excerpt.current_tempo}} />
   </form>
 
-  {%for link in links%}
-  <iframe
-    style="border-radius: 12px"
-    id="embed-iframe"
-    src="{{link.url}}"
-    width="100%"
-    height="152"
-    frameborder="0"
-    allowfullscreen=""
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    loading="lazy"
-  ></iframe>
-  <p>{{link.start}}</p>
+</div>
 
-  {%empty%} 
-  <h6>Click Edit to link a recording from Spotify here</h6>
-  
-  {%endfor%}
+
+
+<div class="score-card card">
+
   {%if excerpt.score_url%}
   {%if excerpt.score_type == 'pdf'%}
   <iframe 
-  sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation"
   class='card-panel materialboxed no-click' src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true" style="width: 170px; height:220px;" frameborder="0"></iframe>
   <p>click border to expand</p>
   {%else%}
       <img class="responsive-img card-panel materialboxed" width="20%" height="auto" src="{{excerpt.score_url}}">
       {%endif%}
-{%else%}
-<div class="card-panel teal-text center-align">No Score Uploaded</div>
-{%endif%}
-    <form action="{% url 'add_score' excerpt.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+  {%else%}
+  <div class="card-panel teal-text center-align">No Score Uploaded</div>
+  {%endif%}
+    <form class='score-form'action="{% url 'add_score' excerpt.id %}" enctype="multipart/form-data" method="POST" >
       {% csrf_token %}
-      <input type="file" name="photo-file">
-      <p>Only image files (no pdfs) for now</p>
-      <br><br>
+      <input class='centered' type="file" name="photo-file">
+      <br>
       {%if excerpt.score_url%}
-      <button type="submit" class="btn">Upload New Score</button>
+      <button type="submit" class="delete-btn btn score-btn">Upload New Score</button>
       {%else%}
-      <button type="submit" class="btn">Upload Score</button>
+      <button type="submit" class="delete-btn btn score-btn">Upload Score</button>
       {%endif%}
   </form>
-
 </div>
-<a href="{%url 'excerpt_delete' excerpt.id excerpt.audition_id%}">
-  <button>X</button>
-</a>
-<a href="{%url 'excerpt_update' excerpt.id%}">
-  <button>EDIT</button>
-</a>
-<hr />
+</div>
 
 
 <hr>
-<h1>NOTES</h1>
-<div class="card">
+<hr>
+<div class="excerpt-bottom"> 
+  <div class='spotify-frame-ctr'>
+  <h3 class='recordings-title'>Recordings</h3>
+  {%for link in links%}
+  <div class='spotify-frame'>
+  <iframe
+  style="border-radius: 12px"
+  id="embed-iframe"
+  src="{{link.url}}"
+  width="100%"
+  height="100px"
+  frameborder="0"
+  allowfullscreen=""
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+  ></iframe>
+  {%if link.start%}
+  <p>Excerpt at {{link.start}}</p>
+  {%endif%}
+  </div>
+  
+  {%empty%} 
+  <h6 class="center">Edit excerpt to link Spotify recordings</h6>
+  {%endfor%}
+</div>
+
+
+<div class="card notes">
+  <h1 class="center">NOTES</h1>
   <form
     action="{%url 'note_create' excerpt.id%}"
     method="POST"
     enctype="multipart/form-data"
   >
     {% csrf_token %} {{note_form.as_p}}
-    <input type="submit" value="Add Note" />
+    <input class='btn delete-btn' type="submit" value="Add Note" />
   </form>
+  {%for note in notes%}
+  <div class="card">
+    <h4>{{note.date}}</h4>
+    <p>{{note.note}}</p>
+    <a href="{%url 'note_update' note.id%}">
+      <button>EDIT</button>
+    </a>
+    <form action="{%url 'note_delete' note.id excerpt.id%}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="X" />
+    </form>
+  </div>
+  {%endfor%} 
 </div>
-{%for note in notes%}
-<div class="card">
-  <h4>{{note.date}}</h4>
-  <p>{{note.note}}</p>
-  <a href="{%url 'note_update' note.id%}">
-    <button>EDIT</button>
-  </a>
-  <form action="{%url 'note_delete' note.id excerpt.id%}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="X" />
-  </form>
 </div>
-{%endfor%} 
+
+<a class="center" href="{%url 'excerpt_delete' excerpt.id excerpt.audition_id%}">
+  <button class="btn delete-btn">DELETE EXCERPT</button>
+</a>
+
+
 {% comment %} <button id="test-btn">test</button>
 <button id="togglePlay">test</button>
-<button id="seek">seek 30</button> {% endcomment %}
+<button id="seek">seek 30</button>
 <script> 
   testEl = document.getElementById('test-btn')
-  {% comment %} window.onSpotifyIframeApiReady = (IFrameAPI) => {
-    const element = document.getElementById('embed-iframe');
-    const options = {
-        uri: 'https://open.spotify.com/track/1eT1nYXFxxvz87hco27mgj?si=a86f28ccb8344cde'
-      };
-      const callback = (EmbedController) => {
-        testEl.addEventListener('click', ()=> EmbedController.play())
-        testEl.addEventListener('click', ()=> EmbedController.seek(20))
-        //testEl.addEventListener('click', ()=> EmbedController.togglePlay())
-      };
-      IFrameAPI.createController(element, options, callback);
-    }; {% endcomment %}
-{% comment %} 
 
   window.onSpotifyWebPlaybackSDKReady = () => {
     const token = "BQBjpvOAJjxdu_7etrYQglB65jzz08tOVDMzOaMiTMeY8R5LjlUuNKb_5-f2buzoXXBIaT7l1g2RGrjwJk6Cbt1tSVvA_c6xxlkbAlnfzN5IzwBO1_zLPNLsBWJ1VXjgNTJjGKfpcUO8aXyXcqZhPlJem9rvfUZhXJKf905jvylydWkiJvk0JNsAEI3n9rhGFkKY93GH"
@@ -139,12 +152,13 @@
       getOAuthToken: cb => { cb(token); },
       volume: 0.5
     });
-// Ready
+
+
 player.addListener('ready', ({ device_id }) => {
   console.log('Ready with Device ID', device_id);
 });
 
-// Not Ready
+
 player.addListener('not_ready', ({ device_id }) => {
   console.log('Device ID has gone offline', device_id);
 });
@@ -171,9 +185,8 @@ console.log(player)
 };
 
 player.connect();
-} {% endcomment %}
+}
 </script> 
+{% endcomment %}
 
-
-
-{%endblock%}
+{%endblock%} 

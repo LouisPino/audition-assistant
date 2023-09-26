@@ -118,15 +118,17 @@ class ExcerptUpdate(UpdateView):
       
 def excerpt_detail(request, ex_id):
     excerpt = Excerpt.objects.get(id=ex_id)
-    comp_name = excerpt.composer.split(" ")[-1]
-    res = requests.get(f'https://api.openopus.org/composer/list/search/{comp_name}.json')
+    comp_name = excerpt.composer.split("-")[-1]
+    res = requests.get(f'https://api.openopus.org/composer/list/search/{comp_name[:8]}.json')
     comp_obj = res.json()
+    print(comp_obj)
     if comp_obj['status']['success']== 'true':
        composer = comp_obj['composers'][0]
+       composer['birth'] = composer['birth'][:4]
+       composer['death'] = composer['death'][:4]
     else:
       composer = {}
     excerpt.goal_tempo_type=excerpt.get_goal_tempo_type_display()[0]
-    print(composer)
     note_form = NoteForm()
     notes = Note.objects.filter(excerpt_id=ex_id).order_by('-date')
     if excerpt.start_times:
