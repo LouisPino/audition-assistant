@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(Audition)
 admin.site.register(Excerpt)
 admin.site.register(Note)
+admin.site.register(Goal)

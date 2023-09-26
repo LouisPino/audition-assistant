@@ -243,6 +243,19 @@ def create_goal(request, aud_id):
   if form.is_valid():
     new_goal = form.save(commit=False)
     new_goal.audition_id=aud_id
+    new_goal.complete = False
     new_goal.save()
   return redirect('audition_detail', aud_id=aud_id)
     
+    
+
+def goal_complete(request, goal_id, aud_id):
+  goal = Goal.objects.get(id=goal_id)
+  goal.complete= True
+  goal.save()
+  return redirect('audition_detail', aud_id=aud_id)
+
+def clear_goals(request, aud_id):
+  Goal.objects.filter(audition_id=aud_id, complete=True).delete()
+  print('hit')
+  return redirect('audition_detail', aud_id=aud_id)

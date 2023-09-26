@@ -15,7 +15,9 @@ body {
     min-height: 100vh;
     flex-direction: column;
   }
-
+.strike{
+  text-decoration: line-through rgba(0, 0, 0, .3);
+}
   a{
     color: var(--seagreen)
   }

@@ -71,6 +71,7 @@ class Note(models.Model):
 class Goal(models.Model):
     audition= models.ForeignKey(Audition, on_delete=models.CASCADE)
     goal= models.TextField()
+    complete= models.BooleanField()
     def __str__(self):
         return f'{self.goal[:10]}...)'
     

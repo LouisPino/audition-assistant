@@ -22,8 +22,8 @@ urlpatterns = [
     path('excerpts/<int:ex_id>/add_score/', views.add_score, name='add_score'),
    
     path('goals/create/<int:aud_id>', views.create_goal, name="goal_create"),
-    # path('goals/delete/<int:pk>/<int:aud_id>', views.GoalDelete.as_view(), name="goal_delete"),
-    # path('goals/update/<int:pk>/', views.GoalUpdate.as_view(), name="goal_update"),
+    path('goals/delete/<int:aud_id>', views.clear_goals, name="clear_goals"),
+    path('goals/complete/<int:goal_id>/<int:aud_id>', views.goal_complete, name="goal_complete"),
    
     path('notes/create/<int:ex_id>', views.create_note, name="note_create"),
     path('notes/delete/<int:pk>/<int:ex_id>', views.NoteDelete.as_view(), name="note_delete"),
