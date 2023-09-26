@@ -12,6 +12,7 @@ import uuid
 import boto3
 import os
 import requests
+import re
 from .models import *
 from .forms import NoteForm
 
@@ -118,7 +119,7 @@ class ExcerptUpdate(UpdateView):
       
 def excerpt_detail(request, ex_id):
     excerpt = Excerpt.objects.get(id=ex_id)
-    comp_name = excerpt.composer.split("-")[-1]
+    comp_name = re.split(r'[ -]', excerpt.composer)[-1]
     res = requests.get(f'https://api.openopus.org/composer/list/search/{comp_name[:8]}.json')
     comp_obj = res.json()
     print(comp_obj)
