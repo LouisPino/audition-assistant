@@ -322,3 +322,67 @@ footer.page-footer{
     filter: hue-rotate(360deg);
   }
 }
+
+
+
+
+
+
+#hamburger-div {
+width: 50px;
+height: 50px;
+margin: 0 auto;
+z-index: 1;
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropbtn {
+position: relative;
+display: block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+display: none;
+position: absolute;
+left: -56px;
+background: rgba(0, 0, 0, 0.8);
+min-width: 160px;
+min-height: 100px;
+box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+border-radius: 15%;
+
+}
+
+/* Links inside the dropdown */
+.burger-link {
+display: block;
+}
+
+.burger-link-text{
+  display: block;
+  margin: 0.5em;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+.hamburger{
+  display: none;
+  width: 50px;
+  height: auto;
+  margin: 30px auto;
+}
+
+@media screen and (max-width: 650px){
+.hamburger{
+  display: block;
+}
+  .right{
+    display: none;
+  }
+
+
+}

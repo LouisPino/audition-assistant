@@ -9,7 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="icon" type="image/x-icon" href="{% static 'assets/met.jpeg'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script defer src="{% static 'scripts/materialize_script.js' %}"></script>
+    <script defer src="{% static 'scripts/materialize.js' %}"></script>
+    <script defer src="{% static 'scripts/hamburger.js' %}"></script>
     <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +37,14 @@
            {% else %}
            {% endif %}
             </ul>
+            <div class="dropbtn" id="hamburger-div">
+              <img class="hamburger" src="{% static 'assets/burger.png'%}" />
+                  <div class="dropdown-content">
+                    <a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a>
+                    <a href="{% url 'audition_index' %}">My Auditions</a>
+                  <a href="{% url 'logout' %}">Log Out</a>
+                  </div>
+                  </div>
           </div>
         </nav>
       </header>
