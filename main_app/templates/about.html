@@ -1,18 +1,45 @@
 {%extends 'base.html'%} {%block content%}
 <h1 class='text-center'>Your digital audition binder</h1>
 
+<div class="carousel carousel-slider">
+ <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/hall.jpg">
+ <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/hall2.jpg">
+ <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/keys.jpg">
+ <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/oboe.jpg">
+ <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/orchestra.jpg">
+ <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/scroll.jpg">
+ <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/sheetMusic.jpg">
+ <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/stage.jpg">
+</div>
 
 {%if user.is_authenticated%}
-
+  <h2 class='text-center'>Welcome {{user}}</h2>
 {%else%}
-<div class="login-ctr">
-<h1>
-  <a href="{% url 'signup' %}">Sign Up</a>
-</h1>
-<p class="text-center or">or</p>
-<h1>
- <a href="{% url 'login' %}">Log In</a>
-</h1>
-</div>
+  <div class="login-ctr">
+  <h1>
+    <a href="{% url 'signup' %}">Sign Up</a>
+  </h1>
+  <p class="text-center or">or</p>
+  <h1>
+  <a href="{% url 'login' %}">Log In</a>
+  </h1>
+  </div>
 {%endif%}
+
+
+
+
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems, {duration: 400});
+    setInterval(()=>{instances[0].next()} , 4000)
+  });
+
+</script>
+
 {%endblock%}

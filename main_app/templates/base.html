@@ -25,9 +25,9 @@
                 {% endif %}
             </ul>
             <ul class="right">
+              {% if user.is_authenticated %}
               <li><a class="nav-link" href="{% url 'about'%}">About Us</a></li>
               <li><a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a></li> 
-              {% if user.is_authenticated %}
              <li><a href="{% url 'audition_index' %}">My Auditions</a></li>
              <li><a href="{% url 'logout' %}">Log Out</a></li> 
            {% else %}

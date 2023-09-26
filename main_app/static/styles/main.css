@@ -41,14 +41,6 @@ body {
     font-family: 'Parisienne', cursive;
   }
 
-  .login-ctr{
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-
   .or{
     margin-top: 32px;
   }
@@ -223,6 +215,21 @@ display: flex;
   text-align: center;
 }
 
+.carousel-item{
+  width: 80vw;
+  height: auto;
+  margin-top: 30px;
+}
+
+
+.login-ctr{
+  display: flex;
+  flex-direction: row;
+  align-items:center ;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 
 @media screen and (max-width: 450px){
 .index-category{
@@ -261,5 +268,9 @@ footer.page-footer{
 @media screen and (max-width: 850px){
   .goals-title{
     font-size: 2rem;
+  }
+  .login-ctr{
+    flex-direction: column;
+    margin-bottom: 20px;;
   }
 }
