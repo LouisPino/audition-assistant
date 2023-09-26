@@ -21,7 +21,9 @@
     <header class="navbar-fixed">
         <nav>
           <div class="nav-wrapper">
+            <div>
             <a href="{% url 'about'%}" class="brand-logo" id="brand-logo">Audition Assistant</a>
+            </div>
             {% if user.is_authenticated %}
             <ul class="right-nav">
               {% comment %} <li><a class="nav-link" href="{% url 'about'%}">About Us</a></li> {% endcomment %}
@@ -42,7 +44,7 @@
         <div class="dropdown-content">
           <a href="#" id="sidenav-btn2" class="burger-link-text" data-target="slide-out">Metronome</a>
           <a href="{% url 'audition_index' %}" class="burger-link-text">My Auditions</a>
-        <a href="{% url 'logout' %}" class="burger-link-text">Log Out</a>
+        <a href="{% url 'logout' %}" class="burger-link-text" >Log Out</a>
         </div>
         </div>
         {% endif %}

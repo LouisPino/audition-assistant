@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Grandiflora+One&family=Lobster&family=Parisienne&display=swap');
 
 *{
-  /* border: 1px solid red; */
+  border: 1px solid red;
   font-family: 'Grandiflora One', serif;
 
 }
@@ -44,11 +44,13 @@ body {
   }
   nav{
     background-color: var(--couchyellow);
+    position: relative;
   }
 
 .nav-wrapper{
 display: flex;
-justify-content: end;
+justify-content: space-between;
+width: 100%;
 }
 
   footer.page-footer{
@@ -60,7 +62,10 @@ justify-content: end;
   #brand-logo{
     font-family: 'Parisienne', cursive;
     display: block;
-    width: 95%;
+    width: fit-content;
+    position: relative;
+    margin-left: 20px;
+
   }
 
   .right-nav{
@@ -397,7 +402,7 @@ display: block;
   margin: 0 auto;
 }
 .hamburger{
-margin-top: 20px;
+margin: 20px auto;
 }
 .right-nav{
     display: none;
@@ -406,6 +411,8 @@ margin-top: 20px;
 #brand-logo{
   display: block;
   text-align: center;
+width: 100vw;
+margin: 0;
 }
 
 }
