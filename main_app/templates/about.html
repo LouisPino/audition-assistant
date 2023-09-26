@@ -1,8 +1,8 @@
 {%extends 'base.html'%} {%block content%}
-<h1 class='text-center'>Your digital audition binder</h1>
+<h1 class='text-center'>Your online audition binder</h1>
 
 {%if user.is_authenticated%}
-  <h2 class='text-center'>Welcome {{user}}</h2>
+  <h2 class='text-center'>Welcome <span class="teal-text bold">{{user|title}}</span></h2>
 {%endif%}  
 
 <div class="carousel carousel-slider">
@@ -21,7 +21,7 @@
   <h1>
     <a href="{% url 'signup' %}">Sign Up</a>
   </h1>
-  <p class="text-center or">or</p>
+  <p class="text-center or bold">or</p>
   <h1>
   <a href="{% url 'login' %}">Log In</a>
   </h1>
@@ -29,7 +29,7 @@
 {%endif%}
 
 
-<div class='about'>
+<div class='about bold'>
 <h2 class='text-center'>About Us </h2>
 <div class='card'>
 <p class='about-text'>

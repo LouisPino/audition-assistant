@@ -90,7 +90,7 @@ class AuditionDelete(DeleteView):
   
 class ExcerptCreate(CreateView):
     model= Excerpt
-    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_type", "goal_tempo_bpm", 'audio_links', 'start_times']
+    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_bpm", 'audio_links', 'start_times']
     
     def form_valid(self, form):
       form.instance.audition_id=self.kwargs.get('aud_id')
@@ -111,7 +111,7 @@ class ExcerptDelete(DeleteView):
     
 class ExcerptUpdate(UpdateView):
     model= Excerpt
-    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_type", "goal_tempo_bpm", "current_tempo", 'audio_links', 'start_times']
+    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_bpm", "current_tempo", 'audio_links', 'start_times']
     
     def form_valid(self, form):
         super().form_valid(form)
@@ -131,7 +131,6 @@ def excerpt_detail(request, ex_id):
         composer['death'] = composer['death'][:4]
     else:
       composer = {}
-    excerpt.goal_tempo_type=excerpt.get_goal_tempo_type_display()[0]
     note_form = NoteForm()
     notes = Note.objects.filter(excerpt_id=ex_id).order_by('-date')
     if excerpt.start_times:

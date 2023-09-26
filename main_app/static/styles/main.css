@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Grandiflora+One&family=Lobster&family=Parisienne&display=swap');
 
-
 *{
   /* border: 1px solid red; */
   font-family: 'Grandiflora One', serif;
+
 }
 :root {
   --seagreen: rgb(56,	158,	143	);
@@ -39,6 +39,7 @@ body {
 
   .brand-logo{
     font-family: 'Parisienne', cursive;
+    margin-left: 20px;
   }
 .about{
   background-color: var(--seagreen);
@@ -263,7 +264,13 @@ display: flex;
 .audition-btns *{
   margin-bottom: 6px;
 }
+.about{
+  padding: 0;
+}
 
+.about>.card{
+  width: 90%;
+}
 
 
 footer.page-footer{

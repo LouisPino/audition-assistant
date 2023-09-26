@@ -7,12 +7,6 @@ from django import forms
 
 # Create your models here.
 
-TEMPO_TYPES = (
-  ('E', '♪ (eighth)'),
-  ('Q', '♩ (quarter)'),
-  ('H', '(half)'),
-  ('W', '(whole)')
-)
 
 
 class Audition(models.Model):
@@ -20,7 +14,6 @@ class Audition(models.Model):
     location= models.CharField(max_length=100)
     date= models.DateField()
     user= models.ForeignKey(User, on_delete=models.CASCADE)
-    # instruments= ArrayField(models.CharField(max_length=50), size= 55)
     def __str__(self):
         return f'{self.orchestra[:10]}'
     
@@ -38,7 +31,6 @@ class Excerpt(models.Model):
     title= models.CharField(max_length=100)
     composer= models.CharField(max_length=100)
     instrument= models.CharField(max_length=100, null=True, blank=True)
-    goal_tempo_type = models.CharField(max_length=1, choices=TEMPO_TYPES, default='Q')
     goal_tempo_bpm= models.IntegerField(null=True, blank=True)
     section = models.CharField(max_length=100)
     current_tempo = models.IntegerField(null=True, blank=True, )
