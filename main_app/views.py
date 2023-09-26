@@ -18,7 +18,7 @@ from .forms import NoteForm, GoalForm
 
 
 def auditions(request):
-   auditions = Audition.objects.all().order_by('-date')
+   auditions = Audition.objects.filter(user_id=request.user.id).order_by('-date')
    upcoming_auditions = []
    previous_auditions = []
    for audition in auditions:
@@ -49,7 +49,7 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('index')
+      return redirect('audition_index')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
@@ -147,11 +147,13 @@ def excerpt_detail(request, ex_id):
     
     link_objs =[]
     for idx, link in enumerate(links):
+      start_sec = int(start_times[idx].split(':')[0])*60 + int(start_times[idx].split(':')[1]) if len(start_times) > idx else ""
       link_objs.append({
         'url': link,
-        'start': start_times[idx] if len(start_times) > idx else ""
+        'start': start_sec,
+        'start_display': start_times[idx] if len(start_times) > idx else ""
       })
-    return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': link_objs, 'comp_obj': composer})
+    return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': link_objs, 'comp_obj': composer,})
   
 
 def create_note(request, ex_id):
@@ -206,6 +208,7 @@ def import_multiple(request, aud_id):
   for excerpt in excerpts:
     excerpt.pk = None
     excerpt.audition_id = aud_id
+    excerpt.current_tempo = 0
     excerpt.save()
 
   return redirect('audition_detail', aud_id=aud_id)

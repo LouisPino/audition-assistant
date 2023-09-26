@@ -93,7 +93,7 @@
     <iframe width="80%" height="100" src="{{link.url}}?start={{link.start}}" start='100'title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   
     {%if link.start%}
-  <p>Excerpt at {{link.start}}</p>
+  <p>Excerpt at {{link.start_display}}</p>
   {%endif%}
   </div>
   
@@ -132,56 +132,5 @@
 <a class="center" href="{%url 'excerpt_delete' excerpt.id excerpt.audition_id%}">
   <button class="btn delete-btn">DELETE EXCERPT</button>
 </a>
-
-
-{% comment %} <button id="test-btn">test</button>
-<button id="togglePlay">test</button>
-<button id="seek">seek 30</button>
-<script> 
-  testEl = document.getElementById('test-btn')
-
-  window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = "BQBjpvOAJjxdu_7etrYQglB65jzz08tOVDMzOaMiTMeY8R5LjlUuNKb_5-f2buzoXXBIaT7l1g2RGrjwJk6Cbt1tSVvA_c6xxlkbAlnfzN5IzwBO1_zLPNLsBWJ1VXjgNTJjGKfpcUO8aXyXcqZhPlJem9rvfUZhXJKf905jvylydWkiJvk0JNsAEI3n9rhGFkKY93GH"
-    const player = new Spotify.Player({
-      name: 'Audition Assistant',
-      getOAuthToken: cb => { cb(token); },
-      volume: 0.5
-    });
-
-
-player.addListener('ready', ({ device_id }) => {
-  console.log('Ready with Device ID', device_id);
-});
-
-
-player.addListener('not_ready', ({ device_id }) => {
-  console.log('Device ID has gone offline', device_id);
-});
-
-player.addListener('initialization_error', ({ message }) => {
-  console.error(message);
-});
-
-player.addListener('authentication_error', ({ message }) => {
-  console.error(message);
-});
-
-player.addListener('account_error', ({ message }) => {
-  console.error(message);
-});
-
-document.getElementById('togglePlay').onclick = function() {
-console.log(player)
-  player.togglePlay();
-};
-document.getElementById('seek').onclick = function() {
-console.log(player)
-  player.seek(30000);
-};
-
-player.connect();
-}
-</script> 
-{% endcomment %}
 
 {%endblock%} 

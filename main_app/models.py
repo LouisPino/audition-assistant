@@ -41,9 +41,9 @@ class Excerpt(models.Model):
     goal_tempo_type = models.CharField(max_length=1, choices=TEMPO_TYPES, default='Q')
     goal_tempo_bpm= models.IntegerField(null=True, blank=True)
     section = models.CharField(max_length=100)
-    current_tempo = models.IntegerField(null=True, blank=True)
+    current_tempo = models.IntegerField(null=True, blank=True, )
     audio_links = models.TextField( null=True, blank=True, verbose_name='Spotify Links', help_text="separate by commas")
-    start_times =models.CharField(null=True, blank=True, verbose_name='excerpt time', help_text="in seconds (2 minutes is 120), in same order as links separated by commas")
+    start_times =models.CharField(null=True, blank=True, verbose_name='excerpt time (mm:ss)', help_text="separated by commas in same order as links above, ")
     last_practiced = models.DateField(null=True, blank=True)
     audition = models.ForeignKey(Audition, on_delete=models.CASCADE)
     score_url = models.CharField(max_length=200)
@@ -83,4 +83,3 @@ class Goal(models.Model):
     
     def get_absolute_url(self):
         return reverse('audition_detail', kwargs={"aud_id": self.audition_id})
-
