@@ -1,6 +1,10 @@
 {%extends 'base.html'%} {%block content%}
 <h1 class='text-center'>Your digital audition binder</h1>
 
+{%if user.is_authenticated%}
+  <h2 class='text-center'>Welcome {{user}}</h2>
+{%endif%}  
+
 <div class="carousel carousel-slider">
  <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/hall.jpg">
  <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/hall2.jpg">
@@ -12,9 +16,7 @@
  <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/stage.jpg">
 </div>
 
-{%if user.is_authenticated%}
-  <h2 class='text-center'>Welcome {{user}}</h2>
-{%else%}
+{%if not user.is_authenticated%}
   <div class="login-ctr">
   <h1>
     <a href="{% url 'signup' %}">Sign Up</a>
@@ -27,10 +29,24 @@
 {%endif%}
 
 
-
-
-
-
+<div class='about'>
+<h2 class='text-center'>About Us </h2>
+<div class='card'>
+<p class='about-text'>
+  Welcome to Audition Assistant, where your pursuit of musical excellence finds its most valuable ally! Crafted with precision and a deep understanding of musicians’ needs, our platform is a comprehensive audition planner and practice journal, designed to elevate every artist’s preparation journey.
+<br><br>
+  At the heart of Audition Assistant is the commitment to streamline your practice sessions. With our platform, you can effortlessly organize all your audition materials in one centralized, secure location. Say goodbye to scattered notes and disorganized sheets, and embrace a world where focus and clarity reign!
+  <br><br>
+  Our unique feature is a growing library of previously added excerpts, accessible to all users. This treasure trove not only saves your precious time in inputting excerpts but also offers a wealth of material at your fingertips. Explore diverse pieces, expand your repertoire, and find inspiration in the variety and richness of compositions available.
+  <br><br>
+  Detail-oriented and user-friendly, Audition Assistant allows you to maintain thorough notes on each excerpt’s progress. Track your improvement, pinpoint areas that need polish, and revisit your reflections anytime. This personalized approach ensures that every practice session is meaningful and contributes to your continual growth as an artist.
+  <br><br>
+  Audition Assistant’s customizable features empower you to tailor your experience to fit your individual journey and goals. The intuitive interface guarantees smooth navigation, making your time with us as enjoyable as it is productive.
+  <br><br>
+  Join us at Audition Assistant, where every musician finds the tools to turn each audition piece into a symphonic success story! Let your performance resonate with the meticulous preparation and passionate practice nurtured here.
+</p>
+</div>
+</div>
 
 
 <script>
