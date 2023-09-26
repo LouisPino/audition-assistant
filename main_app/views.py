@@ -140,7 +140,8 @@ def excerpt_detail(request, ex_id):
       start_times = []
     if excerpt.audio_links:
       excerpt_links = excerpt.audio_links.split(',')
-      links = map(lambda link: f"https://open.spotify.com/embed/track/{link.split('/')[4]}?utm_source=generator", excerpt_links )
+      links = map(lambda link: 
+        f"https://www.youtube.com/embed/{re.split(r'[=&]', link)[1]}", excerpt_links )
     else:
       links = []
     

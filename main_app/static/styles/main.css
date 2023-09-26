@@ -76,6 +76,10 @@ body {
   align-items: center;
 }
 
+.audition-excerpt-ctr{
+ min-width: 60%;
+}
+
 .score-card, .comp-card, .excerpt-card{
   width: fit-content;
   display: flex;

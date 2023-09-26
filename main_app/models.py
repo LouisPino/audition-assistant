@@ -43,7 +43,7 @@ class Excerpt(models.Model):
     section = models.CharField(max_length=100)
     current_tempo = models.IntegerField(null=True, blank=True)
     audio_links = models.TextField( null=True, blank=True, verbose_name='Spotify Links', help_text="separate by commas")
-    start_times =models.CharField(null=True, blank=True, verbose_name='excerpt time', help_text="in same order as links")
+    start_times =models.CharField(null=True, blank=True, verbose_name='excerpt time', help_text="in seconds (2 minutes is 120), in same order as links separated by commas")
     last_practiced = models.DateField(null=True, blank=True)
     audition = models.ForeignKey(Audition, on_delete=models.CASCADE)
     score_url = models.CharField(max_length=200)
