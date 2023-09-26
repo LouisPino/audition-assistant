@@ -18,7 +18,8 @@
 
 
  <hr>
-
+<div class='audition-main'>
+    <div class='auditin-excerpt-ctr'>
     {% for key, values  in excerpt_objs.items %}
     <h2 class='instrument-title'>{{key}}</h2>
     <div class="excerpt-teaser-ctr text-center">
@@ -35,9 +36,9 @@
     <p>bruh you gotta get that list goin</p>
     {%endfor%} 
 
-
-    <div class="card">
-        <h1 class="center goals text-center">GOALS</h1>
+</div>
+    <div class="card goals">
+        <h1 class="center goals-title text-center">GOALS</h1>
         <form
           action="{%url 'goal_create' audition.id%}"
           method="POST"
@@ -63,6 +64,7 @@
     <a href="{%url 'clear_goals' audition.id%}">
     <button class='btn delete-btn'>Clear Completed Goals</button>
     </a>
+</div>
 </div>
 
 <a href="{%url 'audition_delete' audition.id%}">

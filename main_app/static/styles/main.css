@@ -190,6 +190,7 @@ text-align: center;
 .excerpt-teaser-ctr{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .accent-text{
@@ -203,6 +204,20 @@ text-align: center;
 .edit-excerpt, .back-to-audition{
   margin-top: 10px;
 }
+
+.audition-main{
+display: flex;
+}
+
+.goals{
+  width: 30%;
+  height: fit-content
+}
+
+.instrument-title{
+  text-decoration: underline 2px;
+}
+
 
 @media screen and (max-width: 450px){
 .index-category{
@@ -236,4 +251,10 @@ footer.page-footer{
   text-align: center;
 }
 
+}
+
+@media screen and (max-width: 850px){
+  .goals-title{
+    font-size: 2rem;
+  }
 }
