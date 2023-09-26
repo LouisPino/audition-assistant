@@ -17,7 +17,11 @@ M.FormSelect.init(selectEl);
   var sidenav = document.querySelectorAll('.sidenav');
   var sidenavInstances = M.Sidenav.init(sidenav, {'edge': 'right'});
   const click = document.getElementById("sidenav-btn") 
+  const click2 = document.getElementById("sidenav-btn2") 
   click.addEventListener("click", function(){
+    sidenavInstances[0].open()
+  })
+  click2.addEventListener("click", function(){
     sidenavInstances[0].open()
   })
 

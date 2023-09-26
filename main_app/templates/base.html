@@ -22,29 +22,26 @@
         <nav>
           <div class="nav-wrapper">
             <ul>
-                {% if user.is_authenticated %}
-              {% comment %} <li><a href="{% url 'audition_index'%}" class="left brand-logo">Audition Assistant</a></li> {% endcomment %}
               <li><a href="{% url 'about'%}" class="left brand-logo">Audition Assistant</a></li>
-                {% else %}
-                {% endif %}
             </ul>
-            <ul class="right">
+            <ul class="right right-nav">
               {% if user.is_authenticated %}
               {% comment %} <li><a class="nav-link" href="{% url 'about'%}">About Us</a></li> {% endcomment %}
               <li><a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a></li> 
              <li><a href="{% url 'audition_index' %}">My Auditions</a></li>
              <li><a href="{% url 'logout' %}">Log Out</a></li> 
-           {% else %}
            {% endif %}
             </ul>
+            {% if user.is_authenticated %}
             <div class="dropbtn" id="hamburger-div">
               <img class="hamburger" src="{% static 'assets/burger.png'%}" />
                   <div class="dropdown-content">
-                    <a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a>
+                    <a href="#" id="sidenav-btn2" data-target="slide-out">Metronome</a>
                     <a href="{% url 'audition_index' %}">My Auditions</a>
                   <a href="{% url 'logout' %}">Log Out</a>
                   </div>
                   </div>
+                  {% endif %}
           </div>
         </nav>
       </header>

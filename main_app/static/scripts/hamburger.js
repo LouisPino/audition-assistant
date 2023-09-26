@@ -4,12 +4,12 @@ hamburgerEl.addEventListener("click", showBurger)
 
 
 function showBurger() {
-    if (dropbtnContentEl.style.display === "block") {
-      dropbtnContentEl.style.display = "none";
-      console.log('hit11')
+    if (dropbtnContentEl.style.display) {
+
+        console.log(dropbtnContentEl.style.display) 
     } else {
         dropbtnContentEl.style.display = "block";
-        console.log('hit')
+        console.log(dropbtnContentEl.style.display) 
     }
   }
 

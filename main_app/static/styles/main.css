@@ -332,7 +332,6 @@ footer.page-footer{
 width: 50px;
 height: 50px;
 margin: 0 auto;
-z-index: 1;
 }
 
 
@@ -352,7 +351,7 @@ min-width: 160px;
 min-height: 100px;
 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 border-radius: 15%;
-
+z-index: 10000;
 }
 
 /* Links inside the dropdown */
@@ -366,6 +365,7 @@ display: block;
   text-align: center;
   font-size: 24px;
   font-weight: bold;
+  color: #bcc3ff;
 }
 
 
@@ -380,9 +380,8 @@ display: block;
 .hamburger{
   display: block;
 }
-  .right{
+
+.right-nav{
     display: none;
-  }
-
-
+}
 }
