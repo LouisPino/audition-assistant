@@ -122,7 +122,6 @@ def excerpt_detail(request, ex_id):
     comp_name = re.split(r'[ -]', excerpt.composer)[-1]
     res = requests.get(f'https://api.openopus.org/composer/list/search/{comp_name[:8]}.json')
     comp_obj = res.json()
-    print(comp_obj)
     if comp_obj['status']['success']== 'true':
        composer = comp_obj['composers'][0]
        composer['birth'] = composer['birth'][:4]

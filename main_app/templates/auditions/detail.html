@@ -1,26 +1,27 @@
 {%extends 'base.html'%}
 {%block content%}
-<div class="card">
-    <h2>{{audition.orchestra}}</h2>
+<div class="card audition-info">
+    <h2 class='teal-text bold'>{{audition.orchestra}}</h2>
     <h4>{{audition.date}}</h4>
     <h6>{{audition.location}}</h6>
 
 </div>
-
+<div class="audition-btns">
 <a href="{%url 'audition_update' audition.id%}">
     <button class='btn'>EDIT AUDITION DETAILS</button>
 </a>
 
-
-
 <a href="{%url 'excerpt_create' audition.id%}">
     <button class='btn'>ADD AN EXCERPT</button>
 </a>
+</div>
+
+
  <hr>
 
     {% for key, values  in excerpt_objs.items %}
-    <h2>{{key}}</h2>
-    <div class="excerpt-teaser-ctr">
+    <h2 class='instrument-title'>{{key}}</h2>
+    <div class="excerpt-teaser-ctr text-center">
 {%for excerpt in values%}
 <a href="{%url 'excerpt_detail' excerpt.id%}">
     <div class="card excerpt-teaser">

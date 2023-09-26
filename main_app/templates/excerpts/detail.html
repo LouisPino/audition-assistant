@@ -1,21 +1,21 @@
 {%extends 'base.html'%} {%block content%}
 <div class="excerpt-nav">
 <a href="{%url 'audition_detail' excerpt.audition_id%}">
-  <button class='btn'>Back to the Audition page</button>
+  <button class='btn back-to-audition'>Back to the Audition page</button>
 </a>
 
 <a href="{%url 'excerpt_update' excerpt.id%}">
   <button class='btn edit-excerpt'>Edit excerpt details</button>
 </a>
 </div>
-<h2 class='text-center'>{{excerpt.title}}</h2>
+<h2 class='text-center excerpt-title'>{{excerpt.title}}</h2>
 {%if not comp_obj%}
 <h5 class='center composer-name'>{{excerpt.composer}}</h5>
 <div class="excerpt-main"> 
   {%else%}
   <div class="excerpt-main"> 
   <div class="card comp-card">
-    <h4>{{comp_obj.complete_name}}</h4>
+    <h4 class='text-center'>{{comp_obj.complete_name}}</h4>
     <h6>{{comp_obj.epoch}}</h6>
     <img src="{{comp_obj.portrait}}" />
     <p>{{comp_obj.birth}} - {{comp_obj.death}}
@@ -23,7 +23,7 @@
   {%endif%}
 
   <div class="card excerpt-card">
-  <h4>{{excerpt.section}}</h4>
+  <h4>Section: {{excerpt.section}}</h4>
   
   {% if excerpt.practiced_today %}
   <h5 class='accent-text'>Practiced today :D</h5>
@@ -34,9 +34,9 @@
   </form>
   {%endif%}
   {% if excerpt.goal_tempo_type and  excerpt.goal_tempo_bpm%}
-  <p>Goal Tempo: {{excerpt.goal_tempo_bpm}}</p>
+  <h4>Goal Tempo: {{excerpt.goal_tempo_bpm}}</h4>
   {%else%}
-  <p>No goal tempo set yet :(</p>
+  <h4>No goal tempo set yet :(</h4>
   {%endif%}
   {%if excerpt.last_practiced and not excerpt.practiced_today%}
   <p>Last practiced on {{excerpt.last_practiced}}</p>

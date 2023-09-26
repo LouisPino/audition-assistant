@@ -1,7 +1,7 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<h1>UPCOMING</h1>
+<h1 class='index-category'>UPCOMING</h1>
 {% for audition in upcoming_auditions %}
 <a href={%url 'audition_detail' audition.id%}>
 <div class="card">
@@ -11,7 +11,7 @@
 {%empty%}
 <h2>No upcoming auditions!</h2>
 {%endfor%}
-<h1>PREVIOUS</h1>
+<h1 class='index-category'>PREVIOUS</h1>
 {% for audition in previous_auditions %}
 <a href={%url 'audition_detail' audition.id%}>
 <div class="card">
