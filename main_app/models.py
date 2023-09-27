@@ -94,8 +94,8 @@ class JournalEntry(models.Model):
 
 class JournalTask(models.Model):
     entry = models.ForeignKey(JournalEntry, on_delete=models.CASCADE)
-    task = models.TextField()
-    time = models.IntegerField(verbose_name='Minutes', null=True, blank=True)
+    task = models.TextField(verbose_name='What did you practice?')
+    time = models.IntegerField(verbose_name='How many minutes', null=True, blank=True)
     completed = models.BooleanField(default = False)
     
     def get_absolute_url(self):

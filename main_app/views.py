@@ -330,3 +330,10 @@ def entry_update(request, ent_id):
 class EntryDelete(DeleteView):
   model= JournalEntry
   success_url = '/journal'
+  
+  
+def task_complete(request, task_id, ent_id):
+  task = JournalTask.objects.get(id=task_id)
+  task.completed= True
+  task.save()
+  return redirect('entry_detail', ent_id=ent_id)

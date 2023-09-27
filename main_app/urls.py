@@ -35,6 +35,7 @@ urlpatterns = [
     path('journal/update/<int:ent_id>', views.entry_update, name="entry_update"),
     path('journal/<int:ent_id>', views.entry_detail, name="entry_detail"),
     path('journal/delete/<int:pk>', views.EntryDelete.as_view(), name="entry_delete"),
+    path('journal/complete-task/<int:task_id>/<int:ent_id>', views.task_complete, name="task_complete"),
     
     path('accounts/signup/', views.signup, name='signup'),
 ]
