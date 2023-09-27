@@ -2,10 +2,14 @@
 {%block content%} 
 {%for entry in entries%}
 <a href={%url 'entry_detail' entry.id%}>
+<div class="card">
 <h1>{{entry.date}}</h1>
+</div>
 </a>
 {%empty%}
+<div class="card">
 <h1>No entries yet!</h1>
+</div>
 {%endfor%}
 <a class="center" href='{%url "entry_create"%}'>
     <button class="btn delete-btn">Add journal entry</button>

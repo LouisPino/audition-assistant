@@ -120,13 +120,14 @@
     <input class='btn delete-btn' type="submit" value="Add Note" />
   </form>
   {%for note in notes%}
-  <div class="card">
+  <div class="card note-card">
+    <div>
     <h4>{{note.date}}</h4>
     <p>{{note.note}}</p>
-
+    </div>
     <form action="{%url 'note_delete' note.id excerpt.id%}" method="POST">
       {% csrf_token %}
-      <input type="submit" value="X" />
+      <input type="submit" class = 'btn'value="X" />
     </form>
   </div>
   {%endfor%} 

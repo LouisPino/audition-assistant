@@ -186,6 +186,12 @@ text-align: center;
   min-width: 350px;
 }
 
+.note-card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .excerpt-bottom{
   display: flex;
   justify-content: space-evenly;

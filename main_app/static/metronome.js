@@ -49,11 +49,6 @@ const plusTenEl = document.querySelector(".plus-ten");
 const minusFiveEl = document.querySelector(".minus-five");
 const plusFiveEl = document.querySelector(".plus-five");
 const subBtnEls = document.querySelectorAll(".sub-btn");
-
-subBtnEls.forEach(function(subBtnEl){
-  console.log(subBtnEl.getAttribute('divisor'))
-})
-
 ///////Constants
 const clickSound = new Audio("../static/assets/clave.wav");
 
@@ -116,19 +111,19 @@ function stop() {
   clearInterval(metLoop);
 }
 
-function keyPress(e){
-    if(!running){
-    if(e.code === 'Enter' || e.code === 'Space'){
-        e.preventDefault()
-        start()
-    }
-}else{
-    if(e.code === 'Enter' || e.code === 'Space'){
-        e.preventDefault()
-        stop()
-    }
-}
-}
+// function keyPress(e){
+//     if(!running){
+//     if(e.code === 'Enter' || e.code === 'Space'){
+//         e.preventDefault()
+//         start()
+//     }
+// }else{
+//     if(e.code === 'Enter' || e.code === 'Space'){
+//         e.preventDefault()
+//         stop()
+//     }
+// }
+// }
 
 
 /////change tempo
@@ -183,7 +178,6 @@ function inputTempo(e) {
 ////////random 
 function likelihoodChange(e){
     likelihood = e.target.value/100
-    console.log(likelihood)
 }
 
 function randomToggle(){
