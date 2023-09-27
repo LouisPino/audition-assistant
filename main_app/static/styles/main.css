@@ -181,7 +181,7 @@ text-align: center;
   text-align: center;
 }
 
-.notes{
+s{
   width: 45%;
   min-width: 350px;
 }
@@ -257,6 +257,16 @@ display: flex;
 .goals{
   width: 30%;
   height: fit-content
+}
+
+.goal-card{
+display: flex;
+align-items: center;
+}
+
+.goal-complete-btn{
+padding: 0;
+width: 20px;
 }
 
 .orch-title{

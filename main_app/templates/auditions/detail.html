@@ -49,13 +49,13 @@
           <input class='btn delete-btn' type="submit" value="Add Goal" />
         </form>
         {%for goal in goals%}
-        <div class="card">
+        <div class="card goal-card">
         {%if goal.complete%}
           <h6 class='strike'>{{goal.goal}}</h6>
           {%else%}
           <h6>{{goal.goal}}</h6>
           <a href="{%url 'goal_complete' goal.id audition.id%}">
-            <button>✓</button>
+            <button class='btn goal-complete-btn'>✓</button>
           </a>
           {%endif%}
         </div>
