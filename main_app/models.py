@@ -34,8 +34,6 @@ class Excerpt(models.Model):
     goal_tempo_bpm= models.IntegerField(null=True, blank=True)
     section = models.CharField(max_length=100)
     current_tempo = models.IntegerField(null=True, blank=True, )
-    audio_links = models.CharField( null=True, blank=True, verbose_name='Youtube Link')
-    start_times =models.CharField(null=True, blank=True, verbose_name='excerpt time (mm:ss)')
     last_practiced = models.DateField(null=True, blank=True)
     audition = models.ForeignKey(Audition, on_delete=models.CASCADE)
     score_url = models.CharField(max_length=200)
@@ -75,3 +73,12 @@ class Goal(models.Model):
     
     def get_absolute_url(self):
         return reverse('audition_detail', kwargs={"aud_id": self.audition_id})
+    
+    
+class Link(models.Model):
+    audio_link = models.CharField( null=True, blank=True, verbose_name='Youtube Link')
+    start_time =models.CharField(null=True, blank=True, verbose_name='excerpt time (mm:ss)')
+    excerpt = models.ForeignKey(Excerpt, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("excerpt_detail", kwargs={"ex_id": self.kwargs['ex_id']})
