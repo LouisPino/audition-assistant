@@ -4,7 +4,7 @@
 <h2>{{key}}</h2>
 {%for excerpt in values%}
 <div class="card" id="{{excerpt.id}}">
-  <p id="{{excerpt.id}}">{{excerpt.title}}: {{excerpt.section}}</p>
+  <p id="{{excerpt.id}}" class='no-click'>{{excerpt.title}}: {{excerpt.section}}</p>
 </div>
  {%empty%}
 <p>bruh you gotta get that list goin</p>
@@ -22,19 +22,19 @@ let add_exes = []
 const exCardEls = document.querySelectorAll(".card");
 const exListEl = document.getElementById("ex_list");
 function cardClick(e) {
-      console.log("hit");
+  console.log(e.target)
       if (add_exes.includes(e.target.id)){
           add_exes.splice(add_exes.findIndex((el)=>{el === e.target.id}), 1)
-          e.target.style.backgroundColor = 'initial'
+          e.target.style.backgroundColor = 'white'
         }else{
             add_exes.push(e.target.id)
             e.target.style.backgroundColor = 'var(--seagreen)'
             exListEl.value = add_exes.join(',')
-            console.log(exListEl)
         }
   }
 
   for (el of exCardEls) {
+    console.log(el)
     el.addEventListener("click", cardClick);
   }
 </script>

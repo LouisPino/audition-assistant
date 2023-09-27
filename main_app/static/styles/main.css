@@ -278,6 +278,10 @@ display: flex;
 }
 
 
+.no-click{
+  pointer-events: none;
+}
+
 @media screen and (max-width: 450px){
 .index-category{
   text-align: center;

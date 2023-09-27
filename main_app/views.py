@@ -190,7 +190,8 @@ def excerpt_current_tempo(request, ex_id):
   return redirect('excerpt_detail', ex_id=ex_id)
 
 def add_multiple(request, aud_id):
-  excerpts = Excerpt.objects.filter(~Q(audition_id=aud_id)).distinct("title", 'section')
+  audition = Audition.objects.get(id=aud_id)
+  excerpts = Excerpt.objects.filter(~Q(audition_id=aud_id), ~Q(section__in=audition.excerpt_set.all().values('section'))).distinct("title", 'section')
   excerpt_objs = {}
   for excerpt in excerpts:
       if excerpt.instrument in excerpt_objs.keys():
