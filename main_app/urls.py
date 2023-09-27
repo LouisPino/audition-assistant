@@ -20,6 +20,7 @@ urlpatterns = [
     path('excerpts/<int:ex_id>/practiced', views.excerpt_practiced, name="excerpt_practiced"),
     path('excerpts/<int:ex_id>/current-tempo', views.excerpt_current_tempo, name="excerpt_current-tempo"),
     path('excerpts/<int:ex_id>/add_score/', views.add_score, name='add_score'),
+    path('excerpts/<int:ex_id>/add_links/', views.add_links, name='add_links'),
    
     path('goals/create/<int:aud_id>', views.create_goal, name="goal_create"),
     path('goals/delete/<int:aud_id>', views.clear_goals, name="clear_goals"),

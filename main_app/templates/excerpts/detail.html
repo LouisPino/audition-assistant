@@ -61,7 +61,7 @@
   {%if excerpt.score_url%}
   {%if excerpt.score_type == 'pdf'%}
   <iframe 
-  class='card-panel materialboxed no-click' src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true" style="width: 170px; height:220px;" frameborder="0"></iframe>
+  class='card-panel materialboxed' src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true" style="width: 170px; height:220px;" frameborder="0"></iframe>
   <p>click border to expand</p>
   {%else%}
       <img class="responsive-img card-panel materialboxed" width="20%" height="auto" src="{{excerpt.score_url}}">
@@ -96,10 +96,11 @@
   <p>Excerpt at {{link.start_display}}</p>
   {%endif%}
   </div>
-  
   {%empty%} 
-  <h6 class="center">Edit excerpt to link Spotify recordings</h6>
   {%endfor%}
+  <a class="center" href='{%url "add_links" excerpt.id%}'>
+    <button class="btn delete-btn">Add YouTube Links</button>
+  </a>
 </div>
 
 
@@ -117,9 +118,7 @@
   <div class="card">
     <h4>{{note.date}}</h4>
     <p>{{note.note}}</p>
-    <a href="{%url 'note_update' note.id%}">
-      <button>EDIT</button>
-    </a>
+
     <form action="{%url 'note_delete' note.id excerpt.id%}" method="POST">
       {% csrf_token %}
       <input type="submit" value="X" />

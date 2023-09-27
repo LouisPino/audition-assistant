@@ -13,7 +13,7 @@ import os
 import requests
 import re
 from .models import *
-from .forms import NoteForm, GoalForm
+from .forms import NoteForm, GoalForm, LinkForm
 
 @login_required
 def auditions(request):
@@ -90,7 +90,7 @@ class AuditionDelete(LoginRequiredMixin, DeleteView):
   
 class ExcerptCreate(LoginRequiredMixin, CreateView):
     model= Excerpt
-    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_bpm", 'audio_links', 'start_times']
+    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_bpm"]
     
     def form_valid(self, form):
       form.instance.audition_id=self.kwargs.get('aud_id')
@@ -98,8 +98,7 @@ class ExcerptCreate(LoginRequiredMixin, CreateView):
         form.instance.instrument=form.instance.instrument.capitalize()
       super().form_valid(form)
       return redirect('audition_detail', aud_id= self.kwargs['aud_id'])
-    
-    
+
     
 class ExcerptDelete(LoginRequiredMixin, DeleteView):
   model=Excerpt
@@ -111,7 +110,7 @@ class ExcerptDelete(LoginRequiredMixin, DeleteView):
     
 class ExcerptUpdate(LoginRequiredMixin, UpdateView):
     model= Excerpt
-    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_bpm", "current_tempo", 'audio_links', 'start_times']
+    fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_bpm", "current_tempo"]
     
     def form_valid(self, form):
         super().form_valid(form)
@@ -260,3 +259,14 @@ def clear_goals(request, aud_id):
   Goal.objects.filter(audition_id=aud_id, complete=True).delete()
   print('hit')
   return redirect('audition_detail', aud_id=aud_id)
+
+
+def add_links(request, ex_id):
+  form = LinkForm(queryset=Excerpt.objects.filter(id=ex_id))
+  
+  if request.method == 'POST':
+    instances = form.save(commit=False)  
+    print(instances)
+  
+  
+  return render(request, 'excerpts/link_form.html', {'form':form, 'ex_id':ex_id})
