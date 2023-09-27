@@ -293,7 +293,7 @@ def journal_index(request):
 def entry_detail(request, ent_id):
   entry = JournalEntry.objects.get(id=ent_id)
   tasks = entry.journaltask_set.all()
-  return render(request, 'entry_detail', ent_id=ent_id )
+  return render(request, 'journal/detail.html', {'entry': entry, 'tasks': tasks})
 
 
 def entry_create(request):

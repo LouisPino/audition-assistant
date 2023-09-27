@@ -1,0 +1,9 @@
+{%extends 'base.html'%} 
+{%block content%} 
+{%for task in tasks%}
+
+<h1>{{task.task}}</h1>
+{%empty%}
+<h1>No entries yet!</h1>
+{%endfor%}
+{%endblock%}

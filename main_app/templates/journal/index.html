@@ -1,8 +1,9 @@
 {%extends 'base.html'%} 
 {%block content%} 
 {%for entry in entries%}
-
+<a href={%url 'entry_detail' entry.id%}>
 <h1>{{entry.journaltask_set.all}}</h1>
+</a>
 {%empty%}
 <h1>No entries yet!</h1>
 {%endfor%}
