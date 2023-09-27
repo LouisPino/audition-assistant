@@ -2,7 +2,6 @@ from typing import Any
 from django import http
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,7 +15,7 @@ import re
 from .models import *
 from .forms import NoteForm, GoalForm
 
-
+@login_required
 def auditions(request):
    auditions = Audition.objects.filter(user_id=request.user.id).order_by('-date')
    upcoming_auditions = []
@@ -57,7 +56,7 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-class AuditionCreate(CreateView):
+class AuditionCreate(LoginRequiredMixin, CreateView):
     model= Audition
     fields= ["orchestra","location","date"]
     
@@ -65,10 +64,11 @@ class AuditionCreate(CreateView):
       form.instance.user = self.request.user
       return super().form_valid(form)
 
-class AuditionUpdate(UpdateView):
+class AuditionUpdate(LoginRequiredMixin, UpdateView):
     model= Audition
     fields= ["orchestra","location","date"]
     
+@login_required    
 def audition_detail(request, aud_id):
     audition = Audition.objects.get(id=aud_id)
     excerpts = audition.excerpt_set.all().order_by('last_practiced')
@@ -83,12 +83,12 @@ def audition_detail(request, aud_id):
         
     return render(request, 'auditions/detail.html', {'audition': audition, 'excerpts': excerpts, 'excerpt_objs': excerpt_objs, 'goal_form': goal_form, 'goals': goals})
   
-class AuditionDelete(DeleteView):
+class AuditionDelete(LoginRequiredMixin, DeleteView):
   model=Audition
   success_url = '/auditions'
 
   
-class ExcerptCreate(CreateView):
+class ExcerptCreate(LoginRequiredMixin, CreateView):
     model= Excerpt
     fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_bpm", 'audio_links', 'start_times']
     
@@ -101,7 +101,7 @@ class ExcerptCreate(CreateView):
     
     
     
-class ExcerptDelete(DeleteView):
+class ExcerptDelete(LoginRequiredMixin, DeleteView):
   model=Excerpt
   def get_success_url(self):
         next_id = self.kwargs['aud_id']
@@ -109,7 +109,7 @@ class ExcerptDelete(DeleteView):
       
   
     
-class ExcerptUpdate(UpdateView):
+class ExcerptUpdate(LoginRequiredMixin, UpdateView):
     model= Excerpt
     fields= ['title', 'composer', 'instrument', 'section', "goal_tempo_bpm", "current_tempo", 'audio_links', 'start_times']
     
@@ -118,7 +118,7 @@ class ExcerptUpdate(UpdateView):
         return redirect('excerpt_detail', ex_id=form.instance.id)
       
       
-      
+@login_required      
 def excerpt_detail(request, ex_id):
     excerpt = Excerpt.objects.get(id=ex_id)
     comp_name = re.split(r'[ -]', excerpt.composer)[-1]
@@ -164,31 +164,30 @@ def create_note(request, ex_id):
     new_note.save()
   return redirect('excerpt_detail', ex_id=ex_id)
     
-class NoteDelete(DeleteView):
+class NoteDelete(LoginRequiredMixin, DeleteView):
   model=Note
   def get_success_url(self):
      ex_id = self.kwargs["ex_id"]
      return reverse('excerpt_detail', kwargs={'ex_id':ex_id})
   
     
-class NoteUpdate(UpdateView):
+class NoteUpdate(LoginRequiredMixin, UpdateView):
     model= Note
     fields= ['note', 'date']
      
-     
-     
+       
 def excerpt_practiced(request, ex_id):
   excerpt = Excerpt.objects.get(id=ex_id)
   excerpt.last_practiced = date.today()
   excerpt.save()
   return redirect('excerpt_detail', ex_id=ex_id)
 
+
 def excerpt_current_tempo(request, ex_id):
   excerpt = Excerpt.objects.get(id=ex_id)
   excerpt.current_tempo = request.POST['current-tempo']
   excerpt.save()
   return redirect('excerpt_detail', ex_id=ex_id)
-
 
 def add_multiple(request, aud_id):
   excerpts = Excerpt.objects.filter(~Q(audition_id=aud_id)).distinct("title", 'section')
@@ -238,9 +237,6 @@ def add_score(request, ex_id):
     return redirect('excerpt_detail', ex_id=ex_id)
   
   
-  
-  
-  
 def create_goal(request, aud_id):
   form = GoalForm(request.POST)
   if form.is_valid():
@@ -257,6 +253,7 @@ def goal_complete(request, goal_id, aud_id):
   goal.complete= True
   goal.save()
   return redirect('audition_detail', aud_id=aud_id)
+
 
 def clear_goals(request, aud_id):
   Goal.objects.filter(audition_id=aud_id, complete=True).delete()
