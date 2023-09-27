@@ -268,7 +268,6 @@ display: flex;
   margin-top: 30px;
 }
 
-
 .login-ctr{
   display: flex;
   flex-direction: row;
@@ -329,6 +328,9 @@ footer.page-footer{
   .login-ctr{
     flex-direction: column;
     margin-bottom: 20px;;
+  }
+  .right-nav a{
+    font-size: 1rem;
   }
 }
 
@@ -400,7 +402,7 @@ display: block;
   height: auto;
 }
 
-@media screen and (max-width: 650px){
+@media screen and (max-width: 700px){
 .dropbtn{
   display: block;
   margin: 0 auto;
