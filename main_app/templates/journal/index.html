@@ -1,0 +1,12 @@
+{%extends 'base.html'%} 
+{%block content%} 
+{%for entry in entries%}
+
+<h1>{{entry.journaltask_set.all}}</h1>
+{%empty%}
+<h1>No entries yet!</h1>
+{%endfor%}
+<a class="center" href='{%url "entry_create"%}'>
+    <button class="btn delete-btn">Add journal entry</button>
+</a>
+{%endblock%}

@@ -13,7 +13,7 @@ import os
 import requests
 import re
 from .models import *
-from .forms import NoteForm, GoalForm, LinkForm
+from .forms import *
 
 @login_required
 def auditions(request):
@@ -280,3 +280,34 @@ def add_links(request, ex_id):
   
   
   return render(request, 'excerpts/link_form.html', {'form':form, 'ex_id':ex_id})
+
+
+
+
+
+
+def journal_index(request):
+  entries = JournalEntry.objects.filter(user_id=request.user.id)
+  return render(request, 'journal/index.html', {'entries': entries})
+  
+def entry_detail(request, ent_id):
+  entry = JournalEntry.objects.get(id=ent_id)
+  tasks = entry.journaltask_set.all()
+  return render(request, 'entry_detail', ent_id=ent_id )
+
+
+def entry_create(request):
+  jform = JournalForm()
+  if request.method == 'POST':
+    form = JournalForm(request.POST)
+    if form.is_valid():
+      new_entry = JournalEntry.objects.create(date=date.today(), user_id = request.user.id)
+      new_tasks = form.save(commit=False)
+      for task in new_tasks:
+        task.entry_id = new_entry.id
+        task.save()
+      return redirect('journal_index')
+  
+  return render(request, 'journal/create.html', {'form': jform})
+
+  

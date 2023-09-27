@@ -30,5 +30,9 @@ urlpatterns = [
     path('notes/delete/<int:pk>/<int:ex_id>', views.NoteDelete.as_view(), name="note_delete"),
     path('notes/update/<int:pk>/', views.NoteUpdate.as_view(), name="note_update"),
     
+    path('journal/', views.journal_index, name="journal_index"),
+    path('journal/create', views.entry_create, name="entry_create"),
+    path('journal/<int:ent_id>', views.entry_detail, name="entry_detail"),
+    
     path('accounts/signup/', views.signup, name='signup'),
 ]
