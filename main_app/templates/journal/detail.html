@@ -1,9 +1,16 @@
 {%extends 'base.html'%} 
 {%block content%} 
 {%for task in tasks%}
-
+{%if task.time%}
+<h1>{{task.task}} for {{task.time}} minutes</h1>
+{%else%}
 <h1>{{task.task}}</h1>
+{%endif%}
 {%empty%}
 <h1>No entries yet!</h1>
 {%endfor%}
+
+<a class="center" href='{%url "entry_delete" entry.id%}'>
+    <button class="btn delete-btn">delete entry</button>
+</a>
 {%endblock%}

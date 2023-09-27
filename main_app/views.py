@@ -310,4 +310,6 @@ def entry_create(request):
   
   return render(request, 'journal/create.html', {'form': jform})
 
-  
+class EntryDelete(DeleteView):
+  model= JournalEntry
+  success_url = '/journal'
