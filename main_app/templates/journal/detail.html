@@ -10,6 +10,9 @@
 <h1>No entries yet!</h1>
 {%endfor%}
 
+<a class="center" href='{%url "entry_update" entry.id%}'>
+    <button class="btn delete-btn">edit entry</button>
+</a>
 <a class="center" href='{%url "entry_delete" entry.id%}'>
     <button class="btn delete-btn">delete entry</button>
 </a>

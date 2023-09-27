@@ -297,7 +297,7 @@ def entry_detail(request, ent_id):
 
 
 def entry_create(request):
-  jform = JournalForm()
+  jform = JournalForm(queryset=JournalTask.objects.filter(entry_id=0))
   if request.method == 'POST':
     form = JournalForm(request.POST)
     if form.is_valid():
@@ -309,6 +309,23 @@ def entry_create(request):
       return redirect('journal_index')
   
   return render(request, 'journal/create.html', {'form': jform})
+
+def entry_update(request, ent_id):
+  jform = JournalForm(queryset=JournalTask.objects.filter(entry_id=ent_id))
+  if request.method == 'POST':
+    form = JournalForm(request.POST)
+    if form.is_valid():
+      entry = JournalEntry.objects.get(id=ent_id)
+      new_tasks = form.save(commit=False)
+      for task in new_tasks:
+        task.entry_id = entry.id
+        task.save()
+      return redirect('journal_index')
+  
+  return render(request, 'journal/create.html', {'form': jform})
+
+
+
 
 class EntryDelete(DeleteView):
   model= JournalEntry
