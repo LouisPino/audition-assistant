@@ -204,10 +204,16 @@ def import_multiple(request, aud_id):
   ex_ids = request.POST['ex_list'].split(',')
   excerpts = Excerpt.objects.filter(id__in=ex_ids)
   for excerpt in excerpts:
+    links = [*excerpt.link_set.all()]
     excerpt.pk = None
+    print('LINK LIST', links)
     excerpt.audition_id = aud_id
     excerpt.current_tempo = 0
     excerpt.save()
+    for link in links:
+      link.pk = None
+      link.excerpt_id=excerpt.id
+      link.save()
 
   return redirect('audition_detail', aud_id=aud_id)
 
