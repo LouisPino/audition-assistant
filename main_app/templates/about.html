@@ -1,4 +1,6 @@
-{%extends 'base.html'%} {%block content%}
+{%extends 'base.html'%} 
+{%load static%}
+{%block content%}
 <h1 class='text-center'>Your online audition binder</h1>
 
 {%if user.is_authenticated%}
@@ -6,14 +8,8 @@
 {%endif%}  
 
 <div class="carousel carousel-slider">
- <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/hall.jpg">
- <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/hall2.jpg">
- <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/keys.jpg">
- <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/oboe.jpg">
- <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/orchestra.jpg">
- <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/scroll.jpg">
- <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/sheetMusic.jpg">
- <img class="carousel-item"  src="https://auditionassistant-louispino.s3.us-east-2.amazonaws.com/stage.jpg">
+ <img class="carousel-item"  src="{% static 'assets/burger.png'%}">
+ <img class="carousel-item"  src="{% static 'assets/met.jpeg'%}">
 </div>
 
 {%if not user.is_authenticated%}
