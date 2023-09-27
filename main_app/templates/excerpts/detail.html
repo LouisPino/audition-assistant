@@ -86,10 +86,10 @@
 <hr>
 <hr>
 <div class="excerpt-bottom"> 
-  <div class='spotify-frame-ctr'>
+  <div class='youtube-frame-ctr'>
   <h3 class='recordings-title'>Recordings</h3>
   {%for link in links%}
-  <div class='spotify-frame'>
+  <div class='youtube-frame'>
     <iframe width="80%" height="100" src="{{link.url}}?start={{link.start}}" start='100'title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   
     {%if link.start%}
@@ -103,7 +103,7 @@
   {%endfor%}
   {%if links%}
   <a class="center" href='{%url "add_links" excerpt.id%}'>
-    <button class="btn delete-btn">Add More YouTube Links</button>
+    <button class="btn delete-btn">Add or edit YouTube Links</button>
   </a>
   {%endif%}
 </div>

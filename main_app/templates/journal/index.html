@@ -1,0 +1,13 @@
+{%extends 'base.html'%} 
+{%block content%} 
+{%for entry in entries%}
+<a href={%url 'entry_detail' entry.id%}>
+<h1>{{entry.date}}</h1>
+</a>
+{%empty%}
+<h1>No entries yet!</h1>
+{%endfor%}
+<a class="center" href='{%url "entry_create"%}'>
+    <button class="btn delete-btn">Add journal entry</button>
+</a>
+{%endblock%}

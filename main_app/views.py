@@ -13,7 +13,7 @@ import os
 import requests
 import re
 from .models import *
-from .forms import NoteForm, GoalForm, LinkForm
+from .forms import *
 
 @login_required
 def auditions(request):
@@ -133,21 +133,15 @@ def excerpt_detail(request, ex_id):
     note_form = NoteForm()
     notes = excerpt.note_set.all().order_by('-date')
     links = excerpt.link_set.all()
-    print(links)
     link_objs =[]
     for link in links:
-      start_sec = int(link.start_time.split(':')[0])*60 + int(link.start_time.split(':')[1]) if link.start_time else ""
-      link_objs.append({
-        'url': f"https://www.youtube.com/embed/{re.split(r'[=&]', link.audio_link)[1]}",
-        'start': start_sec,
-        'start_display': link.start_time if link.start_time else ""
-      })
-      
-
-    #   links = map(lambda link: 
-    #     f"https://www.youtube.com/embed/{re.split(r'[=&]', link)[1]}", excerpt_links )
-    # else:
-    #   links = []
+      if '&' in link.audio_link or  '=' in link.audio_link:
+        start_sec = int(link.start_time.split(':')[0])*60 + int(link.start_time.split(':')[1]) if link.start_time else ""
+        link_objs.append({
+          'url': f"https://www.youtube.com/embed/{re.split(r'[=&]', link.audio_link)[1]}",
+          'start': start_sec,
+          'start_display': link.start_time if link.start_time else ""
+        })
     return render(request, 'excerpts/detail.html', {
       'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 
       'links': link_objs, 
@@ -280,3 +274,60 @@ def add_links(request, ex_id):
   
   
   return render(request, 'excerpts/link_form.html', {'form':form, 'ex_id':ex_id})
+
+
+
+
+
+
+def journal_index(request):
+  entries = JournalEntry.objects.filter(user_id=request.user.id)
+  return render(request, 'journal/index.html', {'entries': entries})
+  
+def entry_detail(request, ent_id):
+  entry = JournalEntry.objects.get(id=ent_id)
+  tasks = entry.journaltask_set.all()
+  return render(request, 'journal/detail.html', {'entry': entry, 'tasks': tasks})
+
+
+def entry_create(request):
+  jform = JournalForm(queryset=JournalTask.objects.filter(entry_id=0))
+  if request.method == 'POST':
+    form = JournalForm(request.POST)
+    if form.is_valid():
+      new_entry = JournalEntry.objects.create(date=date.today(), user_id = request.user.id)
+      new_tasks = form.save(commit=False)
+      for task in new_tasks:
+        task.entry_id = new_entry.id
+        task.save()
+      return redirect('journal_index')
+  
+  return render(request, 'journal/create.html', {'form': jform})
+
+def entry_update(request, ent_id):
+  jform = JournalForm(queryset=JournalTask.objects.filter(entry_id=ent_id))
+  if request.method == 'POST':
+    form = JournalForm(request.POST)
+    if form.is_valid():
+      entry = JournalEntry.objects.get(id=ent_id)
+      new_tasks = form.save(commit=False)
+      for task in new_tasks:
+        task.entry_id = entry.id
+        task.save()
+      return redirect('journal_index')
+  
+  return render(request, 'journal/create.html', {'form': jform})
+
+
+
+
+class EntryDelete(DeleteView):
+  model= JournalEntry
+  success_url = '/journal'
+  
+  
+def task_complete(request, task_id, ent_id):
+  task = JournalTask.objects.get(id=task_id)
+  task.completed= True
+  task.save()
+  return redirect('entry_detail', ent_id=ent_id)

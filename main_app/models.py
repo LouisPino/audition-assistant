@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.urls import reverse
+from django.utils import timezone
 from django.contrib.auth.models import User
 from datetime import date
 from django import forms
@@ -82,3 +83,20 @@ class Link(models.Model):
 
     def get_absolute_url(self):
         return reverse("excerpt_detail", kwargs={"ex_id": self.kwargs['ex_id']})
+    
+    
+class JournalEntry(models.Model):
+    date = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("journal_detail", kwargs={"j_id": self.kwargs['j_id']})
+
+class JournalTask(models.Model):
+    entry = models.ForeignKey(JournalEntry, on_delete=models.CASCADE)
+    task = models.TextField(verbose_name='What did you practice?')
+    time = models.IntegerField(verbose_name='How many minutes', null=True, blank=True)
+    completed = models.BooleanField(default = False)
+    
+    def get_absolute_url(self):
+        return reverse("journal_detail", kwargs={"j_id": self.kwargs['j_id']})
