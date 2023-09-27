@@ -162,14 +162,14 @@ text-align: center;
   flex-wrap: wrap;
 }
 
-.spotify-frame{
+.youtube-frame{
   display: flex;
   flex-direction: column;
   min-width: 100px;
   align-items: center;
 }
 
-.spotify-frame-ctr{
+.youtube-frame-ctr{
   display: flex;
   flex-direction: column;
   justify-content: start;

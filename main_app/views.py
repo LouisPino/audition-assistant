@@ -133,21 +133,15 @@ def excerpt_detail(request, ex_id):
     note_form = NoteForm()
     notes = excerpt.note_set.all().order_by('-date')
     links = excerpt.link_set.all()
-    print(links)
     link_objs =[]
     for link in links:
-      start_sec = int(link.start_time.split(':')[0])*60 + int(link.start_time.split(':')[1]) if link.start_time else ""
-      link_objs.append({
-        'url': f"https://www.youtube.com/embed/{re.split(r'[=&]', link.audio_link)[1]}",
-        'start': start_sec,
-        'start_display': link.start_time if link.start_time else ""
-      })
-      
-
-    #   links = map(lambda link: 
-    #     f"https://www.youtube.com/embed/{re.split(r'[=&]', link)[1]}", excerpt_links )
-    # else:
-    #   links = []
+      if '&' in link.audio_link or  '=' in link.audio_link:
+        start_sec = int(link.start_time.split(':')[0])*60 + int(link.start_time.split(':')[1]) if link.start_time else ""
+        link_objs.append({
+          'url': f"https://www.youtube.com/embed/{re.split(r'[=&]', link.audio_link)[1]}",
+          'start': start_sec,
+          'start_display': link.start_time if link.start_time else ""
+        })
     return render(request, 'excerpts/detail.html', {
       'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 
       'links': link_objs, 
