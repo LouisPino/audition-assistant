@@ -97,10 +97,15 @@
   {%endif%}
   </div>
   {%empty%} 
-  {%endfor%}
   <a class="center" href='{%url "add_links" excerpt.id%}'>
     <button class="btn delete-btn">Add YouTube Links</button>
   </a>
+  {%endfor%}
+  {%if links%}
+  <a class="center" href='{%url "add_links" excerpt.id%}'>
+    <button class="btn delete-btn">Add More YouTube Links</button>
+  </a>
+  {%endif%}
 </div>
 
 

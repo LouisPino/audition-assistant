@@ -11,4 +11,4 @@ class GoalForm(ModelForm):
     model = Goal
     fields = ['goal']
 
-LinkForm = modelformset_factory(Excerpt, fields=('audio_links', 'start_times'), extra=2)
+LinkForm = modelformset_factory(Link, fields=('audio_link', 'start_time'), extra=3, max_num=3)

@@ -131,27 +131,27 @@ def excerpt_detail(request, ex_id):
     else:
       composer = {}
     note_form = NoteForm()
-    notes = Note.objects.filter(excerpt_id=ex_id).order_by('-date')
-    if excerpt.start_times:
-      start_times = excerpt.start_times.split(',')
-    else:
-      start_times = []
-    if excerpt.audio_links:
-      excerpt_links = excerpt.audio_links.split(',')
-      links = map(lambda link: 
-        f"https://www.youtube.com/embed/{re.split(r'[=&]', link)[1]}", excerpt_links )
-    else:
-      links = []
-    
+    notes = excerpt.note_set.all().order_by('-date')
+    links = excerpt.link_set.all()
+    print(links)
     link_objs =[]
-    for idx, link in enumerate(links):
-      start_sec = int(start_times[idx].split(':')[0])*60 + int(start_times[idx].split(':')[1]) if len(start_times) > idx else ""
+    for link in links:
+      start_sec = int(link.start_time.split(':')[0])*60 + int(link.start_time.split(':')[1]) if link.start_time else ""
       link_objs.append({
-        'url': link,
+        'url': f"https://www.youtube.com/embed/{re.split(r'[=&]', link.audio_link)[1]}",
         'start': start_sec,
-        'start_display': start_times[idx] if len(start_times) > idx else ""
+        'start_display': link.start_time if link.start_time else ""
       })
-    return render(request, 'excerpts/detail.html', {'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 'links': link_objs, 'comp_obj': composer,})
+      
+
+    #   links = map(lambda link: 
+    #     f"https://www.youtube.com/embed/{re.split(r'[=&]', link)[1]}", excerpt_links )
+    # else:
+    #   links = []
+    return render(request, 'excerpts/detail.html', {
+      'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 
+      'links': link_objs, 
+      'comp_obj': composer,})
   
 
 def create_note(request, ex_id):
@@ -262,11 +262,15 @@ def clear_goals(request, aud_id):
 
 
 def add_links(request, ex_id):
-  form = LinkForm(queryset=Excerpt.objects.filter(id=ex_id))
+  form = LinkForm(queryset=Link.objects.filter(excerpt_id=ex_id))
   
   if request.method == 'POST':
+    form = LinkForm(request.POST)
     instances = form.save(commit=False)  
-    print(instances)
+    for instance in instances:
+      instance.excerpt_id = ex_id
+      instance.save()
+    return redirect('excerpt_detail', ex_id=ex_id)
   
   
   return render(request, 'excerpts/link_form.html', {'form':form, 'ex_id':ex_id})
