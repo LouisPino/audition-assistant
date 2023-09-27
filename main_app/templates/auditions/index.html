@@ -1,5 +1,4 @@
 {%extends 'base.html'%}
-
 {%block content%}
 <h1 class='index-category'>UPCOMING</h1>
 {% for audition in upcoming_auditions %}
@@ -24,4 +23,7 @@
 <a class="btn delete-btn" href="{% url 'audition_create' %}">
     Add an Audition
 </a>
+
+
+
 {%endblock%}
