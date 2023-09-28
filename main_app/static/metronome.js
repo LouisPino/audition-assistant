@@ -12,9 +12,28 @@
    }
 
 
+
+  start=()=> {
+    this.setState({running: true})
+    this.playMet();
+    clickSound.play();
+  }
+
+  reset=()=> {
+    clearInterval(metLoop);
+    this.playMet();
+  }
+  
+  
+  stop=()=> {
+    this.setState({running: false})
+    clearInterval(metLoop);
+    clearInterval(secondaryMetLoop);
+  }
+
+
     playMet=()=> {
     running = true;
-    console.log('hit')
     tempoMs = 60000 / this.state.tempo;
     metLoop = setInterval(function () {
       clickSound.currentTime = 0;
@@ -27,39 +46,24 @@
 
 
 
-  start=()=> {
-  this.setState({running: true})
-  this.playMet();
-  clickSound.play();
+tempoChange=(e)=>{
+this.setState({tempo: e.target.value})
 }
 
-reset=()=> {
-  clearInterval(metLoop);
-  this.playMet();
+tempoIncrement=(int)=>{
+this.setState({tempo: this.state.tempo+int})
 }
-
-
-stop=()=> {
-  console.log('hit')
-  this.setState({running: false})
-  clearInterval(metLoop);
-  clearInterval(secondaryMetLoop);
-}
-
-
 
  
    render() {  
     return (
    <main>
-    <h2>{this.state.tempo}</h2>
-   {this.state.running ? <button onClick={this.stop} className="tempo-btn">stoptest</button> : <button onClick={this.start} className="tempo-btn">starttest</button>}
-    <button className="minus-ten tempo-btn">-10</button>
-    <button className="minus-five tempo-btn">-5</button>
-    <input type="number" placeholder="120" className="tempo-input"/>
-    <button className="plus-five tempo-btn">+5</button>
-    <button className="plus-ten tempo-btn">+10</button>
-    <button className="start-btn tempo-btn">Start</button>
+    <input type="number" value={this.state.tempo} onChange={this.tempoChange} className="tempo-input"></input>
+   {this.state.running ? <button onClick={this.stop} className="tempo-btn">Stop</button> : <button onClick={this.start} className="tempo-btn">Start</button>}
+    <button className="minus-ten tempo-btn" onClick={()=>this.tempoIncrement(-10)}>-10</button>
+    <button className="minus-five tempo-btn" onClick={()=>this.tempoIncrement(-5)}>-5</button>
+    <button className="plus-five tempo-btn" onClick={()=>this.tempoIncrement(5)}>+5</button>
+    <button className="plus-ten tempo-btn" onClick={()=>this.tempoIncrement(10)}>+10</button>
     <div className="sub-btns-ctr">
     <button className="sub-btn tempo-btn" divisor="2">8th</button>
     <button className="sub-btn tempo-btn" divisor="3">3let</button>
@@ -115,12 +119,6 @@ inputEl.addEventListener("input", inputTempo);
 randomBtnEl.addEventListener("click", randomToggle);
 randomInputEl.addEventListener("input", likelihoodChange);
 subdivBtnEl.addEventListener("click", secondaryStart);
-// startEl.addEventListener("click", start);
-minusTenEl.addEventListener("click", minusTen);
-plusTenEl.addEventListener("click", plusTen);
-minusFiveEl.addEventListener("click", minusFive);
-plusFiveEl.addEventListener("click", plusFive);
-// document.addEventListener("keydown", keyPress);
 subBtnEls.forEach(function(subBtnEl){
   subBtnEl.addEventListener('click', subdivisions)
 })
