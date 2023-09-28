@@ -93,11 +93,12 @@ document.addEventListener('mouseup', function() {
       isDown = false;
   }, true);
   document.addEventListener('mousemove', function(e) {
-      event.preventDefault();
+      e.preventDefault();
+      console.log(document.body.clientWidth - Number(divOverlay.style.left.split('px')[0]))
       if (isDown) {
         if( divOverlay.getBoundingClientRect().width  >= 300){
         divOverlay.style.left = (e.clientX + offset) + 'px'
-        divOverlay.style.width =  window.screen.width  - e.clientX + 'px'
+        divOverlay.style.width = (document.body.clientWidth - Number(divOverlay.style.left.split('px')[0]))+'px'
         }else{
 
         }
