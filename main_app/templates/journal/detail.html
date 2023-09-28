@@ -1,12 +1,13 @@
 {%extends 'base.html'%} 
 {%block content%} 
+<h1>{{entry.date}}</h1>
 {%for task in tasks%}
 {%if task.completed%}
 <div class="card task-card">
     {%if task.time%}
-    <h1 class='strike'>{{task.task}} for {{task.time}} minutes</h1>
+    <h4 class='strike'>{{task.task}} for {{task.time}} minutes</h4>
     {%else%}
-    <h1  class='strike'>{{task.task}}</h1>
+    <h4  class='strike'>{{task.task}}</h4>
     {%endif%}
 </div>
 {%else%}
@@ -15,14 +16,14 @@
     <button class='btn'>✓</button>
   </a>
     {%if task.time%}
-    <h1>{{task.task}} for {{task.time}} minutes</h1>
+    <h4>{{task.task}} for {{task.time}} minutes</h4>
     {%else%}
-    <h1>{{task.task}}</h1>
+    <h4>{{task.task}}</h4>
     {%endif%}
 </div>
 {%endif%}
 {%empty%}
-<h1>No entries yet!</h1>
+<h4>No entries yet!</h4>
 {%endfor%}
 
 <a class="center" href='{%url "entry_update" entry.id%}'>
