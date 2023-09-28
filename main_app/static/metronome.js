@@ -5,7 +5,7 @@
  class LikeButton extends React.Component {
    constructor(props) {
      super(props);
-     this.state = { liked: false };
+     this.state = { tempo: 180 };
    }
  
    render() {  
@@ -28,6 +28,7 @@
   </div>
     <input type="number" placeholder="100" className="random-input"/>
     <button className="random-btn">Turn Random On</button>
+    <button className="subdiv-btn">Turn Subdivisions On</button>
 </main>
     )
  }
@@ -43,6 +44,7 @@
 const inputEl = document.querySelector(".tempo-input");
 const randomInputEl = document.querySelector(".random-input");
 const randomBtnEl = document.querySelector(".random-btn");
+const subdivBtnEl = document.querySelector(".subdiv-btn");
 const startEl = document.querySelector(".start-btn");
 const minusTenEl = document.querySelector(".minus-ten");
 const plusTenEl = document.querySelector(".plus-ten");
@@ -51,20 +53,26 @@ const plusFiveEl = document.querySelector(".plus-five");
 const subBtnEls = document.querySelectorAll(".sub-btn");
 ///////Constants
 const clickSound = new Audio("../static/assets/clave.wav");
+const clickSound2 = new Audio("../static/assets/clave3.wav");
+const clickSound3 = new Audio("../static/assets/clave.wav");
 
 ///////Variables
 let running = false;
+let secondaryRunning
 let tempo = 120;
 let tempoMs = 60000 / tempo;
 let divisor
 let metLoop;
+let secondaryMetLoop
 let likelihood = 1
-let random
+let random = false
+let secondaryTempoMs 
 
 //////event listeners
 inputEl.addEventListener("input", inputTempo);
 randomBtnEl.addEventListener("click", randomToggle);
 randomInputEl.addEventListener("input", likelihoodChange);
+subdivBtnEl.addEventListener("click", secondaryStart);
 startEl.addEventListener("click", start);
 minusTenEl.addEventListener("click", minusTen);
 plusTenEl.addEventListener("click", plusTen);
@@ -89,8 +97,28 @@ function playMet() {
   }, tempoMs);
 }
 
+function playSecondaryMet() {
+  secondaryRunning = true;
+  secondaryTempoMs = 60000 / tempo / divisor;
+  secondaryMetLoop = setInterval(function () {
+    clickSound2.currentTime = 0;
+    if(random){
+    if(Math.random() <= likelihood){
+    clickSound2.play()}}
+    else{clickSound2.play()}
+  }, secondaryTempoMs);
+}
+
+function secondaryStart() {
+  subdivBtnEl.innerHTML = "Turn Off Subdivisions";
+  subdivBtnEl.removeEventListener("click", secondaryStart);
+  subdivBtnEl.addEventListener("click", secondaryStop);
+  clickSound2.play();
+  playSecondaryMet();
+}
+
 function start() {
-    if(!inputEl.vale){inputEl.value = tempo}
+    if(!inputEl.value){inputEl.value = tempo}
   startEl.innerHTML = "Stop";
   startEl.removeEventListener("click", start);
   startEl.addEventListener("click", stop);
@@ -105,10 +133,20 @@ function reset() {
 
 function stop() {
   running = false;
+  secondaryRunning = false
   startEl.innerHTML = "Start";
   startEl.removeEventListener("click", stop);
   startEl.addEventListener("click", start);
   clearInterval(metLoop);
+  clearInterval(secondaryMetLoop);
+}
+
+function secondaryStop() {
+  secondaryRunning = false
+
+  subdivBtnEl.removeEventListener("click", secondaryStop);
+  subdivBtnEl.addEventListener("click", secondaryStart);
+  clearInterval(secondaryMetLoop);
 }
 
 // function keyPress(e){
@@ -168,7 +206,7 @@ function inputTempo(e) {
   }
 
   function subdivisions(e){
-    tempoMs /= e.target.getAttribute('divisor')
+    divisor = e.target.getAttribute('divisor')
     if (running) {
       reset();
     }

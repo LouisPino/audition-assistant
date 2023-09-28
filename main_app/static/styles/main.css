@@ -22,7 +22,7 @@ body {
   z-index: -4;
   background: linear-gradient(45deg, #e8f59e, #bcc3ff, #ffafaf);
  animation: animate 60s infinite;
- width: 100vw;
+ min-width: 100%;
  height: 100%;
 }
 .right-nav a{
@@ -36,6 +36,10 @@ th>label, form>label{
 
 td>input{
 color: black;  
+}
+
+#slide-out{
+  min-width: 300px;
 }
 
 /* .journal-form > input[type=number]{
