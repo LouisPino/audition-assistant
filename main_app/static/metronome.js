@@ -51,7 +51,10 @@ this.setState({tempo: e.target.value})
 }
 
 tempoIncrement=(int)=>{
-this.setState({tempo: this.state.tempo+int})
+  let newTemp = this.state.tempo+int
+  if (newTemp >= 20 && newTemp <= 400){
+  this.setState({tempo: this.state.tempo+int})
+  }
 }
 
  
@@ -148,15 +151,6 @@ function secondaryStart() {
 }
 
 
-function stop() {
-  running = false;
-  secondaryRunning = false
-  startEl.innerHTML = "Start";
-  startEl.removeEventListener("click", stop);
-  // startEl.addEventListener("click", start);
-  clearInterval(metLoop);
-  clearInterval(secondaryMetLoop);
-}
 
 function secondaryStop() {
   secondaryRunning = false
