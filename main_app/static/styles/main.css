@@ -37,11 +37,6 @@ th>label, form>label{
 td>input{
 color: black;  
 }
-
-#slide-out{
-  min-width: 300px;
-}
-
 /* .journal-form > input[type=number]{
 width: 30px;
 }
