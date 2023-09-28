@@ -135,13 +135,14 @@ def excerpt_detail(request, ex_id):
     links = excerpt.link_set.all()
     link_objs =[]
     for link in links:
-      if '&' in link.audio_link or  '=' in link.audio_link:
+      if 'youtu' in link.audio_link:
         start_sec = int(link.start_time.split(':')[0])*60 + int(link.start_time.split(':')[1]) if link.start_time else ""
         link_objs.append({
-          'url': f"https://www.youtube.com/embed/{re.split(r'[=&]', link.audio_link)[1]}",
+          'url': f"https://www.youtube.com/embed/{re.split(r'(v=|.be/|&)', link.audio_link)[2]}".split('?')[0],
           'start': start_sec,
           'start_display': link.start_time if link.start_time else ""
         })
+      print(link_objs[0]['url'])
     return render(request, 'excerpts/detail.html', {
       'excerpt': excerpt, 'note_form': note_form, 'notes': notes, 
       'links': link_objs, 
