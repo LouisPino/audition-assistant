@@ -3,65 +3,90 @@
  const e = React.createElement;
 
 
-
-
- class LikeButton extends React.Component {
+class LikeButton extends React.Component {
    constructor(props) {
      super(props);
-     this.state = { tempo: 120, running: false };
+     this.state = { 
+      tempo: 120, 
+      running: false,
+      timeSinceTap: 0,
+      tapTime: 0,
+      tapCount: 0,
+    tapTimeTotal: 0};
    }
 
 
 
   start=()=> {
-    this.setState({running: true})
-    this.playMet();
-    clickSound.play();
+      this.setState({running: true})
+      this.playMet();
+      clickSound.play();
   }
 
   reset=()=> {
-    clearInterval(metLoop);
-    this.playMet();
+      clearInterval(metLoop);
+      this.playMet();
   }
-  
-  
+    
+    
   stop=()=> {
-    this.setState({running: false})
-    clearInterval(metLoop);
-    clearInterval(secondaryMetLoop);
+      this.setState({running: false})
+      clearInterval(metLoop);
+      clearInterval(secondaryMetLoop);
   }
 
 
-    playMet=()=> {
-    running = true;
-    tempoMs = 60000 / this.state.tempo;
-    metLoop = setInterval(function () {
-      clickSound.currentTime = 0;
-      if(random){
-      if(Math.random() <= likelihood){
-      clickSound.play()}}
-      else{clickSound.play()}
-    }, tempoMs);
+  playMet=()=> {
+      running = true;
+      tempoMs = 60000 / this.state.tempo;
+      metLoop = setInterval(function () {
+        clickSound.currentTime = 0;
+        if(random){
+        if(Math.random() <= likelihood){
+        clickSound.play()}}
+        else{clickSound.play()}
+      }, tempoMs);
+    }
+
+  tempoChange=(newTemp)=>{
+  this.setState({tempo: newTemp})
+  }
+
+  tempoIncrement=(int)=>{
+    let newTemp = this.state.tempo+int
+    if (newTemp >= 20 && newTemp <= 400){
+    this.setState({tempo: this.state.tempo+int})
+    }
   }
 
 
-
-tempoChange=(e)=>{
-this.setState({tempo: e.target.value})
-}
-
-tempoIncrement=(int)=>{
-  let newTemp = this.state.tempo+int
-  if (newTemp >= 20 && newTemp <= 400){
-  this.setState({tempo: this.state.tempo+int})
+  tapTempo=()=>{
+    let lastTime = this.state.tapTime
+    let time = Date.now()
+    this.setState({timeSinceTap: time-lastTime, tapTime: time})
+   let newTemp = this.getAverageTime()
+    if(typeof(newTemp)==='number'){
+    this.setState({tempo: Math.floor(newTemp)}
+      )
   }
-}
+  }
+  getAverageTime=()=>{
+    if (this.state.timeSinceTap > 3000){
+      this.setState({tapCount: 0, tapTimeTotal: 0})
+      console.log(this.state.tapTimeTotal)
+  }else{
+      this.setState({tapCount: this.state.tapCount+1, tapTimeTotal: this.state.tapTimeTotal+this.state.timeSinceTap})
+      let avg = this.state.tapTimeTotal / this.state.tapCount
+      if(avg){
+        return 60000/avg
+      }
+    }
+  }
 
- 
    render() {  
     return (
    <main>
-    <input type="number" value={this.state.tempo} onChange={this.tempoChange} className="tempo-input"></input>
+    <input type="number" value={this.state.tempo} onChange={(e)=>this.tempoChange(Number(e.target.value))} className="tempo-input"></input>
    {this.state.running ? <button onClick={this.stop} className="tempo-btn">Stop</button> : <button onClick={this.start} className="tempo-btn">Start</button>}
     <button className="minus-ten tempo-btn" onClick={()=>this.tempoIncrement(-10)}>-10</button>
     <button className="minus-five tempo-btn" onClick={()=>this.tempoIncrement(-5)}>-5</button>
@@ -79,6 +104,7 @@ tempoIncrement=(int)=>{
     <input type="number" placeholder="100" className="random-input"/>
     <button className="random-btn">Turn Random On</button>
     <button className="subdiv-btn">Turn Subdivisions On</button>
+    <button className="taptempo-btn" onClick={this.tapTempo}>Tap Tempo</button>
 </main>
     )
  }
