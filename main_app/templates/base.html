@@ -96,7 +96,6 @@ document.addEventListener('mouseup', function() {
       event.preventDefault();
       if (isDown) {
         if( divOverlay.getBoundingClientRect().width  >= 300){
-          console.log('hit', divOverlay.getBoundingClientRect().width)
         divOverlay.style.left = (e.clientX + offset) + 'px'
         divOverlay.style.width =  window.screen.width  - e.clientX + 'px'
         }else{

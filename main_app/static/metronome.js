@@ -1,16 +1,59 @@
 'use strict';
 
  const e = React.createElement;
- 
+
+
+
+
  class LikeButton extends React.Component {
    constructor(props) {
      super(props);
-     this.state = { tempo: 180 };
+     this.state = { tempo: 120, running: false };
    }
+
+
+    playMet=()=> {
+    running = true;
+    console.log('hit')
+    tempoMs = 60000 / this.state.tempo;
+    metLoop = setInterval(function () {
+      clickSound.currentTime = 0;
+      if(random){
+      if(Math.random() <= likelihood){
+      clickSound.play()}}
+      else{clickSound.play()}
+    }, tempoMs);
+  }
+
+
+
+  start=()=> {
+  this.setState({running: true})
+  this.playMet();
+  clickSound.play();
+}
+
+reset=()=> {
+  clearInterval(metLoop);
+  this.playMet();
+}
+
+
+stop=()=> {
+  console.log('hit')
+  this.setState({running: false})
+  clearInterval(metLoop);
+  clearInterval(secondaryMetLoop);
+}
+
+
+
  
    render() {  
     return (
    <main>
+    <h2>{this.state.tempo}</h2>
+   {this.state.running ? <button onClick={this.stop} className="tempo-btn">stoptest</button> : <button onClick={this.start} className="tempo-btn">starttest</button>}
     <button className="minus-ten tempo-btn">-10</button>
     <button className="minus-five tempo-btn">-5</button>
     <input type="number" placeholder="120" className="tempo-input"/>
@@ -39,7 +82,6 @@
 
 
 
- ////////////////////////variables
 ///////cached elements
 const inputEl = document.querySelector(".tempo-input");
 const randomInputEl = document.querySelector(".random-input");
@@ -61,7 +103,7 @@ let running = false;
 let secondaryRunning
 let tempo = 120;
 let tempoMs = 60000 / tempo;
-let divisor
+let divisor = 2
 let metLoop;
 let secondaryMetLoop
 let likelihood = 1
@@ -73,7 +115,7 @@ inputEl.addEventListener("input", inputTempo);
 randomBtnEl.addEventListener("click", randomToggle);
 randomInputEl.addEventListener("input", likelihoodChange);
 subdivBtnEl.addEventListener("click", secondaryStart);
-startEl.addEventListener("click", start);
+// startEl.addEventListener("click", start);
 minusTenEl.addEventListener("click", minusTen);
 plusTenEl.addEventListener("click", plusTen);
 minusFiveEl.addEventListener("click", minusFive);
@@ -85,17 +127,7 @@ subBtnEls.forEach(function(subBtnEl){
 
 ////////////////functions
 /////////Start/Stop
-function playMet() {
-  running = true;
-  tempoMs = 60000 / tempo;
-  metLoop = setInterval(function () {
-    clickSound.currentTime = 0;
-    if(random){
-    if(Math.random() <= likelihood){
-    clickSound.play()}}
-    else{clickSound.play()}
-  }, tempoMs);
-}
+
 
 function playSecondaryMet() {
   secondaryRunning = true;
@@ -117,26 +149,13 @@ function secondaryStart() {
   playSecondaryMet();
 }
 
-function start() {
-    if(!inputEl.value){inputEl.value = tempo}
-  startEl.innerHTML = "Stop";
-  startEl.removeEventListener("click", start);
-  startEl.addEventListener("click", stop);
-  clickSound.play();
-  playMet();
-}
-
-function reset() {
-  clearInterval(metLoop);
-  playMet();
-}
 
 function stop() {
   running = false;
   secondaryRunning = false
   startEl.innerHTML = "Start";
   startEl.removeEventListener("click", stop);
-  startEl.addEventListener("click", start);
+  // startEl.addEventListener("click", start);
   clearInterval(metLoop);
   clearInterval(secondaryMetLoop);
 }
@@ -148,21 +167,6 @@ function secondaryStop() {
   subdivBtnEl.addEventListener("click", secondaryStart);
   clearInterval(secondaryMetLoop);
 }
-
-// function keyPress(e){
-//     if(!running){
-//     if(e.code === 'Enter' || e.code === 'Space'){
-//         e.preventDefault()
-//         start()
-//     }
-// }else{
-//     if(e.code === 'Enter' || e.code === 'Space'){
-//         e.preventDefault()
-//         stop()
-//     }
-// }
-// }
-
 
 /////change tempo
 function minusTen() {
