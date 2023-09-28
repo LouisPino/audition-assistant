@@ -16,12 +16,13 @@ document.addEventListener('mousemove', function(e) {
         divOverlay.style.width = (document.body.clientWidth - Number(divOverlay.style.left.split('px')[0]))+'px'
     }  
     if(divOverlay.getBoundingClientRect().width < 299 || divOverlay.getBoundingClientRect().width > 1000){
-      isDown=false
+    //   isDown=false
       if(divOverlay.getBoundingClientRect().width > 900){
           oldWidth = Number(divOverlay.style.width.split('px')[0])
           divOverlay.style.width = '995px'
           divOverlay.style.left =  Number(divOverlay.style.left.split('px')[0])-(995-oldWidth) + 'px'
       }else{
+        if(e.clientX > document.body.clientWidth - 100){isDown=false}
       oldWidth = Number(divOverlay.style.width.split('px')[0])
       divOverlay.style.width = '305px'
       divOverlay.style.left =  Number(divOverlay.style.left.split('px')[0])-(305-oldWidth) + 'px'
