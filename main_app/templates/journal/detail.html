@@ -2,7 +2,7 @@
 {%block content%} 
 {%for task in tasks%}
 {%if task.completed%}
-<div class="card">
+<div class="card task-card">
     {%if task.time%}
     <h1 class='strike'>{{task.task}} for {{task.time}} minutes</h1>
     {%else%}
@@ -10,9 +10,9 @@
     {%endif%}
 </div>
 {%else%}
-<div class="card">
-<a href="{%url 'task_complete' task.id entry.id%}">
-    <button>✓</button>
+<div class="card task-card">
+<a class='task-complete-btn'href="{%url 'task_complete' task.id entry.id%}">
+    <button class='btn'>✓</button>
   </a>
     {%if task.time%}
     <h1>{{task.task}} for {{task.time}} minutes</h1>

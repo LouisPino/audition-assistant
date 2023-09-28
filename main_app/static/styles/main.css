@@ -286,7 +286,7 @@ display: flex;
 
 }
 
-.goal-card{
+.goal-card, .task-card{
 display: flex;
 align-items: center;
 }
@@ -294,6 +294,10 @@ align-items: center;
 .goal-complete-btn{
 padding: 0;
 width: 20px;
+}
+
+.task-complete-btn{
+  margin-right: 16px;
 }
 
 .orch-title{
