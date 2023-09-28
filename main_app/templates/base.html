@@ -79,32 +79,9 @@
 
 
 
-<script>
-  var offset = 0
-  var divOverlay = document.querySelector("#slide-out");
-  var isDown = false;
-  divOverlay.addEventListener('mousedown', function(e) {
-      isDown = true;
-      offset = divOverlay.offsetLeft - e.clientX
-  }, true);
 
-  
-document.addEventListener('mouseup', function() {
-      isDown = false;
-  }, true);
-  document.addEventListener('mousemove', function(e) {
-      e.preventDefault();
-      console.log(document.body.clientWidth - Number(divOverlay.style.left.split('px')[0]))
-      if (isDown) {
-        if( divOverlay.getBoundingClientRect().width  >= 300){
-        divOverlay.style.left = (e.clientX + offset) + 'px'
-        divOverlay.style.width = (document.body.clientWidth - Number(divOverlay.style.left.split('px')[0]))+'px'
-        }else{
 
-        }
-      }   
-}, true);
-</script>
+<script src="{% static 'scripts/sidenav_drag.js' %}"></script>
 <script src="{% static 'react/react.development.js' %}"></script>
  <script src="{% static 'react/react-dom.development.js' %}"></script>
  <script src="{% static 'react/babel.min.js' %}"></script>
