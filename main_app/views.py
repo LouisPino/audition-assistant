@@ -12,8 +12,10 @@ import boto3
 import os
 import requests
 import re
+
 from .models import *
 from .forms import *
+
 
 @login_required
 def auditions(request):
@@ -280,10 +282,19 @@ def add_links(request, ex_id):
 
 
 
-
 def journal_index(request):
-  entries = JournalEntry.objects.filter(user_id=request.user.id)
-  return render(request, 'journal/index.html', {'entries': entries})
+  entries = JournalEntry.objects.filter(user_id=request.user.id).order_by('-date')
+  entry_objs={}
+  for entry in entries:
+    month = str(entry.date).split('-')[1]
+    if month in entry_objs.keys():
+      entry_objs[month].append(entry)
+    else:
+      entry_objs[month] = [entry]
+  
+
+  return render(request, 'journal/index.html', {'entries': entry_objs})
+
   
 def entry_detail(request, ent_id):
   entry = JournalEntry.objects.get(id=ent_id)

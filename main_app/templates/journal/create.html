@@ -1,7 +1,7 @@
 {%extends 'base.html'%} 
 {%block content%} 
 <h2 class='form-title'>{%now 'M d, Y'%}</h2>
-<form class='card' method="POST">
+<form class='card journal-form' method="POST">
     {% csrf_token %}
 {{form.as_table}}
 <input class='btn delete-btn'type='submit' />

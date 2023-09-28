@@ -1,18 +1,29 @@
 {%extends 'base.html'%} 
+{% load month_name%}
 {%block content%} 
+
+
 <h1 class='form-title'><span class='teal-text'>{{user.username|title}}'s</span > Practice Journal</h1>
 
-{%for entry in entries%}
-<a href={%url 'entry_detail' entry.id%}>
-<div class="card">
-<h1>{{entry.date}}</h1>
-</div>
-</a>
+
+{%for key, values in entries.items%}
+
+<h2>{{ key| month_name }}</h2>
+    {%for entry in values%}
+        <a href={%url 'entry_detail' entry.id%}>
+        <div class="card">
+        <h1>{{entry.date}}</h1>
+        </div>
+        </a>
+    {%endfor%}
 {%empty%}
-<div class="card">
-<h1>No entries yet!</h1>
-</div>
+    <div class="card">
+    <h1>No entries yet!</h1>
+    </div>
 {%endfor%}
+
+
+
 <a class="center" href='{%url "entry_create"%}'>
     <button class="btn delete-btn">Add journal entry</button>
 </a>

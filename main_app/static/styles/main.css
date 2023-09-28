@@ -38,6 +38,15 @@ td>input{
 color: black;  
 }
 
+/* .journal-form > input[type=number]{
+width: 30px;
+}
+
+.journal-form > textarea{
+width: 40%;
+} */
+
+
 .carousel{
   height: 500px;
 }
