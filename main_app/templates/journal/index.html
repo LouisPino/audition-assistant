@@ -5,6 +5,9 @@
 
 <h1 class='form-title'><span class='teal-text'>{{user.username|title}}'s</span > Practice Journal</h1>
 
+    <a class="center" href='{%url "entry_create"%}'>
+        <button class="btn delete-btn">Add journal entry</button>
+    </a>
 
 {%for key, values in entries.items%}
 
@@ -12,7 +15,7 @@
     {%for entry in values%}
         <a href={%url 'entry_detail' entry.id%}>
         <div class="card">
-        <h1>{{entry.date}}</h1>
+        <h4>{{entry.date}}</h4>
         </div>
         </a>
     {%endfor%}
@@ -24,7 +27,4 @@
 
 
 
-<a class="center" href='{%url "entry_create"%}'>
-    <button class="btn delete-btn">Add journal entry</button>
-</a>
 {%endblock%}

@@ -56,18 +56,18 @@
   </main>
 
 <ul id="slide-out" class="sidenav">
-{% comment %} <li><div class="user-view">
-    <div class="background">
-      <img src="">
-    </div>
-    <iframe
-  src="https://4four.io/embed/metronome"
-  width="250"
-  height="680"
-  frameborder="0"
->
-</iframe></div></li> {% endcomment %}
-<li><div id="like_button_container"></div></li>
+  <div class="user-view">
+      {% comment %} <li>
+        <iframe
+    src="https://4four.io/embed/metronome"
+    width="250"
+    height="680"
+    frameborder="0"
+  >
+  </iframe>
+</li> {% endcomment %}
+  <li><div id="like_button_container"></div></li>
+  </div>
 </ul>
 
 
@@ -75,9 +75,15 @@
   <div class="footer-text">All Rights Reserved, &copy; 2023 Louis Pino</div>
 </footer>
 
+
+
+
+
+
+
+<script src="{% static 'scripts/sidenav_drag.js' %}"></script>
 <script src="{% static 'react/react.development.js' %}"></script>
  <script src="{% static 'react/react-dom.development.js' %}"></script>
- <!-- JSX support-->
  <script src="{% static 'react/babel.min.js' %}"></script>
  <script src="{%static 'metronome.js' %}" type='text/babel'></script>
 
