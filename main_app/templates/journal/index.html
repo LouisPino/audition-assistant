@@ -1,5 +1,7 @@
 {%extends 'base.html'%} 
 {%block content%} 
+<h1 class='form-title'><span class='teal-text'>{{user.username|title}}'s</span > Practice Journal</h1>
+
 {%for entry in entries%}
 <a href={%url 'entry_detail' entry.id%}>
 <div class="card">

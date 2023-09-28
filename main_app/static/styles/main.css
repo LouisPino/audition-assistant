@@ -29,9 +29,23 @@ body {
   font-size: 1.5rem;
 }
 
+th>label, form>label{
+  font-size: 2rem;
+  color: var(--seagreen);
+}
+
+td>input{
+color: black;  
+}
+
+.carousel{
+  height: 500px;
+}
+
 .strike{
   text-decoration: line-through rgba(0, 0, 0, .3);
 }
+
   a{
     color: var(--seagreen)
   }
@@ -259,6 +273,19 @@ display: flex;
   height: fit-content
 }
 
+.form-title{
+    text-align: center;
+    font-weight: bolder;
+}
+
+.import-btn{
+  display: block;
+  margin: 0 auto;
+  width: fit-content;
+
+
+}
+
 .goal-card{
 display: flex;
 align-items: center;
@@ -282,6 +309,7 @@ width: 20px;
   width: 80vw;
   height: auto;
   margin-top: 30px;
+  object-fit: cover;
 }
 
 .login-ctr{
@@ -297,10 +325,14 @@ width: 20px;
   pointer-events: none;
 }
 
-@media screen and (max-width: 450px){
+.audition-index-card{
+text-align: center;
+
+}
 .index-category{
   text-align: center;
 }
+@media screen and (max-width: 450px){
 
 .excerpt-teaser-ctr{
   flex-direction: column;
@@ -328,10 +360,6 @@ width: 20px;
 
 
 footer.page-footer{
-  text-align: center;
-}
-
-.form-title{
   text-align: center;
 }
 
@@ -445,5 +473,4 @@ margin: 0;
   width: 80%;
   margin: 24px auto;
 }
-
 }

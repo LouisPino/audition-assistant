@@ -45,6 +45,7 @@
     <img class="hamburger" src="{% static 'assets/burger.png'%}" />
         <div class="dropdown-content">
           <a href="#" id="sidenav-btn2" class="burger-link-text" data-target="slide-out">Metronome</a>
+          <a href="{% url 'journal_index' %}" class='burger-link-text'>Practice Journal</a>
           <a href="{% url 'audition_index' %}" class="burger-link-text">My Auditions</a>
         <a href="{% url 'logout' %}" class="burger-link-text" >Log Out</a>
         </div>

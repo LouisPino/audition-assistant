@@ -70,7 +70,7 @@ minusTenEl.addEventListener("click", minusTen);
 plusTenEl.addEventListener("click", plusTen);
 minusFiveEl.addEventListener("click", minusFive);
 plusFiveEl.addEventListener("click", plusFive);
-document.addEventListener("keydown", keyPress);
+// document.addEventListener("keydown", keyPress);
 subBtnEls.forEach(function(subBtnEl){
   subBtnEl.addEventListener('click', subdivisions)
 })

@@ -4,7 +4,7 @@
 {% for audition in upcoming_auditions %}
 <a href={%url 'audition_detail' audition.id%}>
 <div class="card">
-<h2>{{audition.orchestra}} - {{audition.date}}</h2>
+<h2 class='audition-index-card'>{{audition.orchestra}} - {{audition.date}}</h2>
 </div>
 </a>
 {%empty%}
@@ -14,7 +14,7 @@
 {% for audition in previous_auditions %}
 <a href={%url 'audition_detail' audition.id%}>
 <div class="card">
-<h2>{{audition.orchestra}} - {{audition.date}}</h2>
+<h2 class='audition-index-card'>{{audition.orchestra}} - {{audition.date}}</h2>
 </div>
 </a>
 {%empty%}

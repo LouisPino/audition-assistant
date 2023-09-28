@@ -32,7 +32,7 @@ class Excerpt(models.Model):
     title= models.CharField(max_length=100)
     composer= models.CharField(max_length=100)
     instrument= models.CharField(max_length=100, null=True, blank=True)
-    goal_tempo_bpm= models.IntegerField(null=True, blank=True)
+    goal_tempo_bpm= models.IntegerField(null=True, blank=True, verbose_name='Goal Tempo')
     section = models.CharField(max_length=100)
     current_tempo = models.IntegerField(null=True, blank=True, )
     last_practiced = models.DateField(null=True, blank=True)

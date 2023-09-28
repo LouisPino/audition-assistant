@@ -14,7 +14,7 @@
 <form action="{%url 'excerpt_import-multiple' aud_id%}" method="POST" >
     {%csrf_token%}
     <input type="hidden" value="" name="ex_list" id="ex_list"/>
-    <input type="submit" value="Import Excerpts"/>
+    <input type="submit" class='btn delete-btn' value="Import Excerpts"/>
 </form>
 
 <script>

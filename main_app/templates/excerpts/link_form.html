@@ -1,10 +1,12 @@
 {%extends 'base.html'%} 
 {%block content%} 
-<form method='POST'>
+
+<h2 class='form-title'>Add Youtube Links</h2>
+<form class='card' method='POST'>
 {%csrf_token%}
 
 {{form.as_p}}
 
-<input type='submit'>
+<input class='btn delete-btn' type='submit'>
 </form>
 {%endblock%}
