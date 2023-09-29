@@ -16,6 +16,9 @@ class LikeButton extends React.Component {
       random: false,
       beats: 1,
       divisor: 2,
+      secondaryRunning: false,
+      subs: 0,
+      secondaryMetLoop
     };
   }
   promisedSetState = (newState) =>
@@ -27,10 +30,11 @@ class LikeButton extends React.Component {
     clickSound.play();
   };
 
+
   reset = () => {
-    let running = this.state.running;
-    if (running) {
+    if (this.state.running) {
       clearInterval(metLoop);
+      clearInterval(secondaryMetLoop);
       this.playMet();
     }
   };
@@ -47,6 +51,10 @@ class LikeButton extends React.Component {
     let like = this.state.likelihood;
     let tempoMs = 60000 / this.state.tempo;
     let beatCount = 0;
+    let secondaryRunning = this.state.secondaryRunning;
+    let divisor = this.state.divisor
+    let subTempoMs = 60000 / this.state.tempo / divisor
+    let subCount = 0
 
     metLoop = setInterval(function () {
       clickSound.currentTime = 0;
@@ -68,8 +76,34 @@ class LikeButton extends React.Component {
       } else {
         if (beatCount === 0) {
           clickSound.play();
+          subCount = 0
+          clearInterval(secondaryMetLoop)
+          if(secondaryRunning){
+            secondaryMetLoop = setInterval(function () {
+              if(subCount!== divisor-1){
+                clickSound3.currentTime = 0;
+                clickSound3.play()
+              }
+              subCount++
+            }, subTempoMs)
+
+          }
+
         } else {
           clickSound2.play();
+          subCount = 0
+          clearInterval(secondaryMetLoop)
+          if(secondaryRunning){
+            secondaryMetLoop = setInterval(function () {
+              if(subCount!== divisor-1){
+                clickSound3.currentTime = 0;
+                clickSound3.play()
+              }
+              subCount++
+            }, subTempoMs)
+
+          }
+
         }
         if (beats === beatCount + 1) {
           beatCount = 0;
@@ -146,6 +180,57 @@ class LikeButton extends React.Component {
     await this.promisedSetState({ divisor: div });
     this.reset();
   };
+
+
+  startSecondary = async() => {
+   await  this.promisedSetState({ secondaryRunning: true });
+    this.reset()
+  };
+
+  stopSecondary = async() => {
+  console.log(metLoop)
+   await  this.promisedSetState({ secondaryRunning: false });
+    clearInterval(secondaryMetLoop)
+    this.reset()
+  };
+
+  // playSecondaryMet=()=>{
+  //   let random = this.state.random;
+  //   let like = this.state.likelihood;
+  //   let divisor = this.state.divisor
+  //   let subTempoMs = 60000 / this.state.tempo / divisor
+  //   let subCount = 0
+
+  //   secondaryMetLoop = setInterval(function () {
+  //     clickSound3.currentTime = 0;
+  //     if (random) {
+  //       if (subCount !== 0) {
+  //         if (Math.random() < like / 100) {
+  //           clickSound3.play();
+  //         }
+  //       }
+  //       if (divisor === subCount + 1) {
+  //         subCount = 0;
+  //       } else {
+  //         subCount++;
+  //       }
+  //     } 
+      
+  //     else {
+  //       console.log(subCount)
+  //       if (subCount !== 0) {
+  //           clickSound3.play();
+  //         }
+  //       }
+  //       if (divisor === subCount + 1) {
+  //         subCount = 0;
+  //       } else {
+  //         subCount++;
+  //       }
+  //   }, subTempoMs);
+
+  // }
+
 
   render() {
     return (
@@ -256,7 +341,11 @@ class LikeButton extends React.Component {
             Turn Random On
           </button>
         )}
-        <button className="subdiv-btn">Turn Subdivisions On</button>
+       { !this.state.secondaryRunning ? 
+        <button className="subdiv-btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
+        :
+        <button className="subdiv-btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
+       }
         <button className="taptempo-btn" onClick={this.tapTempo}>
           Tap Tempo
         </button>
@@ -270,8 +359,8 @@ ReactDOM.render(<LikeButton />, domContainer);
 ///////cached elements
 ///////Constants
 const clickSound = new Audio("../static/assets/clave.wav");
-const clickSound2 = new Audio("../static/assets/clave3.wav");
-const clickSound3 = new Audio("../static/assets/clave.wav");
+const clickSound2 = new Audio("../static/assets/clave2.wav");
+const clickSound3 = new Audio("../static/assets/clave3.wav");
 
 ///////Variables
 let secondaryRunning;
@@ -281,32 +370,23 @@ let secondaryMetLoop;
 let secondaryTempoMs;
 
 //////event listeners
-subdivBtnEl.addEventListener("click", secondaryStart);
 
 ////////////////functions
 /////////Start/Stop
 
-// function playSecondaryMet() {
-//   secondaryRunning = true;
-//   secondaryTempoMs = 60000 / tempo / divisor;
-//   secondaryMetLoop = setInterval(function () {
-//     clickSound2.currentTime = 0;
-//     if (random) {
-//       if (Math.random() <= likelihood) {
-//         clickSound2.play();
-//       }
-//     } else {
-//       clickSound2.play();
-//     }
-//   }, secondaryTempoMs);
-// }
-
-function secondaryStart() {
-  subdivBtnEl.innerHTML = "Turn Off Subdivisions";
-  subdivBtnEl.removeEventListener("click", secondaryStart);
-  subdivBtnEl.addEventListener("click", secondaryStop);
-  clickSound2.play();
-  playSecondaryMet();
+function playSecondaryMet() {
+  secondaryRunning = true;
+  secondaryTempoMs = 60000 / tempo / divisor;
+  secondaryMetLoop = setInterval(function () {
+    clickSound2.currentTime = 0;
+    if (random) {
+      if (Math.random() <= likelihood) {
+        clickSound2.play();
+      }
+    } else {
+      clickSound2.play();
+    }
+  }, secondaryTempoMs);
 }
 
 function secondaryStop() {
