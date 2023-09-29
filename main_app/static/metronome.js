@@ -3,8 +3,14 @@
 const e = React.createElement;
 
 const subdivArr = [
-  "eightTest.jpeg",
-  'triplets.png'
+  "2.png",
+  '3.png',
+  '4.png',
+  '5.png',
+  '6.png',
+  '7.png',
+  '8.png',
+  
   ]
 
 class LikeButton extends React.Component {
@@ -232,6 +238,15 @@ class LikeButton extends React.Component {
   render() {
     return (
       <main className="met-ctr">
+         {this.state.running ? (
+          <button onClick={this.stop} className="btn tempo-btn">
+            Stop
+          </button>
+        ) : (
+          <button onClick={this.start} className="btn tempo-btn">
+            Start
+          </button>
+        )}
         <label> Tempo</label>
         <input
           type="number"
@@ -265,15 +280,8 @@ class LikeButton extends React.Component {
           +10
         </button>
         </div>
-        {this.state.running ? (
-          <button onClick={this.stop} className="btn tempo-btn">
-            Stop
-          </button>
-        ) : (
-          <button onClick={this.start} className="btn tempo-btn">
-            Start
-          </button>
-        )}
+        <hr className='met-hr'/>
+        <hr className='met-hr'/>
         <label>Beats per bar</label>
         <input
           type="number"
@@ -281,8 +289,11 @@ class LikeButton extends React.Component {
           onChange={(e) => this.beatChange(Number(e.target.value))}
           className="met-int-input"
         ></input>
+  <hr className='met-hr'/>
+  <hr className='met-hr'/>
+          <label>Subdivisions</label>
+        <img className='subdiv-img' src={`../static/assets/${subdivArr[this.state.divisor-2]}`}/>
  <div className='subdiv-ctr'>
-        <label>Subdivisions</label>
         <input
           type="number"
           value={this.state.divisor}
@@ -291,73 +302,35 @@ class LikeButton extends React.Component {
           max='8'
           min='2'
         ></input>
-        <img className='subdiv-img' src={`../static/assets/${subdivArr[this.state.divisor-2]}`}/>
         </div>
-{/*        
-        <div className="sub-btns-ctr">
-          <button
-            className="btn sub-btn tempo-btn"
-            onClick={() => this.divisorChange(2)}
-          >
-            8th
-          </button>
-          <button
-            className="btn sub-btn tempo-btn"
-            onClick={() => this.divisorChange(3)}
-          >
-            3let
-          </button>
-          <button
-            className="btn sub-btn tempo-btn"
-            onClick={() => this.divisorChange(4)}
-          >
-            16th
-          </button>
-          <button
-            className="btn sub-btn tempo-btn"
-            onClick={() => this.divisorChange(5)}
-          >
-            5let
-          </button>
-          <button
-            className="btn sub-btn tempo-btn"
-            onClick={() => this.divisorChange(6)}
-          >
-            6let
-          </button>
-          <button
-            className="btn sub-btn tempo-btn"
-            onClick={() => this.divisorChange(7)}
-          >
-            7let
-          </button>
-          <button
-            className="btn sub-btn tempo-btn"
-            onClick={() => this.divisorChange(8)}
-          >
-            32nd
-          </button>
-        </div> */}
         { !this.state.secondaryRunning ? 
-        <button className="subdiv-btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
+        <button className="subdiv-btn btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
         :
-        <button className="subdiv-btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
-       }
+        <button className="subdiv-btn btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
+      }
+      <hr className='met-hr'/>
+      <hr className='met-hr'/>
+        <label>Random</label>
+        <div className="random-input-ctr">
+        %
         <input
           type="number"
           value={this.state.likelihood}
           className="met-int-input"
           onChange={(e) => this.likelihoodChange(Number(e.target.value))}
         />
+        </div>
         {this.state.random ? (
-          <button className="random-btn" onClick={() => this.randomToggle(0)}>
+          <button className="random-btn btn" onClick={() => this.randomToggle(0)}>
             Turn Random Off
           </button>
         ) : (
-          <button className="random-btn" onClick={() => this.randomToggle(1)}>
+          <button className="random-btn btn" onClick={() => this.randomToggle(1)}>
             Turn Random On
           </button>
         )}
+         <hr className='met-hr'/>
+
         <button className="taptempo-btn btn delete-btn" onClick={this.tapTempo}>
           Tap Tempo
         </button>

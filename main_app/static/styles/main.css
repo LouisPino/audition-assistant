@@ -348,7 +348,11 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 align-items: center;
-height: 100vh;
+height: 90vh;
+}
+
+.met-ctr>label{
+  font-size: 2rem;
 }
 
 .audition-index-card{
@@ -358,8 +362,10 @@ text-align: center;
 .index-category{
   text-align: center;
 }
-.tempo-btn-ctr{
-
+.subdiv-ctr{
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .subdiv-img{
@@ -376,8 +382,13 @@ text-align: center;
   margin: 0 auto;
 }
 
+.met-hr{
+  width: 90%;
+}
 
-
+.random-input-ctr{
+  display: flex;
+}
 
 @media screen and (max-width: 450px){
 
