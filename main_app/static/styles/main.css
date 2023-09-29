@@ -37,6 +37,19 @@ th>label, form>label{
 td>input{
 color: black;  
 }
+
+.form-group{
+  display: flex;
+}
+
+.task-field{
+  width: 70%
+}
+
+.time-field{
+  width: 25%;
+}
+
 /* .journal-form > input[type=number]{
 width: 30px;
 }
