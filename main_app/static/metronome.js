@@ -17,7 +17,8 @@ class LikeButton extends React.Component {
       beats: 1,
       divisor: 2,
       secondaryRunning: false,
-      subs: 0
+      subs: 0,
+      secondaryMetLoop
     };
   }
   promisedSetState = (newState) =>
@@ -31,12 +32,10 @@ class LikeButton extends React.Component {
 
 
   reset = () => {
-    let running = this.state.running;
-    if (running) {
+    if (this.state.running) {
       clearInterval(metLoop);
-      this.playMet();
       clearInterval(secondaryMetLoop);
-      this.playSecondaryMet();
+      this.playMet();
     }
   };
 
@@ -52,6 +51,10 @@ class LikeButton extends React.Component {
     let like = this.state.likelihood;
     let tempoMs = 60000 / this.state.tempo;
     let beatCount = 0;
+    let secondaryRunning = this.state.secondaryRunning;
+    let divisor = this.state.divisor
+    let subTempoMs = 60000 / this.state.tempo / divisor
+    let subCount = 0
 
     metLoop = setInterval(function () {
       clickSound.currentTime = 0;
@@ -73,6 +76,18 @@ class LikeButton extends React.Component {
       } else {
         if (beatCount === 0) {
           clickSound.play();
+          subCount = 0
+          if(secondaryRunning){
+            secondaryMetLoop = setInterval(function () {
+              if(subCount!== 0){
+                console.log(subTempoMs)
+                clickSound3.play()
+              }
+              subCount++
+            }, subTempoMs)
+
+          }
+
         } else {
           clickSound2.play();
         }
@@ -153,52 +168,54 @@ class LikeButton extends React.Component {
   };
 
 
-  startSecondary = () => {
-    this.setState({ secondaryRunning: true });
-    this.playSecondaryMet();
+  startSecondary = async() => {
+   await  this.promisedSetState({ secondaryRunning: true });
+    this.reset()
   };
 
-  stopSecondary = () => {
-    this.setState({ secondaryRunning: false });
+  stopSecondary = async() => {
+  console.log(metLoop)
+   await  this.promisedSetState({ secondaryRunning: false });
     clearInterval(secondaryMetLoop)
+    this.reset()
   };
 
-  playSecondaryMet=()=>{
-    let random = this.state.random;
-    let like = this.state.likelihood;
-    let divisor = this.state.divisor
-    let subTempoMs = 60000 / this.state.tempo / divisor
-    let subCount = 0
+  // playSecondaryMet=()=>{
+  //   let random = this.state.random;
+  //   let like = this.state.likelihood;
+  //   let divisor = this.state.divisor
+  //   let subTempoMs = 60000 / this.state.tempo / divisor
+  //   let subCount = 0
 
-    secondaryMetLoop = setInterval(function () {
-      clickSound3.currentTime = 0;
-      if (random) {
-        if (subCount !== 0) {
-          if (Math.random() < like / 100) {
-            clickSound3.play();
-          }
-        }
-        if (divisor === subCount + 1) {
-          subCount = 0;
-        } else {
-          subCount++;
-        }
-      } 
+  //   secondaryMetLoop = setInterval(function () {
+  //     clickSound3.currentTime = 0;
+  //     if (random) {
+  //       if (subCount !== 0) {
+  //         if (Math.random() < like / 100) {
+  //           clickSound3.play();
+  //         }
+  //       }
+  //       if (divisor === subCount + 1) {
+  //         subCount = 0;
+  //       } else {
+  //         subCount++;
+  //       }
+  //     } 
       
-      else {
-        console.log(subCount)
-        if (subCount !== 0) {
-            clickSound3.play();
-          }
-        }
-        if (divisor === subCount + 1) {
-          subCount = 0;
-        } else {
-          subCount++;
-        }
-    }, subTempoMs);
+  //     else {
+  //       console.log(subCount)
+  //       if (subCount !== 0) {
+  //           clickSound3.play();
+  //         }
+  //       }
+  //       if (divisor === subCount + 1) {
+  //         subCount = 0;
+  //       } else {
+  //         subCount++;
+  //       }
+  //   }, subTempoMs);
 
-  }
+  // }
 
 
   render() {
@@ -339,7 +356,6 @@ let secondaryMetLoop;
 let secondaryTempoMs;
 
 //////event listeners
-subdivBtnEl.addEventListener("click", secondaryStart);
 
 ////////////////functions
 /////////Start/Stop
@@ -357,14 +373,6 @@ function playSecondaryMet() {
       clickSound2.play();
     }
   }, secondaryTempoMs);
-}
-
-function secondaryStart() {
-  subdivBtnEl.innerHTML = "Turn Off Subdivisions";
-  subdivBtnEl.removeEventListener("click", secondaryStart);
-  subdivBtnEl.addEventListener("click", secondaryStop);
-  clickSound2.play();
-  playSecondaryMet();
 }
 
 function secondaryStop() {
