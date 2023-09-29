@@ -51,15 +51,6 @@ color: black;
   width: 25%;
 }
 
-/* .journal-form > input[type=number]{
-width: 30px;
-}
-
-.journal-form > textarea{
-width: 40%;
-} */
-
-
 .carousel{
   height: 500px;
 }
@@ -351,6 +342,15 @@ width: 20px;
   pointer-events: none;
 }
 
+
+.met-ctr{
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+height: 100vh;
+}
+
 .audition-index-card{
 text-align: center;
 
@@ -358,9 +358,23 @@ text-align: center;
 .index-category{
   text-align: center;
 }
+.tempo-btn-ctr{
 
+}
 
+.subdiv-img{
+  max-height: 30px;
 
+}
+
+.met-int-input{
+  font-family: 'Grandiflora One', serif;
+  font-size: 22px!important;
+  text-align: center;
+  width: 100px!important;
+  display: block;
+  margin: 0 auto;
+}
 
 
 
@@ -397,6 +411,10 @@ footer.page-footer{
 }
 
 }
+
+
+
+
 
 @media screen and (max-width: 850px){
   .goals-title{

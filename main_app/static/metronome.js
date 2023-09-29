@@ -2,6 +2,11 @@
 
 const e = React.createElement;
 
+const subdivArr = [
+  "eightTest.jpeg",
+  'triplets.png'
+  ]
+
 class LikeButton extends React.Component {
   constructor(props) {
     super(props);
@@ -194,142 +199,125 @@ class LikeButton extends React.Component {
     this.reset()
   };
 
-  // playSecondaryMet=()=>{
-  //   let random = this.state.random;
-  //   let like = this.state.likelihood;
-  //   let divisor = this.state.divisor
-  //   let subTempoMs = 60000 / this.state.tempo / divisor
-  //   let subCount = 0
-
-  //   secondaryMetLoop = setInterval(function () {
-  //     clickSound3.currentTime = 0;
-  //     if (random) {
-  //       if (subCount !== 0) {
-  //         if (Math.random() < like / 100) {
-  //           clickSound3.play();
-  //         }
-  //       }
-  //       if (divisor === subCount + 1) {
-  //         subCount = 0;
-  //       } else {
-  //         subCount++;
-  //       }
-  //     } 
-      
-  //     else {
-  //       console.log(subCount)
-  //       if (subCount !== 0) {
-  //           clickSound3.play();
-  //         }
-  //       }
-  //       if (divisor === subCount + 1) {
-  //         subCount = 0;
-  //       } else {
-  //         subCount++;
-  //       }
-  //   }, subTempoMs);
-
-  // }
-
 
   render() {
     return (
-      <main>
+      <main className="met-ctr">
         <label> Tempo</label>
         <input
           type="number"
           value={this.state.tempo}
           onChange={(e) => this.tempoChange(Number(e.target.value))}
-          className="tempo-input"
+          className="met-int-input"
         ></input>
-        <label>Beats per bar</label>
-        <input
-          type="number"
-          value={this.state.beats}
-          onChange={(e) => this.beatChange(Number(e.target.value))}
-          className="tempo-input"
-        ></input>
-        {this.state.running ? (
-          <button onClick={this.stop} className="tempo-btn">
-            Stop
-          </button>
-        ) : (
-          <button onClick={this.start} className="tempo-btn">
-            Start
-          </button>
-        )}
+        <div className='tempo-btn-ctr'>
         <button
-          className="minus-ten tempo-btn"
+          className="btn minus-ten tempo-btn"
           onClick={() => this.tempoIncrement(-10)}
         >
           -10
         </button>
         <button
-          className="minus-five tempo-btn"
+          className="btn minus-five tempo-btn"
           onClick={() => this.tempoIncrement(-5)}
         >
           -5
         </button>
         <button
-          className="plus-five tempo-btn"
+          className="btn plus-five tempo-btn"
           onClick={() => this.tempoIncrement(5)}
         >
           +5
         </button>
         <button
-          className="plus-ten tempo-btn"
+          className="btn plus-ten tempo-btn"
           onClick={() => this.tempoIncrement(10)}
         >
           +10
         </button>
+        </div>
+        {this.state.running ? (
+          <button onClick={this.stop} className="btn tempo-btn">
+            Stop
+          </button>
+        ) : (
+          <button onClick={this.start} className="btn tempo-btn">
+            Start
+          </button>
+        )}
+        <label>Beats per bar</label>
+        <input
+          type="number"
+          value={this.state.beats}
+          onChange={(e) => this.beatChange(Number(e.target.value))}
+          className="met-int-input"
+        ></input>
+ <div className='subdiv-ctr'>
+        <label>Subdivisions</label>
+        <input
+          type="number"
+          value={this.state.divisor}
+          onChange={(e) => this.divisorChange(Number(e.target.value))}
+          className="met-int-input"
+          max='8'
+          min='2'
+        ></input>
+        <img className='subdiv-img' src={`../static/assets/${subdivArr[this.state.divisor-2]}`}/>
+        </div>
+{/*        
         <div className="sub-btns-ctr">
           <button
-            className="sub-btn tempo-btn"
+            className="btn sub-btn tempo-btn"
             onClick={() => this.divisorChange(2)}
           >
             8th
           </button>
           <button
-            className="sub-btn tempo-btn"
+            className="btn sub-btn tempo-btn"
             onClick={() => this.divisorChange(3)}
           >
             3let
           </button>
           <button
-            className="sub-btn tempo-btn"
+            className="btn sub-btn tempo-btn"
             onClick={() => this.divisorChange(4)}
           >
             16th
           </button>
           <button
-            className="sub-btn tempo-btn"
+            className="btn sub-btn tempo-btn"
             onClick={() => this.divisorChange(5)}
           >
             5let
           </button>
           <button
-            className="sub-btn tempo-btn"
+            className="btn sub-btn tempo-btn"
             onClick={() => this.divisorChange(6)}
           >
             6let
           </button>
           <button
-            className="sub-btn tempo-btn"
+            className="btn sub-btn tempo-btn"
             onClick={() => this.divisorChange(7)}
           >
             7let
           </button>
           <button
-            className="sub-btn tempo-btn"
+            className="btn sub-btn tempo-btn"
             onClick={() => this.divisorChange(8)}
           >
             32nd
           </button>
-        </div>
+        </div> */}
+        { !this.state.secondaryRunning ? 
+        <button className="subdiv-btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
+        :
+        <button className="subdiv-btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
+       }
         <input
           type="number"
           value={this.state.likelihood}
-          className="random-input"
+          className="met-int-input"
           onChange={(e) => this.likelihoodChange(Number(e.target.value))}
         />
         {this.state.random ? (
@@ -341,12 +329,7 @@ class LikeButton extends React.Component {
             Turn Random On
           </button>
         )}
-       { !this.state.secondaryRunning ? 
-        <button className="subdiv-btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
-        :
-        <button className="subdiv-btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
-       }
-        <button className="taptempo-btn" onClick={this.tapTempo}>
+        <button className="taptempo-btn btn delete-btn" onClick={this.tapTempo}>
           Tap Tempo
         </button>
       </main>
@@ -363,44 +346,6 @@ const clickSound2 = new Audio("../static/assets/clave2.wav");
 const clickSound3 = new Audio("../static/assets/clave3.wav");
 
 ///////Variables
-let secondaryRunning;
 let metLoop;
 let secondaryMetLoop;
 
-let secondaryTempoMs;
-
-//////event listeners
-
-////////////////functions
-/////////Start/Stop
-
-function playSecondaryMet() {
-  secondaryRunning = true;
-  secondaryTempoMs = 60000 / tempo / divisor;
-  secondaryMetLoop = setInterval(function () {
-    clickSound2.currentTime = 0;
-    if (random) {
-      if (Math.random() <= likelihood) {
-        clickSound2.play();
-      }
-    } else {
-      clickSound2.play();
-    }
-  }, secondaryTempoMs);
-}
-
-function secondaryStop() {
-  secondaryRunning = false;
-  subdivBtnEl.removeEventListener("click", secondaryStop);
-  subdivBtnEl.addEventListener("click", secondaryStart);
-  clearInterval(secondaryMetLoop);
-}
-
-/////change tempo
-
-function subdivisions(e) {
-  divisor = e.target.getAttribute("divisor");
-  if (running) {
-    reset();
-  }
-}
