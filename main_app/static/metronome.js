@@ -38,7 +38,6 @@ class LikeButton extends React.Component {
   start = () => {
     this.setState({ running: true });
     this.playMet();
-    clickSound.play();
   };
 
 
@@ -66,7 +65,6 @@ class LikeButton extends React.Component {
     let divisor = this.state.divisor
     let subTempoMs = 60000 / this.state.tempo / divisor
     let subCount = 0
-
     metLoop = setInterval(function () {
       clickSound.currentTime = 0;
       if (random) {
