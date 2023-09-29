@@ -14,10 +14,12 @@ class LikeButton extends React.Component {
       tapTimeTotal: 0,
       likelihood: 100,
       random: false,
-      beats: 1
+      beats: 1,
+      divisor: 2,
     };
   }
-  promisedSetState = (newState) => new Promise(resolve => this.setState(newState, resolve));
+  promisedSetState = (newState) =>
+    new Promise((resolve) => this.setState(newState, resolve));
 
   start = () => {
     this.setState({ running: true });
@@ -26,10 +28,10 @@ class LikeButton extends React.Component {
   };
 
   reset = () => {
-   let running = this.state.running
-    if(running){
-    clearInterval(metLoop);
-    this.playMet();
+    let running = this.state.running;
+    if (running) {
+      clearInterval(metLoop);
+      this.playMet();
     }
   };
 
@@ -39,58 +41,48 @@ class LikeButton extends React.Component {
     clearInterval(secondaryMetLoop);
   };
 
-
-
   playMet = () => {
-    let beats = this.state.beats
-  let random = this.state.random
-   let like = this.state.likelihood
+    let beats = this.state.beats;
+    let random = this.state.random;
+    let like = this.state.likelihood;
     let tempoMs = 60000 / this.state.tempo;
-    let beatCount = 0
-
+    let beatCount = 0;
 
     metLoop = setInterval(function () {
       clickSound.currentTime = 0;
       if (random) {
-        if(beatCount === 0){
-          if(Math.random() < like/100){
+        if (beatCount === 0) {
+          if (Math.random() < like / 100) {
             clickSound.play();
           }
-        }else{
-          if(Math.random() < like/100){
+        } else {
+          if (Math.random() < like / 100) {
             clickSound2.play();
           }
         }
-        if (beats === beatCount+1){
-          beatCount = 0}
-          else{
-            beatCount++
-          }
-        } 
-        
-        
-        
-        else {
-          if(beatCount === 0){
-            clickSound.play();
-          }else{
-            clickSound2.play();
-          }
-          if (beats === beatCount+1){
-            beatCount = 0}
-            else{
-              beatCount++
-            }
-          }
+        if (beats === beatCount + 1) {
+          beatCount = 0;
+        } else {
+          beatCount++;
+        }
+      } else {
+        if (beatCount === 0) {
+          clickSound.play();
+        } else {
+          clickSound2.play();
+        }
+        if (beats === beatCount + 1) {
+          beatCount = 0;
+        } else {
+          beatCount++;
+        }
+      }
     }, tempoMs);
   };
 
-
-
-
   tempoChange = async (newTemp) => {
     if (newTemp >= 20 && newTemp <= 400) {
-    await this.promisedSetState({ tempo: newTemp });
+      await this.promisedSetState({ tempo: newTemp });
     }
     this.reset();
   };
@@ -98,7 +90,7 @@ class LikeButton extends React.Component {
   tempoIncrement = (int) => {
     let newTemp = this.state.tempo + int;
     if (newTemp >= 20 && newTemp <= 400) {
-      this.tempoChange(newTemp)
+      this.tempoChange(newTemp);
     }
   };
 
@@ -127,29 +119,33 @@ class LikeButton extends React.Component {
   };
 
   likelihoodChange = async (like) => {
-    let random = this.state.random
+    let random = this.state.random;
     let newLike = like;
     if (newLike <= 100 && newLike >= 0) {
       await this.promisedSetState({ likelihood: newLike });
     }
-    if(random){
-      this.reset()
+    if (random) {
+      this.reset();
     }
-    };
+  };
 
   randomToggle = async (x) => {
-    let newRandom = x
+    let newRandom = x;
     await this.promisedSetState({ random: !!newRandom });
-    this.reset()
+    this.reset();
   };
-  
 
-  beatChange= async (beats)=>{
-    let newBeats = beats
-    await this.promisedSetState({ beats: newBeats });
-    this.reset()
-    console.log(this.state.beats)
-  }
+  beatChange = async (beats) => {
+    if (beats >= 1 && beats <= 16) {
+      await this.promisedSetState({ beats: beats });
+      this.reset();
+    }
+  };
+
+  divisorChange = async (div) => {
+    await this.promisedSetState({ divisor: div });
+    this.reset();
+  };
 
   render() {
     return (
@@ -161,7 +157,7 @@ class LikeButton extends React.Component {
           onChange={(e) => this.tempoChange(Number(e.target.value))}
           className="tempo-input"
         ></input>
-         <label>Beats per bar</label>
+        <label>Beats per bar</label>
         <input
           type="number"
           value={this.state.beats}
@@ -202,25 +198,46 @@ class LikeButton extends React.Component {
           +10
         </button>
         <div className="sub-btns-ctr">
-          <button className="sub-btn tempo-btn" divisor="2">
+          <button
+            className="sub-btn tempo-btn"
+            onClick={() => this.divisorChange(2)}
+          >
             8th
           </button>
-          <button className="sub-btn tempo-btn" divisor="3">
+          <button
+            className="sub-btn tempo-btn"
+            onClick={() => this.divisorChange(3)}
+          >
             3let
           </button>
-          <button className="sub-btn tempo-btn" divisor="4">
+          <button
+            className="sub-btn tempo-btn"
+            onClick={() => this.divisorChange(4)}
+          >
             16th
           </button>
-          <button className="sub-btn tempo-btn" divisor="5">
+          <button
+            className="sub-btn tempo-btn"
+            onClick={() => this.divisorChange(5)}
+          >
             5let
           </button>
-          <button className="sub-btn tempo-btn" divisor="6">
+          <button
+            className="sub-btn tempo-btn"
+            onClick={() => this.divisorChange(6)}
+          >
             6let
           </button>
-          <button className="sub-btn tempo-btn" divisor="7">
+          <button
+            className="sub-btn tempo-btn"
+            onClick={() => this.divisorChange(7)}
+          >
             7let
           </button>
-          <button className="sub-btn tempo-btn" divisor="8">
+          <button
+            className="sub-btn tempo-btn"
+            onClick={() => this.divisorChange(8)}
+          >
             32nd
           </button>
         </div>
@@ -230,13 +247,15 @@ class LikeButton extends React.Component {
           className="random-input"
           onChange={(e) => this.likelihoodChange(Number(e.target.value))}
         />
-        {this.state.random ? 
-        <button className="random-btn" onClick={()=>this.randomToggle(0)}>
-          Turn Random Off
-        </button> :
-        <button className="random-btn" onClick={()=>this.randomToggle(1)}>
-          Turn Random On
-        </button>}
+        {this.state.random ? (
+          <button className="random-btn" onClick={() => this.randomToggle(0)}>
+            Turn Random Off
+          </button>
+        ) : (
+          <button className="random-btn" onClick={() => this.randomToggle(1)}>
+            Turn Random On
+          </button>
+        )}
         <button className="subdiv-btn">Turn Subdivisions On</button>
         <button className="taptempo-btn" onClick={this.tapTempo}>
           Tap Tempo
@@ -249,14 +268,6 @@ const domContainer = document.querySelector("#like_button_container");
 ReactDOM.render(<LikeButton />, domContainer);
 
 ///////cached elements
-const inputEl = document.querySelector(".tempo-input");
-const subdivBtnEl = document.querySelector(".subdiv-btn");
-const startEl = document.querySelector(".start-btn");
-const minusTenEl = document.querySelector(".minus-ten");
-const plusTenEl = document.querySelector(".plus-ten");
-const minusFiveEl = document.querySelector(".minus-five");
-const plusFiveEl = document.querySelector(".plus-five");
-const subBtnEls = document.querySelectorAll(".sub-btn");
 ///////Constants
 const clickSound = new Audio("../static/assets/clave.wav");
 const clickSound2 = new Audio("../static/assets/clave3.wav");
@@ -264,17 +275,13 @@ const clickSound3 = new Audio("../static/assets/clave.wav");
 
 ///////Variables
 let secondaryRunning;
-let divisor = 2;
 let metLoop;
 let secondaryMetLoop;
-let likelihood = 1;
+
 let secondaryTempoMs;
 
 //////event listeners
 subdivBtnEl.addEventListener("click", secondaryStart);
-subBtnEls.forEach(function (subBtnEl) {
-  subBtnEl.addEventListener("click", subdivisions);
-});
 
 ////////////////functions
 /////////Start/Stop
@@ -304,7 +311,6 @@ function secondaryStart() {
 
 function secondaryStop() {
   secondaryRunning = false;
-
   subdivBtnEl.removeEventListener("click", secondaryStop);
   subdivBtnEl.addEventListener("click", secondaryStart);
   clearInterval(secondaryMetLoop);

@@ -2,6 +2,6 @@
 
 
 
-credtis: Metronome
+credtis:
 Classical API
 Materialize
