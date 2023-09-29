@@ -12,8 +12,6 @@
     <script defer src="{% static 'scripts/materialize.js' %}"></script>
     <script defer src="{% static 'scripts/hamburger.js' %}"></script>
     <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
-    {% comment %} <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> {% endcomment %}
 </head>
 <body>
   <div class='bg'></div>
@@ -25,7 +23,6 @@
             </div>
             {% if user.is_authenticated %}
             <ul class="right-nav">
-              {% comment %} <li><a class="nav-link" href="{% url 'about'%}">About Us</a></li> {% endcomment %}
               <li><a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a></li> 
              <li><a href="{% url 'journal_index' %}">Practice Journal</a></li>
              <li><a href="{% url 'audition_index' %}">My Auditions</a></li>
@@ -55,15 +52,6 @@
 
 <ul id="slide-out" class="sidenav">
   <div class="user-view">
-      {% comment %} <li>
-        <iframe
-    src="https://4four.io/embed/metronome"
-    width="250"
-    height="680"
-    frameborder="0"
-  >
-  </iframe>
-</li> {% endcomment %}
   <li><div id="like_button_container"></div></li>
   </div>
 </ul>
@@ -72,11 +60,6 @@
 <footer class="page-footer">
   <div class="footer-text">All Rights Reserved, &copy; 2023 Louis Pino</div>
 </footer>
-
-
-
-
-
 
 
 <script src="{% static 'scripts/sidenav_drag.js' %}"></script>

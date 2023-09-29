@@ -9,8 +9,7 @@ const subdivArr = [
   '5.png',
   '6.png',
   '7.png',
-  '8.png',
-  
+  '8.png'
   ]
 
 class LikeButton extends React.Component {
@@ -35,16 +34,12 @@ class LikeButton extends React.Component {
   promisedSetState = (newState) =>
     new Promise((resolve) => this.setState(newState, resolve));
 
-  start = () => {
-    this.setState({ running: true });
-    this.playMet();
-  };
-
 
   reset = () => {
     if (this.state.running) {
       clearInterval(metLoop);
       clearInterval(secondaryMetLoop);
+      ballEl.style.animation = 'none'
       this.playMet();
     }
   };
@@ -53,23 +48,29 @@ class LikeButton extends React.Component {
     this.setState({ running: false });
     clearInterval(metLoop);
     clearInterval(secondaryMetLoop);
+    ballEl.style.animation = 'none'
   };
 
   playMet = () => {
-    let beats = this.state.beats;
-    let random = this.state.random;
-    let like = this.state.likelihood;
-    let tempoMs = 60000 / this.state.tempo;
-    let beatCount = 0;
-    let secondaryRunning = this.state.secondaryRunning;
-    let divisor = this.state.divisor
-    let subTempoMs = 60000 / this.state.tempo / divisor
-    let subCount = 0
-    metLoop = setInterval(function () {
-      clickSound.currentTime = 0;
-      if (random) {
-        if (beatCount === 0) {
-          clearInterval(secondaryMetLoop)
+
+    if (!this.state.tempo){
+      return}
+      this.setState({ running: true });
+      let beats = this.state.beats;
+      let random = this.state.random;
+      let like = this.state.likelihood;
+      let tempoMs = 60000 / this.state.tempo;
+      let beatCount = 0;
+      let secondaryRunning = this.state.secondaryRunning;
+      let divisor = this.state.divisor
+      let subTempoMs = 60000 / this.state.tempo / divisor
+      let subCount = 0
+      metLoop = setInterval(function () {
+        clickSound.currentTime = 0;
+        ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`
+        if (random) {
+          if (beatCount === 0) {
+            clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
             clickSound.play();
             subCount = 0
@@ -106,11 +107,7 @@ class LikeButton extends React.Component {
         } else {
           beatCount++;
         }
-
-
-
-
-        
+     
       } else {
         if (beatCount === 0) {
           clickSound.play();
@@ -124,9 +121,7 @@ class LikeButton extends React.Component {
               }
               subCount++
             }, subTempoMs)
-
           }
-
         } else {
           clickSound2.play();
           subCount = 0
@@ -139,9 +134,7 @@ class LikeButton extends React.Component {
               }
               subCount++
             }, subTempoMs)
-
           }
-
         }
         if (beats === beatCount + 1) {
           beatCount = 0;
@@ -153,11 +146,11 @@ class LikeButton extends React.Component {
   };
 
   tempoChange = async (newTemp) => {
-    if (newTemp >= 20 && newTemp <= 400) {
+    if (newTemp !== 0){
       await this.promisedSetState({ tempo: newTemp });
-    }
-    this.reset();
-  };
+     this.reset();
+  }else{await this.promisedSetState({ tempo: undefined })}
+  }
 
   tempoIncrement = (int) => {
     let newTemp = this.state.tempo + int;
@@ -226,7 +219,6 @@ class LikeButton extends React.Component {
   };
 
   stopSecondary = async() => {
-  console.log(metLoop)
    await  this.promisedSetState({ secondaryRunning: false });
     clearInterval(secondaryMetLoop)
     this.reset()
@@ -236,12 +228,18 @@ class LikeButton extends React.Component {
   render() {
     return (
       <main className="met-ctr">
+        <div className='met-anim'>
+        <div className='met-anim-ball'>
+          </div>
+          </div>
+
+
          {this.state.running ? (
           <button onClick={this.stop} className="btn tempo-btn">
             Stop
           </button>
         ) : (
-          <button onClick={this.start} className="btn tempo-btn">
+          <button onClick={this.playMet} className="btn tempo-btn">
             Start
           </button>
         )}
@@ -348,4 +346,8 @@ const clickSound3 = new Audio("../static/assets/clave3.wav");
 ///////Variables
 let metLoop;
 let secondaryMetLoop;
+
+const ballEl = document.querySelector('.met-anim-ball')
+
+
 
