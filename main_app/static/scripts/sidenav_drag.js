@@ -12,7 +12,6 @@ document.addEventListener('mouseup', function() {
 }, true);
 document.addEventListener('mousemove', function(e) {
     if (document.body.clientWidth > 450){
-        console.log('hi')
     if (isDown) {
         divOverlay.style.left = (e.clientX + offset) + 'px'
         divOverlay.style.width = (document.body.clientWidth - Number(divOverlay.style.left.split('px')[0]))+'px'
