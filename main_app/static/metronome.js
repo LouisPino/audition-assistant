@@ -50,6 +50,8 @@ class LikeButton extends React.Component {
 
   tempoChange=(newTemp)=>{
   this.setState({tempo: newTemp})
+  // this.reset()
+  console.log(this.state.tempo)
   }
 
   tempoIncrement=(int)=>{
