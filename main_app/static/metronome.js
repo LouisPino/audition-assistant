@@ -77,10 +77,11 @@ class LikeButton extends React.Component {
         if (beatCount === 0) {
           clickSound.play();
           subCount = 0
+          clearInterval(secondaryMetLoop)
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
-              if(subCount!== 0){
-                console.log(subTempoMs)
+              if(subCount!== divisor-1){
+                clickSound3.currentTime = 0;
                 clickSound3.play()
               }
               subCount++
@@ -90,6 +91,19 @@ class LikeButton extends React.Component {
 
         } else {
           clickSound2.play();
+          subCount = 0
+          clearInterval(secondaryMetLoop)
+          if(secondaryRunning){
+            secondaryMetLoop = setInterval(function () {
+              if(subCount!== divisor-1){
+                clickSound3.currentTime = 0;
+                clickSound3.play()
+              }
+              subCount++
+            }, subTempoMs)
+
+          }
+
         }
         if (beats === beatCount + 1) {
           beatCount = 0;
