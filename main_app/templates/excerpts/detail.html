@@ -37,7 +37,7 @@
     <input class='btn' type="submit" value="I practiced this today!" />
   </form>
   {%endif%}
-  {% if excerpt.goal_tempo_type and  excerpt.goal_tempo_bpm%}
+  {% if excerpt.goal_tempo_bpm%}
   <h4>Goal Tempo: {{excerpt.goal_tempo_bpm}}</h4>
   {%else%}
   <h4>No goal tempo set</h4>
