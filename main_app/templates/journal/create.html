@@ -3,7 +3,19 @@
 <h2 class='form-title'>{%now 'M d, Y'%}</h2>
 <form class='card journal-form' method="POST">
     {% csrf_token %}
-{{form.as_table}}
+    {{ form.management_form }}
+    {% for field in form %}
+        <div class="form-group">
+            <div class='task-field'>
+            {{ field.task.label_tag }} {{ field.task }}
+            </div>
+            <div class='time-field'>
+            {{ field.time.label_tag }} {{ field.time }}
+        </div>
+        </div>
+    {% endfor %}
 <input class='btn delete-btn'type='submit' />
+</form> 
+
 
 {%endblock%}
