@@ -65,12 +65,36 @@ class LikeButton extends React.Component {
       clickSound.currentTime = 0;
       if (random) {
         if (beatCount === 0) {
+          clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
             clickSound.play();
+            subCount = 0
+            if(secondaryRunning){
+              secondaryMetLoop = setInterval(function () {
+                if(subCount!== divisor-1){
+                  clickSound3.currentTime = 0;
+                  clickSound3.play()
+                }
+                subCount++
+              }, subTempoMs)
+  
+            }
           }
         } else {
+          clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
             clickSound2.play();
+          subCount = 0
+          if(secondaryRunning){
+            secondaryMetLoop = setInterval(function () {
+              if(subCount!== divisor-1){
+                clickSound3.currentTime = 0;
+                clickSound3.play()
+              }
+              subCount++
+            }, subTempoMs)
+
+          }
           }
         }
         if (beats === beatCount + 1) {
@@ -78,6 +102,11 @@ class LikeButton extends React.Component {
         } else {
           beatCount++;
         }
+
+
+
+
+        
       } else {
         if (beatCount === 0) {
           clickSound.play();
