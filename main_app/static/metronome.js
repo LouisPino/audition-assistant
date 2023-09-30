@@ -277,6 +277,8 @@ class LikeButton extends React.Component {
             Start
           </button>
         )}
+
+        {document.body.clientWidth < 450 && <label>Phone must be off silent mode!</label>}
         <div className='met-field-ctr'>
         <label> Tempo</label>
         <input
