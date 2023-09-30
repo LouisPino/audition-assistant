@@ -3,8 +3,8 @@
 <h2 class='form-title'>{%now 'M d, Y'%}</h2>
 <form class='card journal-form' method="POST">
     {% csrf_token %}
-    {{ form.management_form }}
-    {% for field in form %}
+    {{ formset.management_form }}
+    {% for field in formset %}
         <div class="form-group">
             <div class='task-field'>
             {{ field.task.label_tag }} {{ field.task }}

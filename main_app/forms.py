@@ -24,4 +24,4 @@ class JournalTaskForm(forms.ModelForm):
         }
 
 
-JournalForm = modelformset_factory(JournalTask, form=JournalTaskForm, fields=('task', 'time'), extra=10,)
+JournalForm = modelformset_factory(JournalTask, form=JournalTaskForm, fields=('task', 'time'), extra=10)

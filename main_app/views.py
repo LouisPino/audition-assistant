@@ -317,21 +317,23 @@ def entry_create(request):
         task.save()
       return redirect('journal_index')
   
-  return render(request, 'journal/create.html', {'form': jform})
+  return render(request, 'journal/create.html', {'formset': jform})
+
 
 def entry_update(request, ent_id):
-  jform = JournalForm(queryset=JournalTask.objects.filter(entry_id=ent_id))
-  if request.method == 'POST':
-    form = JournalForm(request.POST)
-    if form.is_valid():
-      entry = JournalEntry.objects.get(id=ent_id)
-      new_tasks = form.save(commit=False)
-      for task in new_tasks:
-        task.entry_id = entry.id
-        task.save()
-      return redirect('journal_index')
-  
-  return render(request, 'journal/create.html', {'form': jform})
+    JournalTaskFormSet = modelformset_factory(JournalTask, form=JournalTaskForm, fields=('task', 'time'), extra=10)
+    if request.method == 'POST':
+        formset = JournalTaskFormSet(request.POST)
+        if formset.is_valid():
+            new_tasks = formset.save(commit=False)
+            for task in new_tasks:
+                task.entry_id = ent_id
+                task.save()
+            return redirect('entry_detail', ent_id=ent_id)
+    else:
+        formset = JournalTaskFormSet(queryset=JournalTask.objects.filter(entry_id=0))
+
+    return render(request, 'journal/create.html', {'formset': formset})
 
 
 
