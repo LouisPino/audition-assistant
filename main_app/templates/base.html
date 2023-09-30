@@ -15,6 +15,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
     <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
     <script>
+      var clave = new Howl({src: ["{% static 'assets/clave.wav' %}"]});
+      var clave2 = new Howl({src: ["{% static 'assets/clave2.wav' %}"]});
+      var clave3 = new Howl({src: ["{% static 'assets/clave3.wav' %}"]});
+      var clave4 = new Howl({src: ["{% static 'assets/clave4.wav' %}"]});
     
       function loadSound () {
         createjs.Sound.registerSound("{% static 'assets/clave.wav' %}", claveId);
@@ -23,9 +27,9 @@
         createjs.Sound.registerSound("{% static 'assets/clave4.wav' %}", clave4Id);
       
       
-      
       }
       
+      //soundjs
       function playSound (id) {
         createjs.Sound.play(id);
         console.log('hit')
@@ -107,7 +111,6 @@
   <script src="{% static 'metronome.js' %}" type='text/babel'></script>
 
 <script>
-
   var sound = new Howl({
     src: ["{% static 'assets/clave.wav' %}"]
   });

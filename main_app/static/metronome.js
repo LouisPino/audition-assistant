@@ -70,12 +70,12 @@ class LikeButton extends React.Component {
           if (beatCount === 0) {
             clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
-            playSound(claveId)
+            clave.play()
             subCount = 0
             if(secondaryRunning){
               secondaryMetLoop = setInterval(function () {
                 if(subCount!== divisor-1){
-                  playSound(clave3Id)
+                  clave3.play()
                 }
                 subCount++
               }, subTempoMs)
@@ -84,12 +84,12 @@ class LikeButton extends React.Component {
         } else {
           clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
-            playSound(clave2Id)
+            clave2.play()
           subCount = 0
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                playSound(clave3Id)
+                clave3.play()
               }
               subCount++
             }, subTempoMs)
@@ -109,25 +109,25 @@ class LikeButton extends React.Component {
           polyCount++
           if(polyCount === polyTop){polyCount = 0}
         if (beatCount === 0) {
-          playSound(claveId)
+          clave.play()
           subCount = 0
           clearInterval(secondaryMetLoop)
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                playSound(clave3Id)
+                clave3.play()
               }
               subCount++
             }, subTempoMs)
           }
         } else {
-          playSound(clave2Id)
+          clave2.play()
           subCount = 0
           clearInterval(secondaryMetLoop)
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                playSound(clave3Id)
+                clave3.play()
               }
               subCount++
             }, subTempoMs)
