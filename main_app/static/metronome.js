@@ -372,9 +372,9 @@ class LikeButton extends React.Component {
           min='2'
         ></input>
           { !this.state.ternaryRunning ? 
-        <button className="subdiv-btn btn" onClick={this.startTernary}>Turn Polyrhythms On</button>
+        <button className="poly-btn btn" onClick={this.startTernary}>Turn Polyrhythms On</button>
         :
-        <button className="subdiv-btn btn" onClick={this.stopTernary}>Turn Polyrhythms Off</button>
+        <button className="poly-btn btn" onClick={this.stopTernary}>Turn Polyrhythms Off</button>
       }
 </div>
 </div>
