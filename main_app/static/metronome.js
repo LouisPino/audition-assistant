@@ -31,6 +31,7 @@ class LikeButton extends React.Component {
     if (this.state.running) {
       clearInterval(metLoop);
       clearInterval(secondaryMetLoop);
+      clearInterval(ternaryMetLoop);
       ballEl.style.animation = 'none'
       this.playMet();
     }
@@ -58,14 +59,17 @@ class LikeButton extends React.Component {
       let subCount = 0
       let ternaryRunning = this.state.ternaryRunning
       let polyTop = this.state.polyTop
-      let polyBottom = this.state.polyBottom
-      let polyTempoMs = 60000 / this.state.tempo * polyTop / polyBottom
       let polyCount = 0
       let playTernary = this.playTernary
       metLoop = setInterval(function () {
         clickSound.currentTime = 0;
         ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`
         if (random) {
+          if(ternaryRunning && polyCount === 0){
+            clearInterval(ternaryMetLoop)
+            playTernary()
+          }
+            polyCount++
           if (beatCount === 0) {
             clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
@@ -248,11 +252,19 @@ class LikeButton extends React.Component {
   };
   
   playTernary=()=>{
+    let like = this.state.likelihood
+    let random = this.state.random
     let ternaryTempoMs = 60000/ this.state.tempo/this.state.polyBottom*this.state.polyTop
     clickSound4.play()
     ternaryMetLoop = setInterval(()=>{
+      if(random){
+        if (Math.random() < like / 100) {
+          clickSound4.play()
+        }
+      }else{
         clickSound4.play()
-    }, ternaryTempoMs)
+      }
+      }, ternaryTempoMs)
   }
 
   render() {
