@@ -1,7 +1,5 @@
 "use strict";
-
 const e = React.createElement;
-
 class LikeButton extends React.Component {
   constructor(props) {
     super(props);
@@ -424,6 +422,3 @@ let secondaryMetLoop;
 let ternaryMetLoop;
 
 const ballEl = document.querySelector('.met-anim-ball')
-
-
-
