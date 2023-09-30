@@ -18,7 +18,9 @@ class LikeButton extends React.Component {
       divisor: 2,
       secondaryRunning: false,
       subs: 0,
-      secondaryMetLoop
+      ternaryRunning: false,
+      polyTop: 1,
+      polyBottom: 1
     };
   }
   promisedSetState = (newState) =>
@@ -215,6 +217,18 @@ class LikeButton extends React.Component {
   };
 
 
+  startTernary = async() => {
+   await  this.promisedSetState({ ternaryRunning: true });
+    this.reset()
+  };
+
+  stopTernary = async() => {
+   await  this.promisedSetState({ ternaryRunning: false });
+    clearInterval(ternaryMetLoop)
+    this.reset()
+  };
+
+
   render() {
     return (
       <main className="met-ctr">
@@ -280,9 +294,11 @@ class LikeButton extends React.Component {
         ></input>
       </div>
   <hr className='met-hr'/>
-
- <div className='met-field-ctr'>
+<div className='subdiv-poly-ctr'>
+ <div className='subdiv-ctr'>
+  
           <label>Subdivisions</label>
+        <img className='subdiv-img' src={`${assetsPath}${this.state.divisor}.png`}/>
         <input
           type="number"
           value={this.state.divisor}
@@ -291,13 +307,39 @@ class LikeButton extends React.Component {
           max='8'
           min='2'
         ></input>
-        </div>
-        <img className='subdiv-img' src={`${assetsPath}${this.state.divisor}.png`}/>
         { !this.state.secondaryRunning ? 
         <button className="subdiv-btn btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
         :
         <button className="subdiv-btn btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
       }
+</div>
+<div className='vr'></div>
+<div className='poly-ctr'>
+<label>Polyrhythms</label>
+<input
+          type="number"
+          value={this.state.divisor}
+          onChange={(e) => this.polyTopChange(Number(e.target.value))}
+          className="met-int-input"
+          max='8'
+          min='2'
+        ></input>
+        <label>:</label>
+<input
+          type="number"
+          value={this.state.divisor}
+          onChange={(e) => this.polyBottomChange(Number(e.target.value))}
+          className="met-int-input"
+          max='8'
+          min='2'
+        ></input>
+          { !this.state.ternaryRunning ? 
+        <button className="subdiv-btn btn" onClick={this.startTernary}>Turn Polyrhythms On</button>
+        :
+        <button className="subdiv-btn btn" onClick={this.stopTernary}>Turn Polyrhythms Off</button>
+      }
+</div>
+</div>
       <hr className='met-hr'/>
 
         
@@ -340,6 +382,7 @@ const clickSound3 = new Audio(assetsPath+"clave3.wav");
 ///////Variables
 let metLoop;
 let secondaryMetLoop;
+let ternaryMetLoop;
 
 const ballEl = document.querySelector('.met-anim-ball')
 
