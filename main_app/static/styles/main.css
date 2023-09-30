@@ -147,7 +147,7 @@ width: 100%;
 
 #add-excerpt-btn{
 width: fit-content;
-min-width: 100px;
+min-width: 200px;
 }
 
 .score-card, .comp-card, .excerpt-card{
