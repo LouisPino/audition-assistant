@@ -44,6 +44,7 @@ class LikeButton extends React.Component {
   };
 
   playMet = () => {
+    playSound(clave2Id)
     if (!this.state.tempo){return}
       this.setState({ running: true });
       let beats = this.state.beats;
