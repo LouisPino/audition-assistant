@@ -52,9 +52,14 @@ class LikeButton extends React.Component {
   };
 
   playMet = () => {
-
     if (!this.state.tempo){
       return}
+      clickSound.play()
+      if(this.state.beats !== 1){clickSound2.play()}
+      if(this.state.secondaryRunning){clickSound3.play()}
+      clickSound.muted = true
+      clickSound2.muted = true
+      clickSound3.muted = true
       this.setState({ running: true });
       let beats = this.state.beats;
       let random = this.state.random;
@@ -66,13 +71,12 @@ class LikeButton extends React.Component {
       let subTempoMs = 60000 / this.state.tempo / divisor
       let subCount = 0
       metLoop = setInterval(function () {
-        clickSound.currentTime = 0;
+        // clickSound.currentTime = 0;
         ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`
         if (random) {
           if (beatCount === 0) {
             clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
-            clickSound.play();
             subCount = 0
             if(secondaryRunning){
               secondaryMetLoop = setInterval(function () {
@@ -110,7 +114,8 @@ class LikeButton extends React.Component {
      
       } else {
         if (beatCount === 0) {
-          clickSound.play();
+          clickSound.muted = false
+          setTimeout(()=> clickSound.muted=true, 100)
           subCount = 0
           clearInterval(secondaryMetLoop)
           if(secondaryRunning){
@@ -343,9 +348,9 @@ ReactDOM.render(<LikeButton />, domContainer);
 
 ///////cached elements
 ///////Constants
-const clickSound = new Audio("../static/assets/clave.wav");
-const clickSound2 = new Audio("../static/assets/clave2.wav");
-const clickSound3 = new Audio("../static/assets/clave3.wav");
+const clickSound = new Audio("../static/assets/clave1Const.wav");
+const clickSound2 = new Audio("../static/assets/clave2Const.wav");
+const clickSound3 = new Audio("../static/assets/clave3Const.wav");
 
 ///////Variables
 let metLoop;
