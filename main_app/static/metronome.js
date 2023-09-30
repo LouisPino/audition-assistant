@@ -60,7 +60,6 @@ class LikeButton extends React.Component {
       let polyCount = 0
       let playTernary = this.playTernary
       metLoop = setInterval(function () {
-        clickSound.currentTime = 0;
         ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`
         if (random) {
           if(ternaryRunning && polyCount === 0){
@@ -71,13 +70,12 @@ class LikeButton extends React.Component {
           if (beatCount === 0) {
             clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
-            clickSound.play();
+            playSound(claveId)
             subCount = 0
             if(secondaryRunning){
               secondaryMetLoop = setInterval(function () {
                 if(subCount!== divisor-1){
-                  clickSound3.currentTime = 0;
-                  clickSound3.play()
+                  playSound(clave3Id)
                 }
                 subCount++
               }, subTempoMs)
@@ -86,13 +84,12 @@ class LikeButton extends React.Component {
         } else {
           clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
-            clickSound2.play();
+            playSound(clave2Id)
           subCount = 0
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                clickSound3.currentTime = 0;
-                clickSound3.play()
+                playSound(clave3Id)
               }
               subCount++
             }, subTempoMs)
@@ -119,21 +116,19 @@ class LikeButton extends React.Component {
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                clickSound3.currentTime = 0;
-                clickSound3.play()
+                playSound(clave3Id)
               }
               subCount++
             }, subTempoMs)
           }
         } else {
-          clickSound2.play();
+          playSound(clave2Id)
           subCount = 0
           clearInterval(secondaryMetLoop)
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                clickSound3.currentTime = 0;
-                clickSound3.play()
+                playSound(clave3Id)
               }
               subCount++
             }, subTempoMs)
@@ -253,14 +248,14 @@ class LikeButton extends React.Component {
     let like = this.state.likelihood
     let random = this.state.random
     let ternaryTempoMs = 60000/ this.state.tempo/this.state.polyBottom*this.state.polyTop
-    clickSound4.play()
+    playSound(clave4Id)
     ternaryMetLoop = setInterval(()=>{
       if(random){
         if (Math.random() < like / 100) {
-          clickSound4.play()
+          playSound(clave4Id)
         }
       }else{
-        clickSound4.play()
+        playSound(clave4Id)
       }
       }, ternaryTempoMs)
   }
@@ -424,3 +419,6 @@ let ternaryMetLoop;
 const ballEl = document.querySelector('.met-anim-ball')
 
 var claveId = "clave";
+var clave2Id = "clave2";
+var clave3Id = "clave3";
+var clave4Id = "clave4";
