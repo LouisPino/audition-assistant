@@ -35,7 +35,6 @@ sidenav[0].style.width = "initial"
 function btnClicks(){
   const btnEls = document.querySelectorAll(".btn");
   for (const btnEl of btnEls){
-    console.log(btnEl)
     btnEl.addEventListener('mousedown', isUp)
 }
 }
@@ -43,5 +42,4 @@ function btnClicks(){
 function isUp(){
   console.log()
   isDown = false
-  console.log(isDown)
 }

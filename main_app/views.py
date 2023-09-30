@@ -200,6 +200,7 @@ def add_multiple(request, aud_id):
 
 def import_multiple(request, aud_id):
   ex_ids = request.POST['ex_list'].split(',')
+  if ex_ids[0]=='': return redirect('audition_detail', aud_id=aud_id)
   excerpts = Excerpt.objects.filter(id__in=ex_ids)
   for excerpt in excerpts:
     links = [*excerpt.link_set.all()]

@@ -306,7 +306,7 @@ class LikeButton extends React.Component {
         { !this.state.secondaryRunning ? 
         <button className="subdiv-btn btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
         :
-        <button className="subdiv-btn btn" onClick={this.stopSecondary}><p>Turn Subdivisions Off</p></button>
+        <button className="subdiv-btn btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
       }
       <hr className='met-hr'/>
 
