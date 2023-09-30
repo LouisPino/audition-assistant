@@ -60,6 +60,9 @@ class LikeButton extends React.Component {
       clickSound.muted = true
       clickSound2.muted = true
       clickSound3.muted = true
+      clickSound.loop = true
+      clickSound2.loop = true
+      clickSound3.loop = true
       this.setState({ running: true });
       let beats = this.state.beats;
       let random = this.state.random;
@@ -71,18 +74,19 @@ class LikeButton extends React.Component {
       let subTempoMs = 60000 / this.state.tempo / divisor
       let subCount = 0
       metLoop = setInterval(function () {
-        // clickSound.currentTime = 0;
         ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`
         if (random) {
           if (beatCount === 0) {
+            clickSound.muted = false
+          setTimeout(()=> clickSound.muted=true, 100)
             clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
             subCount = 0
             if(secondaryRunning){
               secondaryMetLoop = setInterval(function () {
                 if(subCount!== divisor-1){
-                  clickSound3.currentTime = 0;
-                  clickSound3.play()
+                  clickSound3.muted = false
+          setTimeout(()=> clickSound3.muted=true, 100)
                 }
                 subCount++
               }, subTempoMs)
@@ -92,13 +96,14 @@ class LikeButton extends React.Component {
         } else {
           clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
-            clickSound2.play();
+            clickSound2.muted = false
+          setTimeout(()=> clickSound2.muted=true, 100)
           subCount = 0
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                clickSound3.currentTime = 0;
-                clickSound3.play()
+                clickSound3.muted = false
+                setTimeout(()=> clickSound3.muted=true, 100)
               }
               subCount++
             }, subTempoMs)
@@ -121,21 +126,22 @@ class LikeButton extends React.Component {
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                clickSound3.currentTime = 0;
-                clickSound3.play()
+                clickSound3.muted = false
+                setTimeout(()=> clickSound3.muted=true, 100)
               }
               subCount++
             }, subTempoMs)
           }
         } else {
-          clickSound2.play();
+          clickSound2.muted = false
+          setTimeout(()=> clickSound2.muted=true, 100)
           subCount = 0
           clearInterval(secondaryMetLoop)
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
               if(subCount!== divisor-1){
-                clickSound3.currentTime = 0;
-                clickSound3.play()
+                clickSound3.muted = false
+          setTimeout(()=> clickSound3.muted=true, 100)
               }
               subCount++
             }, subTempoMs)
