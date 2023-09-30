@@ -89,6 +89,24 @@ width: 100%;
     background-color: var(--couchyellow);
   }
 
+  .rainbow-text{
+    background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 1),
+      rgb(98, 0, 255) 70.71%
+    );
+    color: transparent;
+    animation: animate 5s linear infinite;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: bolder;
+  }
+
+  .footer-text{
+    margin-right: 16px;
+  }
+
+
   #brand-logo{
     font-family: 'Parisienne', cursive;
     display: block;
@@ -635,4 +653,38 @@ margin: 0;
   width: 80%;
   margin: 24px auto;
 }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+#scrollPath {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+#progressbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10px;
+  z-index: 100;
+  background: linear-gradient(to top, #008aff, #00ffe7);
+  animation: animate 5s linear infinite;
+}
+
+#progressbar:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #008aff, #00ffe7);
+  filter: blur(10px);
 }

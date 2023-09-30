@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
 </head>
 <body>
+  <div id="progressbar"></div>
+  <div id="scrollpath"></div>
   <div class='bg'></div>
     <header class="navbar-fixed">
         <nav>
@@ -58,7 +60,7 @@
 
 
 <footer class="page-footer">
-  <div class="footer-text">All Rights Reserved, &copy; 2023 Louis Pino</div>
+  <div class="footer-text"><span class='rainbow-text'>&copy;2023 Louis Pino</span></div>
 </footer>
 
 
@@ -67,6 +69,15 @@
  <script src="{% static 'react/react-dom.development.js' %}"></script>
  <script src="{% static 'react/babel.min.js' %}"></script>
  <script src="{%static 'metronome.js' %}" type='text/babel'></script>
+ <script type='text/javascript'>
+  let progress = document.getElementById("progressbar");
+  let totalHeight = document.body.scrollHeight - window.innerHeight;
+  window.onscroll = function () {
+    let progressHeight = (window.pageYOffset / totalHeight) * 100;
+    progress.style.height = progressHeight + "%";
+  };
+
+ </script>
 
 </body>
 </html>
