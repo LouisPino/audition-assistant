@@ -56,7 +56,10 @@ color: black;
 }
 
 .strike{
-  text-decoration: line-through rgba(0, 0, 0, .3);
+  -webkit-text-decoration-line: line-through;
+  text-decoration-line: line-through;
+  -webkit-text-decoration-color:  rgba(0, 0, 0, .3);
+  text-decoration-color:  rgba(0, 0, 0, .3);
 }
 
   a{
