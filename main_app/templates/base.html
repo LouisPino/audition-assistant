@@ -13,7 +13,17 @@
     <script defer src="{% static 'scripts/hamburger.js' %}"></script>
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
     <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
-
+    <script>
+    
+      function loadSound () {
+        createjs.Sound.registerSound("{% static 'assets/clave.wav' %}", claveId);
+      }
+      
+      function playSound (id) {
+        createjs.Sound.play(id);
+        console.log('hit')
+      }
+          </script>
 </head>
 <body onload="loadSound()">
   <div id="progressbar"></div>
@@ -30,7 +40,6 @@
               <li><a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a></li> 
              <li><a href="{% url 'journal_index' %}">Practice Journal</a></li>
              <li><a href="{% url 'audition_index' %}">My Auditions</a></li>
-             <button onclick="playSound();" class="playSound">Play Sound</button>
              <li><a href="{% url 'logout' %}">Log Out</a></li> 
             </ul>
             {% endif %}
@@ -88,18 +97,7 @@
   </script>
   
   <script src="{% static 'metronome.js' %}" type='text/babel'></script>
-      <script>
-      var soundID = "Thunder";
 
-      function loadSound () {
-        createjs.Sound.registerSound("{% static 'assets/clave.wav' %}", soundID);
-      }
-
-      function playSound () {
-        createjs.Sound.play(soundID);
-        console.log('hit')
-      }
-    </script>
 
 </body>
 </html>

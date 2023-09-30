@@ -113,7 +113,7 @@ class LikeButton extends React.Component {
           polyCount++
           if(polyCount === polyTop){polyCount = 0}
         if (beatCount === 0) {
-          clickSound.play();
+          playSound(claveId)
           subCount = 0
           clearInterval(secondaryMetLoop)
           if(secondaryRunning){
@@ -422,3 +422,5 @@ let secondaryMetLoop;
 let ternaryMetLoop;
 
 const ballEl = document.querySelector('.met-anim-ball')
+
+var claveId = "clave";
