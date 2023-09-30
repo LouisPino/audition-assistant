@@ -1,6 +1,11 @@
 var offset = 0
 var divOverlay = document.querySelector("#slide-out");
 var isDown = false;
+
+
+
+
+
 divOverlay.addEventListener('mousedown', function(e) {
     isDown = true;
     offset = divOverlay.offsetLeft - e.clientX
@@ -28,3 +33,4 @@ document.addEventListener('mousemove', function(e) {
       divOverlay.style.left =  Number(divOverlay.style.left.split('px')[0])-(305-oldWidth) + 'px'
 } }}
 }, true);
+

@@ -295,8 +295,6 @@ display: flex;
   display: block;
   margin: 0 auto;
   width: fit-content;
-
-
 }
 
 .goal-card, .task-card{
@@ -345,11 +343,27 @@ width: 20px;
 
 
 .met-ctr{
+  width: 100%;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
 align-items: center;
-height: 95vh;
+height: 100vh;
+border: 3px solid var(--seagreen);
+}
+
+.sidenav{
+  background-color: var(--seagreen);
+padding: 0%;
+}
+
+.sidenav, .user-view{
+  padding: 0!important;
+  margin: 0!important;
+}
+.user-view> li{
+   border: 3px solid var(--seagreen);
+  background-color: white;
 }
 
 .met-ctr .btn{
@@ -370,6 +384,11 @@ margin-top: 0;
   font-size: 1rem;
 }
 
+#taptempo-btn{
+  margin-bottom: 16px!important;
+ width: 200px!important;
+}
+
 .audition-index-card{
 text-align: center;
 
@@ -388,6 +407,10 @@ justify-content: center;
 
 }
 
+.subdiv-btn{
+  font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
 .met-int-input{
   font-family: 'Grandiflora One', serif;
   font-size: 22px!important;
@@ -398,7 +421,11 @@ justify-content: center;
 }
 
 .met-hr{
-  width: 90%;
+  width: 100%;
+  /* border-top: 1px solid var(--seagreen); */
+  background-color: var(--seagreen);
+  height: 2px;
+  border-radius: 20px;
 }
 
 .random-input-ctr{

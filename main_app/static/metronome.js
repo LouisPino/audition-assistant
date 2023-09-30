@@ -243,7 +243,7 @@ class LikeButton extends React.Component {
             Start
           </button>
         )}
-        <div class='met-field-ctr'>
+        <div className='met-field-ctr'>
         <label> Tempo</label>
         <input
           type="number"
@@ -279,8 +279,8 @@ class LikeButton extends React.Component {
         </button>
         </div>
         <hr className='met-hr'/>
-        <hr className='met-hr'/>
-        <div class='met-field-ctr'>
+
+        <div className='met-field-ctr'>
         <label>Beats per bar</label>
         <input
           type="number"
@@ -290,7 +290,7 @@ class LikeButton extends React.Component {
         ></input>
       </div>
   <hr className='met-hr'/>
-  <hr className='met-hr'/>
+
  <div className='met-field-ctr'>
           <label>Subdivisions</label>
         <input
@@ -309,7 +309,7 @@ class LikeButton extends React.Component {
         <button className="subdiv-btn btn" onClick={this.stopSecondary}><p>Turn Subdivisions Off</p></button>
       }
       <hr className='met-hr'/>
-      <hr className='met-hr'/>
+
         
         <div className="random-input-ctr">
         <label>Random %</label>
@@ -331,7 +331,7 @@ class LikeButton extends React.Component {
         )}
          <hr className='met-hr'/>
 
-        <button className="taptempo-btn btn delete-btn" onClick={this.tapTempo}>
+        <button id='taptempo-btn' className="btn " onClick={this.tapTempo}>
           Tap Tempo
         </button>
       </main>
