@@ -2,16 +2,6 @@
 
 const e = React.createElement;
 
-const subdivArr = [
-  noteImgPath2,
-  '3.png',
-  '4.png',
-  '5.png',
-  '6.png',
-  '7.png',
-  '8.png'
-  ]
-
 class LikeButton extends React.Component {
   constructor(props) {
     super(props);
@@ -302,7 +292,7 @@ class LikeButton extends React.Component {
           min='2'
         ></input>
         </div>
-        <img className='subdiv-img' src={`../static/assets/${subdivArr[this.state.divisor-2]}`}/>
+        <img className='subdiv-img' src={`${assetsPath}${this.state.divisor}.png`}/>
         { !this.state.secondaryRunning ? 
         <button className="subdiv-btn btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
         :
@@ -343,9 +333,9 @@ ReactDOM.render(<LikeButton />, domContainer);
 
 ///////cached elements
 ///////Constants
-const clickSound = new Audio(clickSoundPath+"clave.wav");
-const clickSound2 = new Audio(clickSoundPath+"clave2.wav");
-const clickSound3 = new Audio(clickSoundPath+"clave3.wav");
+const clickSound = new Audio(assetsPath+"clave.wav");
+const clickSound2 = new Audio(assetsPath+"clave2.wav");
+const clickSound3 = new Audio(assetsPath+"clave3.wav");
 
 ///////Variables
 let metLoop;
