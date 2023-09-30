@@ -1,6 +1,6 @@
 "use strict";
 const e = React.createElement;
-class LikeButton extends React.Component {
+class Metronome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -402,8 +402,8 @@ class LikeButton extends React.Component {
     );
   }
 }
-const domContainer = document.querySelector("#like_button_container");
-ReactDOM.render(<LikeButton />, domContainer);
+const domContainer = document.querySelector("#metrnome-sidenav");
+ReactDOM.render(<Metronome />, domContainer);
 
 //Global Loop Variables
 let metLoop;
@@ -412,7 +412,6 @@ let ternaryMetLoop;
 
 //cached ball element for animation
 const ballEl = document.querySelector('.met-anim-ball')
-
 
 //Howler audio vars
 var clave = new Howl({src: [assetsPath+'clave.wav']});

@@ -49,17 +49,19 @@
     {% block content %}
     {% endblock %}
   </main>
-
+'
+{% comment %} Sidenav {% endcomment %}'
 <ul id="slide-out" class="sidenav">
   <div class="user-view">
-  <li><div id="like_button_container"></div></li>
+  <li><div id="metrnome-sidenav"></div></li>
   </div>
 </ul>
-
 
 <footer class="page-footer">
   <div class="footer-text"><span class='rainbow-text'>&copy;2023 Louis Pino</span></div>
 </footer>
+
+{% comment %} Script Imports {% endcomment %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
 <script src="{% static 'react/react.development.js' %}"></script>
@@ -69,11 +71,7 @@
 <script src="{% static 'scripts/hamburger.js' %}"></script>
 <script src="{% static 'scripts/sidenav_drag.js' %}"></script>
 <script src="{% static 'scripts/scrollbar.js' %}"></script>
-  
-  <script type='text/javascript'>
-    const assetsPath = "{% static 'assets/' %}";
-  </script>
-  
-  <script src="{% static 'metronome.js' %}" type='text/babel'></script>
+<script type='text/javascript'> const assetsPath = "{% static 'assets/' %}";</script>
+<script src="{% static 'metronome.js' %}" type='text/babel'></script>
 </body>
 </html>

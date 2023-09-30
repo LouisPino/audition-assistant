@@ -5,4 +5,4 @@
 credtis:
 Classical API
 Materialize
-SoundJS
+Howler
