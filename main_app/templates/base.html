@@ -24,6 +24,7 @@
       
       function playSound (id) {
         createjs.Sound.play(id);
+        console.log('hit')
       }
           </script>
 </head>
@@ -58,7 +59,7 @@
           <a href="#" id="sidenav-btn2" class="burger-link-text" data-target="slide-out">Metronome</a>
           <a href="{% url 'journal_index' %}" class='burger-link-text'>Practice Journal</a>
           <a href="{% url 'audition_index' %}" class="burger-link-text">My Auditions</a>
-          <button onClick="playSound(claveId)">sound</button>
+          <button id='test-btn-id'>sound</button>
         <a href="{% url 'logout' %}" class="burger-link-text" >Log Out</a>
         </div>
         </div>
@@ -101,6 +102,10 @@
   
   <script src="{% static 'metronome.js' %}" type='text/babel'></script>
 
+<script>
 
+const testBtnEl = document.getElementById('test-btn-id')
+testBtnEl.addEventListener('click', function(){playSound(claveId)})
+</script>
 </body>
 </html>
