@@ -6,13 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audition Assistant</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="icon" type="image/x-icon" href="{% static 'assets/met.jpeg'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script defer src="{% static 'scripts/materialize.js' %}"></script>
-    <script defer src="{% static 'scripts/hamburger.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
     <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
+
 </head>
 <body>
   <div id="progressbar"></div>
@@ -63,23 +60,15 @@
 <footer class="page-footer">
   <div class="footer-text"><span class='rainbow-text'>&copy;2023 Louis Pino</span></div>
 </footer>
-
-
-<script src="{% static 'scripts/sidenav_drag.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
 <script src="{% static 'react/react.development.js' %}"></script>
  <script src="{% static 'react/react-dom.development.js' %}"></script>
  <script src="{% static 'react/babel.min.js' %}"></script>
- 
- 
- <script type='text/javascript'>
-   let progress = document.getElementById("progressbar");
-   let totalHeight = document.body.scrollHeight - window.innerHeight;
-   window.onscroll = function () {
-     let progressHeight = (window.pageYOffset / totalHeight) * 100;
-     progress.style.height = progressHeight + "%";
-    };
-    
-  </script>
+<script src="{% static 'scripts/materialize.js' %}"></script>
+<script src="{% static 'scripts/hamburger.js' %}"></script>
+<script src="{% static 'scripts/sidenav_drag.js' %}"></script>
+<script src="{% static 'scripts/scrollbar.js' %}"></script>
   
   <script type='text/javascript'>
     const assetsPath = "{% static 'assets/' %}";
