@@ -18,7 +18,9 @@ class LikeButton extends React.Component {
       divisor: 2,
       secondaryRunning: false,
       subs: 0,
-      secondaryMetLoop
+      ternaryRunning: false,
+      polyTop: 2,
+      polyBottom: 2
     };
   }
   promisedSetState = (newState) =>
@@ -38,13 +40,12 @@ class LikeButton extends React.Component {
     this.setState({ running: false });
     clearInterval(metLoop);
     clearInterval(secondaryMetLoop);
+    clearInterval(ternaryMetLoop);
     ballEl.style.animation = 'none'
   };
 
   playMet = () => {
-
-    if (!this.state.tempo){
-      return}
+    if (!this.state.tempo){return}
       this.setState({ running: true });
       let beats = this.state.beats;
       let random = this.state.random;
@@ -55,6 +56,12 @@ class LikeButton extends React.Component {
       let divisor = this.state.divisor
       let subTempoMs = 60000 / this.state.tempo / divisor
       let subCount = 0
+      let ternaryRunning = this.state.ternaryRunning
+      let polyTop = this.state.polyTop
+      let polyBottom = this.state.polyBottom
+      let polyTempoMs = 60000 / this.state.tempo * polyTop / polyBottom
+      let polyCount = 0
+      let playTernary = this.playTernary
       metLoop = setInterval(function () {
         clickSound.currentTime = 0;
         ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`
@@ -72,7 +79,6 @@ class LikeButton extends React.Component {
                 }
                 subCount++
               }, subTempoMs)
-  
             }
           }
         } else {
@@ -88,8 +94,7 @@ class LikeButton extends React.Component {
               }
               subCount++
             }, subTempoMs)
-
-          }
+     
           }
         }
         if (beats === beatCount + 1) {
@@ -97,8 +102,14 @@ class LikeButton extends React.Component {
         } else {
           beatCount++;
         }
-     
+      }
       } else {
+        if(ternaryRunning && polyCount === 0){
+          clearInterval(ternaryMetLoop)
+          playTernary()
+        }
+          polyCount++
+          if(polyCount === polyTop){polyCount = 0}
         if (beatCount === 0) {
           clickSound.play();
           subCount = 0
@@ -215,6 +226,35 @@ class LikeButton extends React.Component {
   };
 
 
+  startTernary = async() => {
+   await  this.promisedSetState({ ternaryRunning: true });
+    this.reset()
+  };
+
+  stopTernary = async() => {
+   await  this.promisedSetState({ ternaryRunning: false });
+    clearInterval(ternaryMetLoop)
+    this.reset()
+  };
+  
+  polyTopChange = async (int) => {
+    await this.promisedSetState({ polyTop: int });
+    this.reset();
+  };
+  
+  polyBottomChange = async (int) => {
+    await this.promisedSetState({ polyBottom: int });
+    this.reset();
+  };
+  
+  playTernary=()=>{
+    let ternaryTempoMs = 60000/ this.state.tempo/this.state.polyBottom*this.state.polyTop
+    clickSound4.play()
+    ternaryMetLoop = setInterval(()=>{
+        clickSound4.play()
+    }, ternaryTempoMs)
+  }
+
   render() {
     return (
       <main className="met-ctr">
@@ -280,9 +320,11 @@ class LikeButton extends React.Component {
         ></input>
       </div>
   <hr className='met-hr'/>
-
- <div className='met-field-ctr'>
+<div className='subdiv-poly-ctr'>
+ <div className='subdiv-ctr'>
+  
           <label>Subdivisions</label>
+        <img className='subdiv-img' src={`${assetsPath}${this.state.divisor}.png`}/>
         <input
           type="number"
           value={this.state.divisor}
@@ -291,13 +333,39 @@ class LikeButton extends React.Component {
           max='8'
           min='2'
         ></input>
-        </div>
-        <img className='subdiv-img' src={`${assetsPath}${this.state.divisor}.png`}/>
         { !this.state.secondaryRunning ? 
         <button className="subdiv-btn btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
         :
         <button className="subdiv-btn btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
       }
+</div>
+<div className='vr'></div>
+<div className='poly-ctr'>
+<label>Polyrhythms</label>
+<input
+          type="number"
+          value={this.state.polyTop}
+          onChange={(e) => this.polyTopChange(Number(e.target.value))}
+          className="met-int-input"
+          max='8'
+          min='2'
+        ></input>
+        <label>:</label>
+<input
+          type="number"
+          value={this.state.polyBottom}
+          onChange={(e) => this.polyBottomChange(Number(e.target.value))}
+          className="met-int-input"
+          max='8'
+          min='2'
+        ></input>
+          { !this.state.ternaryRunning ? 
+        <button className="subdiv-btn btn" onClick={this.startTernary}>Turn Polyrhythms On</button>
+        :
+        <button className="subdiv-btn btn" onClick={this.stopTernary}>Turn Polyrhythms Off</button>
+      }
+</div>
+</div>
       <hr className='met-hr'/>
 
         
@@ -336,10 +404,12 @@ ReactDOM.render(<LikeButton />, domContainer);
 const clickSound = new Audio(assetsPath+"clave.wav");
 const clickSound2 = new Audio(assetsPath+"clave2.wav");
 const clickSound3 = new Audio(assetsPath+"clave3.wav");
+const clickSound4 = new Audio(assetsPath+"clave4.wav");
 
 ///////Variables
 let metLoop;
 let secondaryMetLoop;
+let ternaryMetLoop;
 
 const ballEl = document.querySelector('.met-anim-ball')
 
