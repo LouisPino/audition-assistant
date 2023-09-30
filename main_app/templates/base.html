@@ -68,18 +68,24 @@
 <script src="{% static 'react/react.development.js' %}"></script>
  <script src="{% static 'react/react-dom.development.js' %}"></script>
  <script src="{% static 'react/babel.min.js' %}"></script>
- <script src="{%static 'metronome.js' %}" type='text/babel'></script>
  
  
  <script type='text/javascript'>
-  let progress = document.getElementById("progressbar");
-  let totalHeight = document.body.scrollHeight - window.innerHeight;
-  window.onscroll = function () {
-    let progressHeight = (window.pageYOffset / totalHeight) * 100;
-    progress.style.height = progressHeight + "%";
-  };
-
- </script>
+   let progress = document.getElementById("progressbar");
+   let totalHeight = document.body.scrollHeight - window.innerHeight;
+   window.onscroll = function () {
+     let progressHeight = (window.pageYOffset / totalHeight) * 100;
+     progress.style.height = progressHeight + "%";
+    };
+    
+  </script>
+  
+  <script type='text/javascript'>
+    const clickSoundPath = "{% static 'assets/' %}";
+    const noteImgPath2 = "{% static 'assets/2.png' %}";
+  </script>
+  
+  <script src="{% static 'metronome.js' %}" type='text/babel'></script>
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 const e = React.createElement;
 
 const subdivArr = [
-  "2.png",
+  noteImgPath2,
   '3.png',
   '4.png',
   '5.png',
@@ -343,9 +343,9 @@ ReactDOM.render(<LikeButton />, domContainer);
 
 ///////cached elements
 ///////Constants
-const clickSound = new Audio("../static/assets/clave.wav");
-const clickSound2 = new Audio("../static/assets/clave2.wav");
-const clickSound3 = new Audio("../static/assets/clave3.wav");
+const clickSound = new Audio(clickSoundPath+"clave.wav");
+const clickSound2 = new Audio(clickSoundPath+"clave2.wav");
+const clickSound3 = new Audio(clickSoundPath+"clave3.wav");
 
 ///////Variables
 let metLoop;
