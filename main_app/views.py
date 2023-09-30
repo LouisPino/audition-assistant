@@ -263,7 +263,6 @@ def goal_complete(request, goal_id, aud_id):
 
 def clear_goals(request, aud_id):
   Goal.objects.filter(audition_id=aud_id, complete=True).delete()
-  print('hit')
   return redirect('audition_detail', aud_id=aud_id)
 
 
@@ -335,7 +334,9 @@ def entry_update(request, ent_id):
 
     return render(request, 'journal/create.html', {'formset': formset})
 
-
+def clear_tasks(request, ent_id):
+  JournalTask.objects.filter(entry_id=ent_id, completed=True).delete()
+  return redirect('entry_detail', ent_id=ent_id)
 
 
 class EntryDelete(DeleteView):
