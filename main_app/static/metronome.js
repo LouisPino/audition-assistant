@@ -93,7 +93,6 @@ class LikeButton extends React.Component {
               }
               subCount++
             }, subTempoMs)
-     
           }
         }
         if (beats === beatCount + 1) {
@@ -404,20 +403,21 @@ class LikeButton extends React.Component {
 const domContainer = document.querySelector("#like_button_container");
 ReactDOM.render(<LikeButton />, domContainer);
 
-///////cached elements
-///////Constants
-const clickSound = new Audio(assetsPath+"clave.wav");
-const clickSound2 = new Audio(assetsPath+"clave2.wav");
-const clickSound3 = new Audio(assetsPath+"clave3.wav");
-const clickSound4 = new Audio(assetsPath+"clave4.wav");
+// audio files for non SoundJS version
+// const clickSound = new Audio(assetsPath+"clave.wav");
+// const clickSound2 = new Audio(assetsPath+"clave2.wav");
+// const clickSound3 = new Audio(assetsPath+"clave3.wav");
+// const clickSound4 = new Audio(assetsPath+"clave4.wav");
 
-///////Variables
+//Global Loop Variables
 let metLoop;
 let secondaryMetLoop;
 let ternaryMetLoop;
 
+//cached ball element for animation
 const ballEl = document.querySelector('.met-anim-ball')
 
+//SoundJS audio IDs
 var claveId = "clave";
 var clave2Id = "clave2";
 var clave3Id = "clave3";
