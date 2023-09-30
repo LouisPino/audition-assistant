@@ -247,14 +247,14 @@ class LikeButton extends React.Component {
     let like = this.state.likelihood
     let random = this.state.random
     let ternaryTempoMs = 60000/ this.state.tempo/this.state.polyBottom*this.state.polyTop
-    playSound(clave4Id)
+    clave4.play()
     ternaryMetLoop = setInterval(()=>{
       if(random){
         if (Math.random() < like / 100) {
-          playSound(clave4Id)
+          clave4.play()
         }
       }else{
-        playSound(clave4Id)
+        clave4.play()
       }
       }, ternaryTempoMs)
   }
@@ -403,12 +403,6 @@ class LikeButton extends React.Component {
 const domContainer = document.querySelector("#like_button_container");
 ReactDOM.render(<LikeButton />, domContainer);
 
-// audio files for non SoundJS version
-// const clickSound = new Audio(assetsPath+"clave.wav");
-// const clickSound2 = new Audio(assetsPath+"clave2.wav");
-// const clickSound3 = new Audio(assetsPath+"clave3.wav");
-// const clickSound4 = new Audio(assetsPath+"clave4.wav");
-
 //Global Loop Variables
 let metLoop;
 let secondaryMetLoop;
@@ -417,8 +411,9 @@ let ternaryMetLoop;
 //cached ball element for animation
 const ballEl = document.querySelector('.met-anim-ball')
 
-//SoundJS audio IDs
-var claveId = "clave";
-var clave2Id = "clave2";
-var clave3Id = "clave3";
-var clave4Id = "clave4";
+
+//Howler audio vars
+var clave = new Howl({src: [assetsPath+'clave.wav']});
+var clave2 = new Howl({src: [assetsPath+'clave2.wav']});
+var clave3 = new Howl({src: [assetsPath+'clave3.wav']});
+var clave4 = new Howl({src: [assetsPath+'clave4.wav']});

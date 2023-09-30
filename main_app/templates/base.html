@@ -11,32 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script defer src="{% static 'scripts/materialize.js' %}"></script>
     <script defer src="{% static 'scripts/hamburger.js' %}"></script>
-    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
     <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
-    <script>
-      var clave = new Howl({src: ["{% static 'assets/clave.wav' %}"]});
-      var clave2 = new Howl({src: ["{% static 'assets/clave2.wav' %}"]});
-      var clave3 = new Howl({src: ["{% static 'assets/clave3.wav' %}"]});
-      var clave4 = new Howl({src: ["{% static 'assets/clave4.wav' %}"]});
-    
-      function loadSound () {
-        createjs.Sound.registerSound("{% static 'assets/clave.wav' %}", claveId);
-        createjs.Sound.registerSound("{% static 'assets/clave2.wav' %}", clave2Id);
-        createjs.Sound.registerSound("{% static 'assets/clave3.wav' %}", clave3Id);
-        createjs.Sound.registerSound("{% static 'assets/clave4.wav' %}", clave4Id);
-      
-      
-      }
-      
-      //soundjs
-      function playSound (id) {
-        createjs.Sound.play(id);
-        console.log('hit')
-      }
-          </script>
 </head>
-<body onload="loadSound()">
+<body>
   <div id="progressbar"></div>
   <div id="scrollpath"></div>
   <div class='bg'></div>
@@ -67,7 +45,6 @@
           <a href="#" id="sidenav-btn2" class="burger-link-text" data-target="slide-out">Metronome</a>
           <a href="{% url 'journal_index' %}" class='burger-link-text'>Practice Journal</a>
           <a href="{% url 'audition_index' %}" class="burger-link-text">My Auditions</a>
-          <button id='test-btn-id'>sound</button>
         <a href="{% url 'logout' %}" class="burger-link-text" >Log Out</a>
         </div>
         </div>
@@ -109,17 +86,5 @@
   </script>
   
   <script src="{% static 'metronome.js' %}" type='text/babel'></script>
-
-<script>
-  var sound = new Howl({
-    src: ["{% static 'assets/clave.wav' %}"]
-  });
-  
- 
-
-
-const testBtnEl = document.getElementById('test-btn-id')
-testBtnEl.addEventListener('click', function(){sound.play();})
-</script>
 </body>
 </html>
