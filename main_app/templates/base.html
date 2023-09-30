@@ -12,6 +12,7 @@
     <script defer src="{% static 'scripts/materialize.js' %}"></script>
     <script defer src="{% static 'scripts/hamburger.js' %}"></script>
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
     <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
     <script>
     
@@ -20,6 +21,9 @@
         createjs.Sound.registerSound("{% static 'assets/clave2.wav' %}", clave2Id);
         createjs.Sound.registerSound("{% static 'assets/clave3.wav' %}", clave3Id);
         createjs.Sound.registerSound("{% static 'assets/clave4.wav' %}", clave4Id);
+      
+      
+      
       }
       
       function playSound (id) {
@@ -104,8 +108,15 @@
 
 <script>
 
+  var sound = new Howl({
+    src: ["{% static 'assets/clave.wav' %}"]
+  });
+  
+ 
+
+
 const testBtnEl = document.getElementById('test-btn-id')
-testBtnEl.addEventListener('click', function(){playSound(claveId)})
+testBtnEl.addEventListener('click', function(){sound.play();})
 </script>
 </body>
 </html>
