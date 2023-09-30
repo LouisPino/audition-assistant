@@ -1,5 +1,6 @@
 from typing import Any
 from django import http
+from django.http import QueryDict
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
@@ -206,6 +207,7 @@ def import_multiple(request, aud_id):
     print('LINK LIST', links)
     excerpt.audition_id = aud_id
     excerpt.current_tempo = 0
+    excerpt.last_practiced = date.today()
     excerpt.save()
     for link in links:
       link.pk = None

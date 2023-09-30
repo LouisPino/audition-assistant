@@ -302,6 +302,7 @@ display: flex;
 .goal-card, .task-card{
 display: flex;
 align-items: center;
+justify-content: space-between;
 }
 
 .goal-complete-btn{
@@ -348,11 +349,25 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 align-items: center;
-height: 90vh;
+height: 95vh;
+}
+
+.met-ctr .btn{
+  height: fit-content;
+  font-size: 8px;
+margin: 0 4px;
+}
+
+.met-field-ctr{
+  display: flex;
+}
+
+.met-ctr p{
+margin-top: 0;
 }
 
 .met-ctr>label{
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 .audition-index-card{
@@ -449,7 +464,7 @@ footer.page-footer{
   }
   .login-ctr{
     flex-direction: column;
-    margin-bottom: 20px;;
+    margin-bottom: 20px;
   }
   .right-nav a{
     font-size: 1rem;
@@ -532,6 +547,14 @@ opacity: 1;
 /* Links inside the dropdown */
 .burger-link {
 display: block;
+}
+
+.material-placeholder>img{
+  margin: 8px auto
+}
+
+.material-placeholder{
+width: fit-content;
 }
 
 .burger-link-text{

@@ -8,7 +8,9 @@
 </div>
 </a>
 {%empty%}
+<div class='card'>
 <h2>No upcoming auditions!</h2>
+</div>
 {%endfor%}
 <h1 class='index-category'>PREVIOUS</h1>
 {% for audition in previous_auditions %}
@@ -18,7 +20,9 @@
 </div>
 </a>
 {%empty%}
-<h2>No previous auditions!</h2>
+<div class='card'>
+    <h2>No previous auditions!</h2>
+    </div>
 {%endfor%}
 <a class="btn delete-btn" href="{% url 'audition_create' %}">
     Add an Audition

@@ -243,6 +243,7 @@ class LikeButton extends React.Component {
             Start
           </button>
         )}
+        <div class='met-field-ctr'>
         <label> Tempo</label>
         <input
           type="number"
@@ -250,6 +251,7 @@ class LikeButton extends React.Component {
           onChange={(e) => this.tempoChange(Number(e.target.value))}
           className="met-int-input"
         ></input>
+        </div>
         <div className='tempo-btn-ctr'>
         <button
           className="btn minus-ten tempo-btn"
@@ -278,6 +280,7 @@ class LikeButton extends React.Component {
         </div>
         <hr className='met-hr'/>
         <hr className='met-hr'/>
+        <div class='met-field-ctr'>
         <label>Beats per bar</label>
         <input
           type="number"
@@ -285,11 +288,11 @@ class LikeButton extends React.Component {
           onChange={(e) => this.beatChange(Number(e.target.value))}
           className="met-int-input"
         ></input>
+      </div>
   <hr className='met-hr'/>
   <hr className='met-hr'/>
+ <div className='met-field-ctr'>
           <label>Subdivisions</label>
-        <img className='subdiv-img' src={`../static/assets/${subdivArr[this.state.divisor-2]}`}/>
- <div className='subdiv-ctr'>
         <input
           type="number"
           value={this.state.divisor}
@@ -299,16 +302,17 @@ class LikeButton extends React.Component {
           min='2'
         ></input>
         </div>
+        <img className='subdiv-img' src={`../static/assets/${subdivArr[this.state.divisor-2]}`}/>
         { !this.state.secondaryRunning ? 
         <button className="subdiv-btn btn" onClick={this.startSecondary}>Turn Subdivisions On</button>
         :
-        <button className="subdiv-btn btn" onClick={this.stopSecondary}>Turn Subdivisions Off</button>
+        <button className="subdiv-btn btn" onClick={this.stopSecondary}><p>Turn Subdivisions Off</p></button>
       }
       <hr className='met-hr'/>
       <hr className='met-hr'/>
-        <label>Random</label>
+        
         <div className="random-input-ctr">
-        %
+        <label>Random %</label>
         <input
           type="number"
           value={this.state.likelihood}
