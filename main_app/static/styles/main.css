@@ -373,6 +373,7 @@ s {
   align-items: center;
   height: 100vh;
   border: 3px solid var(--seagreen);
+  background-color: white;
 }
 
 .sidenav {
@@ -382,11 +383,16 @@ s {
 
 .sidenav,
 .user-view {
+  border: 3px solid var(--seagreen);
   padding: 0 !important;
   margin: 0 !important;
 }
 .user-view > li {
   border: 3px solid var(--seagreen);
+  background-color: var(--seagreen);
+}
+
+#metronome-sidenav{
   background-color: white;
 }
 
@@ -435,6 +441,7 @@ s {
 .subdiv-img {
   max-height: 30px;
 }
+
 .vr {
   width: 2px;
   border-radius: 20px;
@@ -515,8 +522,15 @@ s {
   }
 
   .met-ctr {
-    margin-top: 5vh;
     height: 90vh;
+  }
+
+  .met-ctr hr{
+    display: none;
+  }
+
+  .subdiv-img{
+    height: 20px;
   }
 }
 
