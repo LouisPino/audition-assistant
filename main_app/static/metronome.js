@@ -42,7 +42,7 @@ class Metronome extends React.Component {
     ballEl.style.animation = "none";
   };
 
-  oneClick=(beats, random, like, beatCount)=>{
+  oneClick=(random, like, beatCount)=>{
     if (beatCount === 0) {
       if (random) {
         if (Math.random() < like / 100) {
@@ -60,7 +60,6 @@ class Metronome extends React.Component {
         clave2.play();
       }
     }
-
   }
 
   //main loop
@@ -74,7 +73,6 @@ class Metronome extends React.Component {
     let like = this.state.likelihood;
     let tempoMs = 60000 / this.state.tempo;
     let beatCount = 0;
-    let ternaryRunning = this.state.ternaryRunning;
     let polyCount = 0;
     let playTernary = this.playTernary;
     let playSecondary = this.playSecondary;
@@ -87,7 +85,7 @@ class Metronome extends React.Component {
       }
       polyCount++;
       clearInterval(secondaryMetLoop);
-      oneClick(beats, random, like, beatCount)
+      oneClick(random, like, beatCount)
       playSecondary();
       if (beats === beatCount + 1) {
         beatCount = 0;
@@ -164,18 +162,15 @@ class Metronome extends React.Component {
 
   divisorChange = async (div) => {
     await this.promisedSetState({ divisor: div });
-    this.reset();
   };
 
   startSecondary = async () => {
     await this.promisedSetState({ secondaryRunning: true });
-    this.reset();
   };
 
   stopSecondary = async () => {
     await this.promisedSetState({ secondaryRunning: false });
     clearInterval(secondaryMetLoop);
-    this.reset();
   };
 
   startTernary = async () => {
@@ -186,17 +181,20 @@ class Metronome extends React.Component {
   stopTernary = async () => {
     await this.promisedSetState({ ternaryRunning: false });
     clearInterval(ternaryMetLoop);
-    this.reset();
   };
 
   polyTopChange = async (int) => {
     await this.promisedSetState({ polyTop: int });
-    this.reset();
+    if(this.state.ternaryRunning){
+      this.reset();
+      }
   };
 
   polyBottomChange = async (int) => {
     await this.promisedSetState({ polyBottom: int });
+    if(this.state.ternaryRunning){
     this.reset();
+    }
   };
 
   playTernary = () => {
