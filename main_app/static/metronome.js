@@ -81,7 +81,7 @@ class Metronome extends React.Component {
     let oneClick = this.oneClick
     metLoop = setInterval(function () {
       ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`;
-      if (ternaryRunning && polyCount === 0) {
+      if (polyCount === 0) {
         clearInterval(ternaryMetLoop);
         playTernary();
       }
@@ -204,6 +204,7 @@ class Metronome extends React.Component {
     let random = this.state.random;
     let ternaryTempoMs =
       (60000 / this.state.tempo / this.state.polyBottom) * this.state.polyTop;
+      if(this.state.ternaryRunning){
     clave4.play();
     ternaryMetLoop = setInterval(() => {
       if (random) {
@@ -214,6 +215,7 @@ class Metronome extends React.Component {
         clave4.play();
       }
     }, ternaryTempoMs);
+  }
   };
 
   playSecondary = () => {
