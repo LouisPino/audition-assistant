@@ -1,16 +1,10 @@
+//sidenav dragging
+
 var offset = 0
 var divOverlay = document.querySelector("#slide-out");
 var isDown = false;
 let oldWidth, newWidth
-function resize(){
-    oldWidth = newWidth
-    newWidth = document.body.clientWidth
-    if(divOverlay.style.left){
-    divOverlay.style.left = Number(divOverlay.style.left.split('px')[0]) + (newWidth-oldWidth) +"px"
-    }
-}
 
-document.body.onresize = resize
 
 divOverlay.addEventListener('mousedown', function(e) {
     isDown = true;
@@ -40,3 +34,15 @@ document.addEventListener('mousemove', function(e) {
 } }}
 }, true);
 
+
+
+//resizing screen keeps sidenav in place
+function resize(){
+    oldWidth = newWidth
+    newWidth = document.body.clientWidth
+    if(divOverlay.style.left){
+    divOverlay.style.left = Number(divOverlay.style.left.split('px')[0]) + (newWidth-oldWidth) +"px"
+    }
+}
+
+document.body.onresize = resize

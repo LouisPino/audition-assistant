@@ -1,3 +1,6 @@
+//Mobile hamburger menu drop down
+
+
 const hamburgerEl = document.querySelector(".hamburger");
 const metBtnEl = document.querySelector("#sidenav-btn2");
 const dropbtnContentEl = document.querySelector(".dropdown-content");

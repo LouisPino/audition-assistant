@@ -2,76 +2,92 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Audition Assistant</title>
-    <link rel="icon" type="image/x-icon" href="{% static 'assets/met.jpeg'%}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="{% static 'styles/main.css'%}"/>
-
-</head>
-<body>
-  <div id="progressbar"></div>
-  <div id="scrollpath"></div>
-  <div class='bg'></div>
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/met.jpeg'%}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'styles/main.css'%}" />
+  </head>
+  <body>
+    <div id="progressbar"></div>
+    <div id="scrollpath"></div>
+    <div class="bg"></div>
     <header class="navbar-fixed">
-        <nav>
-          <div class="nav-wrapper">
-            <div>
-            <a href="{% url 'about'%}" class="brand-logo" id="brand-logo">Audition Assistant</a>
-            </div>
-            {% if user.is_authenticated %}
-            <ul class="right-nav">
-              <li><a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a></li> 
-             <li><a href="{% url 'journal_index' %}">Practice Journal</a></li>
-             <li><a href="{% url 'audition_index' %}">My Auditions</a></li>
-             <li><a href="{% url 'logout' %}">Log Out</a></li> 
-            </ul>
-            {% endif %}
-           
+      <nav>
+        <div class="nav-wrapper">
+          <div>
+            <a href="{% url 'about'%}" class="brand-logo" id="brand-logo"
+              >Audition Assistant</a
+            >
           </div>
-        </nav>
-      </header>
+          {% if user.is_authenticated %}
+          <ul class="right-nav">
+            <li>
+              <a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a>
+            </li>
+            <li><a href="{% url 'journal_index' %}">Practice Journal</a></li>
+            <li><a href="{% url 'audition_index' %}">My Auditions</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+          </ul>
+          {% endif %}
+        </div>
+      </nav>
+    </header>
 
-<main class="container">
-  {% if user.is_authenticated %}
-  <div class="dropbtn" id="hamburger-div">
-    <img class="hamburger" src="{% static 'assets/burger.png'%}" />
+    <main class="container">
+      {% if user.is_authenticated %}
+      <div class="dropbtn" id="hamburger-div">
+        <img class="hamburger" src="{% static 'assets/burger.png'%}" />
         <div class="dropdown-content">
-          <a href="#" id="sidenav-btn2" class="burger-link-text" data-target="slide-out">Metronome</a>
-          <a href="{% url 'journal_index' %}" class='burger-link-text'>Practice Journal</a>
-          <a href="{% url 'audition_index' %}" class="burger-link-text">My Auditions</a>
-        <a href="{% url 'logout' %}" class="burger-link-text" >Log Out</a>
+          <a
+            href="#"
+            id="sidenav-btn2"
+            class="burger-link-text"
+            data-target="slide-out"
+            >Metronome</a
+          >
+          <a href="{% url 'journal_index' %}" class="burger-link-text"
+            >Practice Journal</a
+          >
+          <a href="{% url 'audition_index' %}" class="burger-link-text"
+            >My Auditions</a
+          >
+          <a href="{% url 'logout' %}" class="burger-link-text">Log Out</a>
         </div>
-        </div>
-        {% endif %}
-    {% block content %}
-    {% endblock %}
-  </main>
-'
-{% comment %} Sidenav {% endcomment %}'
-<ul id="slide-out" class="sidenav">
-  <div class="user-view">
-  <li><div id="metrnome-sidenav"></div></li>
-  </div>
-</ul>
+      </div>
+      {% endif %} {% block content %} {% endblock %}
+    </main>
+    ' {% comment %} Sidenav {% endcomment %}'
+    <ul id="slide-out" class="sidenav">
+      <div class="user-view">
+        <li><div id="metrnome-sidenav"></div></li>
+      </div>
+    </ul>
 
-<footer class="page-footer">
-  <div class="footer-text"><span class='rainbow-text'>&copy;2023 Louis Pino</span></div>
-</footer>
+    <footer class="page-footer">
+      <div class="footer-text">
+        <span class="rainbow-text">&copy;2023 Louis Pino</span>
+      </div>
+    </footer>
 
-{% comment %} Script Imports {% endcomment %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
-<script src="{% static 'react/react.development.js' %}"></script>
- <script src="{% static 'react/react-dom.development.js' %}"></script>
- <script src="{% static 'react/babel.min.js' %}"></script>
-<script src="{% static 'scripts/materialize.js' %}"></script>
-<script src="{% static 'scripts/hamburger.js' %}"></script>
-<script src="{% static 'scripts/sidenav_drag.js' %}"></script>
-<script src="{% static 'scripts/scrollbar.js' %}"></script>
-<script type='text/javascript'> const assetsPath = "{% static 'assets/' %}";</script>
-<script src="{% static 'metronome.js' %}" type='text/babel'></script>
-</body>
+    {% comment %} Script Imports {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+    <script src="{% static 'react/react.development.js' %}"></script>
+    <script src="{% static 'react/react-dom.development.js' %}"></script>
+    <script src="{% static 'react/babel.min.js' %}"></script>
+    <script src="{% static 'scripts/materialize.js' %}"></script>
+    <script src="{% static 'scripts/hamburger.js' %}"></script>
+    <script src="{% static 'scripts/sidenav_drag.js' %}"></script>
+    <script src="{% static 'scripts/scrollbar.js' %}"></script>
+    <script type="text/javascript">
+      const assetsPath = "{% static 'assets/' %}";
+    </script>
+    <script src="{% static 'metronome.js' %}" type="text/babel"></script>
+  </body>
 </html>

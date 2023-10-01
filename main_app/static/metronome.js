@@ -43,6 +43,8 @@ class Metronome extends React.Component {
     ballEl.style.animation = 'none'
   };
 
+
+  //main loop
   playMet = () => {
     if (!this.state.tempo){return}
       this.setState({ running: true });

@@ -1,19 +1,20 @@
-{% extends 'base.html' %} 
-{%block content%}
-{%if object%}
-<h1 class="form-title">Edit <span class='teal-text'>{{object.title}}</span></h1>
+{% extends 'base.html' %} {%block content%} {%if object%}
+<h1 class="form-title">Edit <span class="teal-text">{{object.title}}</span></h1>
 {%else%}
 <h1 class="form-title">Add Excerpt</h1>
-<a class="btn import-btn" href="{%url 'excerpt_add-multiple' view.kwargs.aud_id%}">Import excerpts</a>
+<a
+  class="btn import-btn"
+  href="{%url 'excerpt_add-multiple' view.kwargs.aud_id%}"
+  >Import excerpts</a
+>
 
 {%endif%}
-<form class='card' action="" method="POST" name="ex-form">
+<form class="card" action="" method="POST" name="ex-form">
   {% csrf_token %}
   <table>
-      {{ form.as_table }}
+    {{ form.as_table }}
   </table>
-  <input type="submit" value="Submit!" class="btn delete-btn">
+  <input type="submit" value="Submit!" class="btn delete-btn" />
 </form>
-
 
 {%endblock%}

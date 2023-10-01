@@ -1,38 +1,35 @@
-{%extends 'base.html'%} 
-{%block content%} 
+{%extends 'base.html'%} {%block content%}
 <h1>{{entry.date}}</h1>
-{%for task in tasks%}
-{%if task.completed%}
+{%for task in tasks%} {%if task.completed%}
 <div class="card task-card">
-    {%if task.time%}
-    <h4 class='strike'>{{task.task}} for {{task.time}} minutes</h4>
-    {%else%}
-    <h4  class='strike'>{{task.task}}</h4>
-    {%endif%}
+  {%if task.time%}
+  <h4 class="strike">{{task.task}} for {{task.time}} minutes</h4>
+  {%else%}
+  <h4 class="strike">{{task.task}}</h4>
+  {%endif%}
 </div>
 {%else%}
 <div class="card task-card">
-<a class='task-complete-btn'href="{%url 'task_complete' task.id entry.id%}">
-    <button class='btn'>✓</button>
+  <a class="task-complete-btn" href="{%url 'task_complete' task.id entry.id%}">
+    <button class="btn">✓</button>
   </a>
-    {%if task.time%}
-    <h4>{{task.task}} for {{task.time}} minutes</h4>
-    {%else%}
-    <h4>{{task.task}}</h4>
-    {%endif%}
+  {%if task.time%}
+  <h4>{{task.task}} for {{task.time}} minutes</h4>
+  {%else%}
+  <h4>{{task.task}}</h4>
+  {%endif%}
 </div>
-{%endif%}
-{%empty%}
+{%endif%} {%empty%}
 <h4>No entries yet!</h4>
 {%endfor%}
 
 <a class="center" href='{%url "entry_update" entry.id%}'>
-    <button class="btn delete-btn">add tasks</button>
+  <button class="btn delete-btn">add tasks</button>
 </a>
 <a class="center" href='{%url "clear_tasks" entry.id%}'>
-    <button class="btn delete-btn">Clear completed tasks</button>
+  <button class="btn delete-btn">Clear completed tasks</button>
 </a>
 <a class="center" href='{%url "entry_delete" entry.id%}'>
-    <button class="btn delete-btn">delete entry</button>
+  <button class="btn delete-btn">delete entry</button>
 </a>
 {%endblock%}

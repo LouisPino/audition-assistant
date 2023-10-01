@@ -1,3 +1,5 @@
+//progressbar sizing on scroll
+
 let progress = document.getElementById("progressbar");
 let totalHeight = document.body.scrollHeight - window.innerHeight;
 window.onscroll = function () {

@@ -1,141 +1,169 @@
 {%extends 'base.html'%} {%block content%}
 <div class="excerpt-nav">
-<a href="{%url 'audition_detail' excerpt.audition_id%}">
-  <button class='btn back-to-audition'>Back to the Audition page</button>
-</a>
+  <a href="{%url 'audition_detail' excerpt.audition_id%}">
+    <button class="btn back-to-audition">Back to the Audition page</button>
+  </a>
 
-<a href="{%url 'excerpt_update' excerpt.id%}">
-  <button class='btn edit-excerpt'>Edit excerpt details</button>
-</a>
+  <a href="{%url 'excerpt_update' excerpt.id%}">
+    <button class="btn edit-excerpt">Edit excerpt details</button>
+  </a>
 </div>
-<h2 class='text-center excerpt-title'>{{excerpt.title}}</h2>
+<h2 class="text-center excerpt-title">{{excerpt.title}}</h2>
 {%if not comp_obj%}
-<h5 class='center composer-name'>{{excerpt.composer}}</h5>
-<div class="excerpt-main"> 
+<h5 class="center composer-name">{{excerpt.composer}}</h5>
+<div class="excerpt-main">
   {%else%}
-  <div class="excerpt-main"> 
-  <div class="card comp-card">
-    <h4 class='text-center'>{{comp_obj.complete_name}}</h4>
-    <h6>{{comp_obj.epoch}}</h6>
-    <img src="{{comp_obj.portrait}}" />
-    {%if comp_obj.death%}
+  <div class="excerpt-main">
+    <div class="card comp-card">
+      <h4 class="text-center">{{comp_obj.complete_name}}</h4>
+      <h6>{{comp_obj.epoch}}</h6>
+      <img src="{{comp_obj.portrait}}" />
+      {%if comp_obj.death%}
       <p>{{comp_obj.birth}} - {{comp_obj.death}}</p>
-        {%else%}
-        <p> Born {{comp_obj.birth}}</p>
-        {%endif%}
-    </div>
-  {%endif%}
-
-  <div class="card excerpt-card">
-  <h4>Section: {{excerpt.section}}</h4>
-  
-  {% if excerpt.practiced_today %}
-  <h5 class='accent-text'>Practice logged</h5>
-  {%else%}
-  <form action="{%url 'excerpt_practiced' excerpt.id%}" method="POST">
-    {%csrf_token%}
-    <input class='btn' type="submit" value="I practiced this today!" />
-  </form>
-  {%endif%}
-  {% if excerpt.goal_tempo_bpm%}
-  <h4>Goal Tempo: {{excerpt.goal_tempo_bpm}}</h4>
-  {%else%}
-  <h4>No goal tempo set</h4>
-  {%endif%}
-  {%if excerpt.last_practiced and not excerpt.practiced_today%}
-  <p>Last practiced on {{excerpt.last_practiced}}</p>
-  {%endif%}
-  
-  <form class='current-tempo-form' action="{%url 'excerpt_current-tempo' excerpt.id%}" method="POST">
-    {%csrf_token%}
-    <label for="current-tempo">Current Tempo (enter to submit)</label>
-    <input type="number" id="current-tempo" name="current-tempo" value={{excerpt.current_tempo}} />
-  </form>
-
-</div>
-
-
-
-<div class="score-card card">
-
-  {%if excerpt.score_url%}
-  {%if excerpt.score_type == 'pdf'%}
-  <iframe 
-  class='card-panel materialboxed' src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true" style="width: 170px; height:220px;" frameborder="0"></iframe>
-  <p>click border to expand</p>
-  {%else%}
-      <img class="responsive-img card-panel materialboxed" width="20%" height="auto" src="{{excerpt.score_url}}">
-      {%endif%}
-  {%else%}
-  <div class="card-panel teal-text center-align">No Score Uploaded</div>
-  {%endif%}
-    <form class='score-form'action="{% url 'add_score' excerpt.id %}" enctype="multipart/form-data" method="POST" >
-      {% csrf_token %}
-      <input class='centered' type="file" name="photo-file">
-      <br>
-      {%if excerpt.score_url%}
-      <button type="submit" class="delete-btn btn score-btn">Upload New Score</button>
       {%else%}
-      <button type="submit" class="delete-btn btn score-btn">Upload Score</button>
+      <p>Born {{comp_obj.birth}}</p>
       {%endif%}
-  </form>
-</div>
-</div>
-
-
-<hr>
-<hr>
-<div class="excerpt-bottom"> 
-  <div class='youtube-frame-ctr'>
-  <h3 class='recordings-title'>Recordings</h3>
-  {%for link in links%}
-  <div class='youtube-frame'>
-    <iframe referrerpolicy="origin" width="80%" height="100" src="{{link.url}}?start={{link.start}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-  
-    {%if link.start%}
-  <p>Excerpt at {{link.start_display}}</p>
-  {%endif%}
-  </div>
-  {%empty%} 
-  <a class="center" href='{%url "add_links" excerpt.id%}'>
-    <button class="btn delete-btn">Add YouTube Links</button>
-  </a>
-  {%endfor%}
-  {%if links%}
-  <a class="center" href='{%url "add_links" excerpt.id%}'>
-    <button class="btn delete-btn">Add or edit YouTube Links</button>
-  </a>
-  {%endif%}
-</div>
-
-
-<div class="card notes">
-  <h1 class="center">NOTES</h1>
-  <form
-    action="{%url 'note_create' excerpt.id%}"
-    method="POST"
-    enctype="multipart/form-data"
-  >
-    {% csrf_token %} {{note_form.as_p}}
-    <input class='btn delete-btn' type="submit" value="Add Note" />
-  </form>
-  {%for note in notes%}
-  <div class="card note-card">
-    <div>
-    <h4>{{note.date}}</h4>
-    <p>{{note.note}}</p>
     </div>
-    <form action="{%url 'note_delete' note.id excerpt.id%}" method="POST">
-      {% csrf_token %}
-      <input type="submit" class = 'btn'value="X" />
-    </form>
+    {%endif%}
+
+    <div class="card excerpt-card">
+      <h4>Section: {{excerpt.section}}</h4>
+
+      {% if excerpt.practiced_today %}
+      <h5 class="accent-text">Practice logged</h5>
+      {%else%}
+      <form action="{%url 'excerpt_practiced' excerpt.id%}" method="POST">
+        {%csrf_token%}
+        <input class="btn" type="submit" value="I practiced this today!" />
+      </form>
+      {%endif%} {% if excerpt.goal_tempo_bpm%}
+      <h4>Goal Tempo: {{excerpt.goal_tempo_bpm}}</h4>
+      {%else%}
+      <h4>No goal tempo set</h4>
+      {%endif%} {%if excerpt.last_practiced and not excerpt.practiced_today%}
+      <p>Last practiced on {{excerpt.last_practiced}}</p>
+      {%endif%}
+
+      <form
+        class="current-tempo-form"
+        action="{%url 'excerpt_current-tempo' excerpt.id%}"
+        method="POST"
+      >
+        {%csrf_token%}
+        <label for="current-tempo">Current Tempo (enter to submit)</label>
+        <input
+          type="number"
+          id="current-tempo"
+          name="current-tempo"
+          value="{{excerpt.current_tempo}}"
+        />
+      </form>
+    </div>
+
+    <div class="score-card card">
+      {%if excerpt.score_url%} {%if excerpt.score_type == 'pdf'%}
+      <iframe
+        class="card-panel materialboxed"
+        src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true"
+        style="width: 170px; height: 220px"
+        frameborder="0"
+      ></iframe>
+      <p>click border to expand</p>
+      {%else%}
+      <img
+        class="responsive-img card-panel materialboxed"
+        width="20%"
+        height="auto"
+        src="{{excerpt.score_url}}"
+      />
+      {%endif%} {%else%}
+      <div class="card-panel teal-text center-align">No Score Uploaded</div>
+      {%endif%}
+      <form
+        class="score-form"
+        action="{% url 'add_score' excerpt.id %}"
+        enctype="multipart/form-data"
+        method="POST"
+      >
+        {% csrf_token %}
+        <input class="centered" type="file" name="photo-file" />
+        <br />
+        {%if excerpt.score_url%}
+        <button type="submit" class="delete-btn btn score-btn">
+          Upload New Score
+        </button>
+        {%else%}
+        <button type="submit" class="delete-btn btn score-btn">
+          Upload Score
+        </button>
+        {%endif%}
+      </form>
+    </div>
   </div>
-  {%endfor%} 
-</div>
-</div>
 
-<a class="center" href="{%url 'excerpt_delete' excerpt.id excerpt.audition_id%}">
-  <button class="btn delete-btn">DELETE EXCERPT</button>
-</a>
+  <hr />
+  <hr />
+  <div class="excerpt-bottom">
+    <div class="youtube-frame-ctr">
+      <h3 class="recordings-title">Recordings</h3>
+      {%for link in links%}
+      <div class="youtube-frame">
+        <iframe
+          referrerpolicy="origin"
+          width="80%"
+          height="100"
+          src="{{link.url}}?start={{link.start}}"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        ></iframe>
 
-{%endblock%} 
+        {%if link.start%}
+        <p>Excerpt at {{link.start_display}}</p>
+        {%endif%}
+      </div>
+      {%empty%}
+      <a class="center" href='{%url "add_links" excerpt.id%}'>
+        <button class="btn delete-btn">Add YouTube Links</button>
+      </a>
+      {%endfor%} {%if links%}
+      <a class="center" href='{%url "add_links" excerpt.id%}'>
+        <button class="btn delete-btn">Add or edit YouTube Links</button>
+      </a>
+      {%endif%}
+    </div>
+
+    <div class="card notes">
+      <h1 class="center">NOTES</h1>
+      <form
+        action="{%url 'note_create' excerpt.id%}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %} {{note_form.as_p}}
+        <input class="btn delete-btn" type="submit" value="Add Note" />
+      </form>
+      {%for note in notes%}
+      <div class="card note-card">
+        <div>
+          <h4>{{note.date}}</h4>
+          <p>{{note.note}}</p>
+        </div>
+        <form action="{%url 'note_delete' note.id excerpt.id%}" method="POST">
+          {% csrf_token %}
+          <input type="submit" class="btn" value="X" />
+        </form>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+
+  <a
+    class="center"
+    href="{%url 'excerpt_delete' excerpt.id excerpt.audition_id%}"
+  >
+    <button class="btn delete-btn">DELETE EXCERPT</button>
+  </a>
+
+  {%endblock%}
+</div>

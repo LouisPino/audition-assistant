@@ -1,14 +1,12 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
-<h1 class='form-title'>Sign <span class='teal-text'>Up</span></h1>
+<h1 class="form-title">Sign <span class="teal-text">Up</span></h1>
 
 <p class="red-text">{{ error_message }}</p>
 
-<form class='card' method="POST" action="{% url 'signup' %}">
-  {% csrf_token %}
-  {{ form.as_table}}
-  <input type="submit" class="btn delete-btn" value="Sign Up">
+<form class="card" method="POST" action="{% url 'signup' %}">
+  {% csrf_token %} {{ form.as_table}}
+  <input type="submit" class="btn delete-btn" value="Sign Up" />
 </form>
 
 {% endblock %}

@@ -1,12 +1,13 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<div class='card'>
-  <h4>Are you sure you want to delete <span class="teal-text">{{ object.title }}</span>?</h4>
+{% extends 'base.html' %} {% block content %}
+<div class="card">
+  <h4>
+    Are you sure you want to delete
+    <span class="teal-text">{{ object.title }}</span>?
+  </h4>
 </div>
-  <form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-    <a href="{% url 'audition_index' %}">Cancel</a>
-  </form>
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes - Delete!" class="btn" />
+  <a href="{% url 'audition_index' %}">Cancel</a>
+</form>
 {% endblock %}

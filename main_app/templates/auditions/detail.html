@@ -1,78 +1,71 @@
-{%extends 'base.html'%}
-{%block content%}
+{%extends 'base.html'%} {%block content%}
 <div class="card audition-info">
-    <h2 class='teal-text bold orch-title'>{{audition.orchestra}}</h2>
-    <h4>{{audition.date}}</h4>
-    <h6>{{audition.location}}</h6>
-
+  <h2 class="teal-text bold orch-title">{{audition.orchestra}}</h2>
+  <h4>{{audition.date}}</h4>
+  <h6>{{audition.location}}</h6>
 </div>
 <div class="audition-btns">
-<a href="{%url 'audition_update' audition.id%}">
-    <button class='btn'>EDIT AUDITION DETAILS</button>
-</a>
+  <a href="{%url 'audition_update' audition.id%}">
+    <button class="btn">EDIT AUDITION DETAILS</button>
+  </a>
 
-<a href="{%url 'excerpt_create' audition.id%}">
-    <button class='btn' id="add-excerpt-btn">ADD AN EXCERPT</button>
-</a>
+  <a href="{%url 'excerpt_create' audition.id%}">
+    <button class="btn" id="add-excerpt-btn">ADD AN EXCERPT</button>
+  </a>
 </div>
 
-
- <hr>
-<div class='audition-main'>
-    <div class='audition-excerpt-ctr'>
-    {% for key, values  in excerpt_objs.items %}
-    <h2 class='instrument-title'>{{key}}</h2>
+<hr />
+<div class="audition-main">
+  <div class="audition-excerpt-ctr">
+    {% for key, values in excerpt_objs.items %}
+    <h2 class="instrument-title">{{key}}</h2>
     <div class="excerpt-teaser-ctr text-center">
-{%for excerpt in values%}
-<a href="{%url 'excerpt_detail' excerpt.id%}">
-    <div class="card excerpt-teaser">
-<p>{{excerpt.title}}: {{excerpt.section}}</p>
-<p>Last practice: {{excerpt.last_practiced}}</p>
-</div>
-</a>
-{%endfor%}
-</div>
+      {%for excerpt in values%}
+      <a href="{%url 'excerpt_detail' excerpt.id%}">
+        <div class="card excerpt-teaser">
+          <p>{{excerpt.title}}: {{excerpt.section}}</p>
+          <p>Last practice: {{excerpt.last_practiced}}</p>
+        </div>
+      </a>
+      {%endfor%}
+    </div>
     {%empty%}
-    <div class='card'>
-        <h2>No excerpts added!</h2>
-        </div>
-    {%endfor%} 
-
-</div>
-    <div class="card goals">
-        <h1 class="center goals-title text-center">GOALS</h1>
-        <form
-          action="{%url 'goal_create' audition.id%}"
-          method="POST"
-          enctype="multipart/form-data"
-        >
-          {% csrf_token %} 
-          {{goal_form.as_p}}
-          <input class='btn delete-btn' type="submit" value="Add Goal" />
-        </form>
-        {%for goal in goals%}
-        <div class="card goal-card">
-        {%if goal.complete%}
-          <h6 class='strike'>{{goal.goal}}</h6>
-          {%else%}
-          <h6>{{goal.goal}}</h6>
-          <a href="{%url 'goal_complete' goal.id audition.id%}">
-            <button class='btn goal-complete-btn'>✓</button>
-          </a>
-          {%endif%}
-        </div>
-        {%endfor%} 
-     
-        {%if audition.one_goal_completed%}
+    <div class="card">
+      <h2>No excerpts added!</h2>
+    </div>
+    {%endfor%}
+  </div>
+  <div class="card goals">
+    <h1 class="center goals-title text-center">GOALS</h1>
+    <form
+      action="{%url 'goal_create' audition.id%}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %} {{goal_form.as_p}}
+      <input class="btn delete-btn" type="submit" value="Add Goal" />
+    </form>
+    {%for goal in goals%}
+    <div class="card goal-card">
+      {%if goal.complete%}
+      <h6 class="strike">{{goal.goal}}</h6>
+      {%else%}
+      <h6>{{goal.goal}}</h6>
+      <a href="{%url 'goal_complete' goal.id audition.id%}">
+        <button class="btn goal-complete-btn">✓</button>
+      </a>
+      {%endif%}
+    </div>
+    {%endfor%} {%if audition.one_goal_completed%}
     <a href="{%url 'clear_goals' audition.id%}">
-    <button class='btn delete-btn'>Clear Completed Goals</button>
+      <button class="btn delete-btn">Clear Completed Goals</button>
     </a>
     {%endif%}
-</div>
+  </div>
 </div>
 
 <a href="{%url 'audition_delete' audition.id%}">
-<button class='btn delete-btn'>DELETE AUDITION</button>
+  <button class="btn delete-btn">DELETE AUDITION</button>
 </a>
 
-    {%endblock%}
+{%endblock%}
