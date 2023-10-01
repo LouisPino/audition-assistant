@@ -73,29 +73,29 @@ class Metronome extends React.Component {
             clearInterval(secondaryMetLoop)
             if (Math.random() < like / 100) {
             clave.play()
+          }
             subCount = 0
             if(secondaryRunning){
               secondaryMetLoop = setInterval(function () {
-                if(subCount!== divisor-1){
+                if(subCount!== divisor-1 && Math.random() < like / 100){
                   clave3.play()
                 }
                 subCount++
               }, subTempoMs)
-            }
           }
         } else {
           clearInterval(secondaryMetLoop)
           if (Math.random() < like / 100) {
             clave2.play()
+          }
             subCount = 0
           if(secondaryRunning){
             secondaryMetLoop = setInterval(function () {
-              if(subCount!== divisor-1){
+              if(subCount!== divisor-1 && Math.random() < like / 100){
                 clave3.play()
               }
               subCount++
             }, subTempoMs)
-          }
         }
       }
       if (beats === beatCount + 1) {
