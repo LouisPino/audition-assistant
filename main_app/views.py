@@ -121,7 +121,7 @@ class ExcerptUpdate(LoginRequiredMixin, UpdateView):
         super().form_valid(form)
         return redirect('excerpt_detail', ex_id=form.instance.id)
 
-
+#Render excerpt detail page, parse through composer name and fetch openopus api composer details
 @login_required
 def excerpt_detail(request, ex_id):
     excerpt = Excerpt.objects.get(id=ex_id)
