@@ -149,7 +149,6 @@ def excerpt_detail(request, ex_id):
                 'start': start_sec,
                 'start_display': link.start_time if link.start_time else ""
             })
-        print(link_objs[0]['url'])
     return render(request, 'excerpts/detail.html', {
         'excerpt': excerpt, 'note_form': note_form, 'notes': notes,
         'links': link_objs,
@@ -216,7 +215,6 @@ def import_multiple(request, aud_id):
     for excerpt in excerpts:
         links = [*excerpt.link_set.all()]
         excerpt.pk = None
-        print('LINK LIST', links)
         excerpt.audition_id = aud_id
         excerpt.current_tempo = 0
         excerpt.last_practiced = date.today()

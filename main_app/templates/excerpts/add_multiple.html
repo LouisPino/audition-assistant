@@ -22,7 +22,6 @@ let add_exes = []
 const exCardEls = document.querySelectorAll(".card");
 const exListEl = document.getElementById("ex_list");
 function cardClick(e) {
-  console.log(e.target)
       if (add_exes.includes(e.target.id)){
           add_exes.splice(add_exes.findIndex((el)=>{el === e.target.id}), 1)
           e.target.style.backgroundColor = 'white'
@@ -34,7 +33,6 @@ function cardClick(e) {
   }
 
   for (el of exCardEls) {
-    console.log(el)
     el.addEventListener("click", cardClick);
   }
 </script>

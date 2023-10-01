@@ -91,7 +91,6 @@ class Metronome extends React.Component {
         beatCount = 0;
       } else {
         beatCount++;
-        console.log(beatCount, "hit");
       }
     }, tempoMs);
   };

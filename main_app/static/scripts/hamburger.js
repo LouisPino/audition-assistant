@@ -12,11 +12,8 @@ metBtnEl.addEventListener("click", hideBurger)
 function showBurger() {
     if (dropbtnContentEl.style.display === 'flex') {
         dropbtnContentEl.style.display = "none";
-        console.log(dropbtnContentEl.style.display) 
-
     } else {
         dropbtnContentEl.style.display = "flex";
-        console.log(dropbtnContentEl.style.display) 
     }
   }
 
