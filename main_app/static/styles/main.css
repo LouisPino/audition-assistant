@@ -525,6 +525,10 @@ s {
     height: 90vh;
   }
 
+  .met-ctr{
+    justify-content: start;
+  }
+
   .met-ctr hr{
     display: none;
   }
