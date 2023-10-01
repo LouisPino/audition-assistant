@@ -63,7 +63,8 @@
     <div class="score-card card">
       {%if excerpt.score_url%} {%if excerpt.score_type == 'pdf'%}
       <iframe
-      referrerpolicy="origin"
+      referrerpolicy="no-referrer"
+  
         class="card-panel materialboxed"
         src="http://docs.google.com/gview?url={{excerpt.score_url}}&embedded=true"
         style="width: 170px; height: 220px"
