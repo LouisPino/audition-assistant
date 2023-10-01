@@ -64,7 +64,8 @@ From here you can access the built in **Metronome**, or navigate to the **Practi
 - Python
 - Django
 - React
-- JS
+- PostgreSQL
+- JavaScript
 - HTML
 - CSS
 - Heroku
