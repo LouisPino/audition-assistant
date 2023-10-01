@@ -54,16 +54,12 @@ class Metronome extends React.Component {
       let tempoMs = 60000 / this.state.tempo;
       let beatCount = 0;
       let secondaryRunning = this.state.secondaryRunning;
-      let divisor = this.state.divisor
-      let subTempoMs = 60000 / this.state.tempo / divisor
-      let subCount = 0
       let ternaryRunning = this.state.ternaryRunning
-      let polyTop = this.state.polyTop
       let polyCount = 0
       let playTernary = this.playTernary
+      let playSecondary = this.playSecondary
       metLoop = setInterval(function () {
         ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`
-        if (random) {
           if(ternaryRunning && polyCount === 0){
             clearInterval(ternaryMetLoop)
             playTernary()
@@ -71,75 +67,34 @@ class Metronome extends React.Component {
           polyCount++
           if (beatCount === 0) {
             clearInterval(secondaryMetLoop)
+            if(random){
             if (Math.random() < like / 100) {
             clave.play()
           }
-            subCount = 0
+          }else{
+            clave.play()
+          }
             if(secondaryRunning){
-              secondaryMetLoop = setInterval(function () {
-                if(subCount!== divisor-1 && Math.random() < like / 100){
-                  clave3.play()
-                }
-                subCount++
-              }, subTempoMs)
+              playSecondary()
           }
         } else {
           clearInterval(secondaryMetLoop)
-          if (Math.random() < like / 100) {
+          if(random){
+            if (Math.random() < like / 100) {
             clave2.play()
           }
-            subCount = 0
+          }else{
+            clave2.play()
+          }
           if(secondaryRunning){
-            secondaryMetLoop = setInterval(function () {
-              if(subCount!== divisor-1 && Math.random() < like / 100){
-                clave3.play()
-              }
-              subCount++
-            }, subTempoMs)
+           playSecondary()
         }
       }
       if (beats === beatCount + 1) {
         beatCount = 0;
-      } else {
-        beatCount++;
-      }
-      } else {
-        if(ternaryRunning && polyCount === 0){
-          clearInterval(ternaryMetLoop)
-          playTernary()
-        }
-          polyCount++
-          if(polyCount === polyTop){polyCount = 0}
-        if (beatCount === 0) {
-          clave.play()
-          subCount = 0
-          clearInterval(secondaryMetLoop)
-          if(secondaryRunning){
-            secondaryMetLoop = setInterval(function () {
-              if(subCount!== divisor-1){
-                clave3.play()
-              }
-              subCount++
-            }, subTempoMs)
-          }
-        } else {
-          clave2.play()
-          subCount = 0
-          clearInterval(secondaryMetLoop)
-          if(secondaryRunning){
-            secondaryMetLoop = setInterval(function () {
-              if(subCount!== divisor-1){
-                clave3.play()
-              }
-              subCount++
-            }, subTempoMs)
-          }
-        }
-        if (beats === beatCount + 1) {
-          beatCount = 0;
-        } else {
-          beatCount++;
-        }
+      }else{
+        beatCount++
+        console.log(beatCount, 'hit')
       }
     }, tempoMs);
   };
@@ -259,6 +214,26 @@ class Metronome extends React.Component {
         clave4.play()
       }
       }, ternaryTempoMs)
+  }
+
+  playSecondary=()=>{
+    let like = this.state.likelihood
+    let random = this.state.random
+    let divisor = this.state.divisor
+    let subTempoMs = 60000 / this.state.tempo / divisor
+    let subCount = 0
+    secondaryMetLoop = setInterval(function () {
+      if(subCount!== divisor-1){
+        if (random){
+         if (Math.random() < like / 100){
+        clave3.play()
+      }
+        }else{
+          clave3.play()
+        }
+      }
+      subCount++
+    }, subTempoMs)
   }
 
   render() {
