@@ -77,8 +77,10 @@ class Metronome extends React.Component {
     let playTernary = this.playTernary;
     let playSecondary = this.playSecondary;
     let oneClick = this.oneClick
-    metLoop = setInterval(function () {
+    setTimeout(()=>{
       ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`;
+    },tempoMs)
+    metLoop = setInterval(function () {
       if (polyCount === 0) {
         clearInterval(ternaryMetLoop);
         playTernary();

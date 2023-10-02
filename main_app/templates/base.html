@@ -25,16 +25,16 @@
               >Audition Assistant</a
             >
           </div>
-          {% if user.is_authenticated %}
           <ul class="right-nav">
             <li>
               <a href="#" id="sidenav-btn" data-target="slide-out">Metronome</a>
             </li>
+            {% if user.is_authenticated %}
             <li><a href="{% url 'journal_index' %}">Practice Journal</a></li>
             <li><a href="{% url 'audition_index' %}">My Auditions</a></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
+            {% endif %}
           </ul>
-          {% endif %}
         </div>
       </nav>
     </header>

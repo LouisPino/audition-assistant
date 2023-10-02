@@ -575,16 +575,6 @@ s {
     left: 0;
   }
 }
-@keyframes left-slide {
-  0% {
-    right: 0;
-    left: 100%;
-  }
-  100% {
-    right: 100%;
-    left: 0;
-  }
-}
 
 #hamburger-div {
   width: 50px;
