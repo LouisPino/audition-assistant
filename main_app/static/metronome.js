@@ -1,4 +1,6 @@
 "use strict";
+// import AudioLoader from "./AudioLoader";
+let audioContext = new AudioContext()
 const e = React.createElement;
 class Metronome extends React.Component {
   constructor(props) {
@@ -19,8 +21,11 @@ class Metronome extends React.Component {
       ternaryRunning: false,
       polyTop: 2,
       polyBottom: 2,
+      audioBuffer: 0,
     };
   }
+
+
 
   promisedSetState = (newState) =>
     new Promise((resolve) => this.setState(newState, resolve));
@@ -78,30 +83,45 @@ class Metronome extends React.Component {
     let playTernary = this.playTernary;
     let playSecondary = this.playSecondary;
     let oneClick = this.oneClick
-    setTimeout(() => {
-      ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`;
-    }, tempoMs)
-    metLoop = setInterval(function () {
-      if (polyCount === 0) {
-        clearInterval(ternaryMetLoop);
-        playTernary();
-      }
-      polyCount++;
-      clearInterval(secondaryMetLoop);
-      oneClick(random, like, beatCount)
-      playSecondary();
-      if (beats === beatCount + 1) {
-        beatCount = 0;
-      } else {
-        beatCount++;
-      }
-    }, tempoMs);
+    fetch(assetsPath + "clave.wav")
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+      .then(audioBuffer => { this.setState({ audioBuffer: audioBuffer }) })
+    // setTimeout(() => {
+    //   ballEl.style.animation = `slide ${tempoMs * 2}ms ease-out infinite`;
+    // }, tempoMs)
+    // metLoop = setInterval(function () {
+    //   if (polyCount === 0) {
+    //     clearInterval(ternaryMetLoop);
+    //     playTernary();
+    //   }
+    //   polyCount++;
+    //   clearInterval(secondaryMetLoop);
+    //   oneClick(random, like, beatCount)
+    //   playSecondary();
+    //   if (beats === beatCount + 1) {
+    //     beatCount = 0;
+    //   } else {
+    //     beatCount++;
+    //   }
+    // }, tempoMs);
+    this.schedule()
   };
+
+  schedule = () => {
+    if (!this.state.running) return;
+    let nextStart = audioContext.currentTime
+    const interval = 60 / this.state.tempo
+    nextStart += interval
+    let source = audioContext.createBufferSource()
+    source.buffer = this.state.audioBuffer;
+    source.connect(audioContext.destination);
+    source.onended = () => this.schedule();
+    source.start(nextStart);
+  }
 
   tempoChange = async (newTemp) => {
     if (newTemp !== 0) {
-      let audioContext = new AudioContext()
-      console.log(audioContext)
       await this.promisedSetState({ tempo: newTemp });
       this.reset();
     } else {
