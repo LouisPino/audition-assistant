@@ -58,6 +58,7 @@ From here you can access the built in **Metronome**, or navigate to the **Practi
 - Implement recording and playback in conjunction with metronome for pinpointing time inconsistencies in playing
 - Port metronome to standalone mobile app
 - Connect Spotify API to allow for Spotify playback and playlist creation for excerpt audio
+- Find songs to play along with based on tempo with Spotify API
 
 
 ## Technologies Used
